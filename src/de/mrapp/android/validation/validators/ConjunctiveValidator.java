@@ -20,6 +20,9 @@ package de.mrapp.android.validation.validators;
 import android.content.Context;
 import de.mrapp.android.validation.Validator;
 
+import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.validation.util.Condition.ensureAtLeast;
+
 /**
  * A validator, which allows to combine multiple validators in a conjunctive
  * manner. Only if all single validators succeed, the resulting validator will
@@ -37,7 +40,7 @@ public class ConjunctiveValidator<Type> extends AbstractValidator<Type> {
 	/**
 	 * A array, which contains the single validators, the validator consists of.
 	 */
-	private final Validator<Type>[] validators;
+	private Validator<Type>[] validators;
 
 	/**
 	 * Creates a new validator, which allows to combine multiple validators in a
@@ -49,13 +52,14 @@ public class ConjunctiveValidator<Type> extends AbstractValidator<Type> {
 	 *            error message may not be null
 	 * @param validators
 	 *            The single validators, the validator should consist of, as an
-	 *            array of the type {@link Validator}
+	 *            array of the type {@link Validator}. The validators may
+	 *            neither be null, nor empty
 	 */
 	@SafeVarargs
 	public ConjunctiveValidator(final CharSequence errorMessage,
 			final Validator<Type>... validators) {
 		super(errorMessage);
-		this.validators = validators;
+		setValidators(validators);
 	}
 
 	/**
@@ -73,13 +77,14 @@ public class ConjunctiveValidator<Type> extends AbstractValidator<Type> {
 	 *            resource
 	 * @param validators
 	 *            The single validators, the validator should consist of, as an
-	 *            array of the type {@link Validator}
+	 *            array of the type {@link Validator}. The validators may
+	 *            neither be null, nor empty
 	 */
 	@SafeVarargs
 	public ConjunctiveValidator(final Context context, final int resourceId,
 			final Validator<Type>... validators) {
 		super(context, resourceId);
-		this.validators = validators;
+		setValidators(validators);
 	}
 
 	/**
@@ -94,7 +99,8 @@ public class ConjunctiveValidator<Type> extends AbstractValidator<Type> {
 	 *            error message may not be null
 	 * @param validators
 	 *            The single validators, the validator should consist of, as an
-	 *            array of the type {@link Validator}
+	 *            array of the type {@link Validator}. The validators may
+	 *            neither be null, nor empty
 	 * @return The validator, which has been created, as an instance of the
 	 *         class {@link ConjunctiveValidator}
 	 */
@@ -122,7 +128,8 @@ public class ConjunctiveValidator<Type> extends AbstractValidator<Type> {
 	 *            resource
 	 * @param validators
 	 *            The single validators, the validator should consist of, as an
-	 *            array of the type {@link Validator}
+	 *            array of the type {@link Validator}. The validators may
+	 *            neither be null, nor empty
 	 * @return The validator, which has been created, as an instance of the
 	 *         class {@link ConjunctiveValidator}
 	 */
@@ -141,6 +148,21 @@ public class ConjunctiveValidator<Type> extends AbstractValidator<Type> {
 	 */
 	public final Validator<Type>[] getValidators() {
 		return validators;
+	}
+
+	/**
+	 * Sets the single validators, the validator should consist of.
+	 * 
+	 * @param validators
+	 *            The single validators, which should be set, as an array of the
+	 *            type {@link Validator}. The validators may neither be null,
+	 *            nor empty
+	 */
+	@SafeVarargs
+	public final void setValidators(final Validator<Type>... validators) {
+		ensureNotNull(validators, "The validators may not be null");
+		ensureAtLeast(validators.length, 1, "The validators may not be empty");
+		this.validators = validators;
 	}
 
 	@Override

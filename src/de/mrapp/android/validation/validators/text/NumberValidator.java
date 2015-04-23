@@ -17,10 +17,8 @@
  */
 package de.mrapp.android.validation.validators.text;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.mrapp.android.validation.validators.AbstractValidator;
 import android.content.Context;
 
 /**
@@ -31,12 +29,12 @@ import android.content.Context;
  *
  * @since 1.0.0
  */
-public class NumberValidator extends AbstractValidator<CharSequence> {
+public class NumberValidator extends RegexValidator {
 
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final String REGEX = "[0-9]+";
+	private static final Pattern REGEX = Pattern.compile("[0-9]+");
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
@@ -48,7 +46,7 @@ public class NumberValidator extends AbstractValidator<CharSequence> {
 	 *            error message may not be null
 	 */
 	public NumberValidator(final CharSequence errorMessage) {
-		super(errorMessage);
+		super(errorMessage, REGEX);
 	}
 
 	/**
@@ -66,14 +64,7 @@ public class NumberValidator extends AbstractValidator<CharSequence> {
 	 *            resource
 	 */
 	public NumberValidator(final Context context, final int resourceId) {
-		super(context, resourceId);
-	}
-
-	@Override
-	public final boolean validate(final CharSequence value) {
-		Pattern pattern = Pattern.compile(REGEX);
-		Matcher matcher = pattern.matcher(value);
-		return matcher.matches();
+		super(context, resourceId, REGEX);
 	}
 
 }

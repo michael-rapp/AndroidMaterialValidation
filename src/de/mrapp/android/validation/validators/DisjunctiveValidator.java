@@ -133,6 +133,16 @@ public class DisjunctiveValidator<Type> extends AbstractValidator<Type> {
 		return new DisjunctiveValidator<>(context, resourceId, validators);
 	}
 
+	/**
+	 * Returns the single validators, the validator consists of.
+	 * 
+	 * @return The single validators, the validator consists of, as an array of
+	 *         the type {@link Validator}
+	 */
+	public final Validator<Type>[] getValidators() {
+		return validators;
+	}
+
 	@Override
 	public final boolean validate(final Type value) {
 		for (Validator<Type> validator : validators) {

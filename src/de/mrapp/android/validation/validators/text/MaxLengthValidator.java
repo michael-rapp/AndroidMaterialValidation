@@ -29,7 +29,7 @@ import de.mrapp.android.validation.validators.AbstractValidator;
  *
  * @since 1.0.0
  */
-public class LengthValidator extends AbstractValidator<CharSequence> {
+public class MaxLengthValidator extends AbstractValidator<CharSequence> {
 
 	/**
 	 * The maximum length a text may have.
@@ -48,7 +48,8 @@ public class LengthValidator extends AbstractValidator<CharSequence> {
 	 *            The maximum length a text may have as an {@link Integer}
 	 *            value. The maximum length must be at least 1
 	 */
-	public LengthValidator(final CharSequence errorMessage, final int maxLength) {
+	public MaxLengthValidator(final CharSequence errorMessage,
+			final int maxLength) {
 		super(errorMessage);
 		setMaxLength(maxLength);
 	}
@@ -70,7 +71,7 @@ public class LengthValidator extends AbstractValidator<CharSequence> {
 	 *            The maximum length a text may have as an {@link Integer}
 	 *            value. The maximum length must be at least 1
 	 */
-	public LengthValidator(final Context context, final int resourceId,
+	public MaxLengthValidator(final Context context, final int resourceId,
 			final int maxLength) {
 		super(context, resourceId);
 		setMaxLength(maxLength);

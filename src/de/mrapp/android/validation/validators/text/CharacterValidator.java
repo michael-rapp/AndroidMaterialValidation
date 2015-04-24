@@ -36,62 +36,33 @@ import de.mrapp.android.validation.validators.AbstractValidator;
 public class CharacterValidator extends AbstractValidator<CharSequence> {
 
 	/**
-	 * Contains all cases, the validator may consider.
+	 * The regular expression, which is used, when only uppercase characters
+	 * should be allowed.
 	 */
-	public enum Case {
+	private static final Pattern UPPERCASE_PATTERN = Pattern.compile("[A-Z]+");
 
-		/**
-		 * If only uppercase characters should be allowed.
-		 */
-		UPPERCASE("[A-Z]+"),
+	/**
+	 * The regular expression, which is used, when only lowercase characters
+	 * should be allowed.
+	 */
+	private static final Pattern LOWERCASE_PATTERN = Pattern.compile("[a-z]+");
 
-		/**
-		 * If only lowercase characters should be allowed.
-		 */
-		LOWERCASE("[a-z]+"),
-
-		/**
-		 * If uppercase and lowercase characters should be allowed.
-		 */
-		CASE_INSENSITIVE("[a-zA-Z]+");
-
-		/**
-		 * The regular expression, which has to be used for matching characters
-		 * using the respective case sensitivity.
-		 */
-		private String regex;
-
-		/**
-		 * Creates a new case.
-		 * 
-		 * @param regex
-		 *            The regular expression, which has to be used for matching
-		 *            characters using the respective case sensitivity, as a
-		 *            {@link String}. The regular expression may not be null
-		 */
-		private Case(final String regex) {
-			ensureNotNull(regex, "The regular expression may not be null");
-			this.regex = regex;
-		}
-
-		/**
-		 * Returns the regular expression, which has to be used for matching
-		 * characters using the respective case sensitivity.
-		 * 
-		 * @return The regular expression, which has to be used for matching
-		 *         characters using the respective case sensitivity, as a
-		 *         {@link String}. The regular expression may not be null
-		 */
-		public String getRegex() {
-			return regex;
-		}
-
-	};
+	/**
+	 * The regular expression, which is used, when all characters, regardless of
+	 * their case, should be allowed.
+	 */
+	private static final Pattern CASE_INSENSITIVE_PATTERN = Pattern
+			.compile("[a-zA-Z]+");
 
 	/**
 	 * The case sensitivity, which is used by the validator.
 	 */
 	private Case caseSensitivity;
+
+	/**
+	 * True, if spaces should be allowed, false otherwise.
+	 */
+	private boolean allowSpaces;
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
@@ -101,10 +72,19 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 	 *            The error message, which should be shown, if the validation
 	 *            fails, as an instance of the type {@link CharSequence}. The
 	 *            error message may not be null
+	 * @param caseSensitivity
+	 *            The case senstivitiy, which should be used by the validator,
+	 *            as a value of the enum {@link Case}. The value may either be
+	 *            <code>UPPERCASE</code>, <code>LOWERCASE</code> or
+	 *            <code>CASE_INSENSITIVE</code>
+	 * @param allowSpaces
+	 *            True, if spaces should be allowed, false otherwise
 	 */
-	public CharacterValidator(final CharSequence errorMessage) {
+	public CharacterValidator(final CharSequence errorMessage,
+			final Case caseSensitivity, final boolean allowSpaces) {
 		super(errorMessage);
-		setCaseSensitivity(Case.CASE_INSENSITIVE);
+		setCaseSensitivity(caseSensitivity);
+		allowSpaces(allowSpaces);
 	}
 
 	/**
@@ -120,10 +100,31 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 	 *            error message, which should be set, as an {@link Integer}
 	 *            value. The resource ID must correspond to a valid string
 	 *            resource
+	 * @param caseSensitivity
+	 *            The case senstivitiy, which should be used by the validator,
+	 *            as a value of the enum {@link Case}. The value may either be
+	 *            <code>UPPERCASE</code>, <code>LOWERCASE</code> or
+	 *            <code>CASE_INSENSITIVE</code>
+	 * @param allowSpaces
+	 *            True, if spaces should be allowed, false otherwise
 	 */
-	public CharacterValidator(final Context context, final int resourceId) {
+	public CharacterValidator(final Context context, final int resourceId,
+			final Case caseSensitivity, final boolean allowSpaces) {
 		super(context, resourceId);
-		setCaseSensitivity(Case.CASE_INSENSITIVE);
+		setCaseSensitivity(caseSensitivity);
+		allowSpaces(allowSpaces);
+	}
+
+	/**
+	 * Returns the case sensitivity, which is used by the validator.
+	 * 
+	 * @return The case sensitivity, which is used by the validator, as a value
+	 *         of the enum {@link Case}. The value may either be
+	 *         <code>UPPERCASE</code>, <code>LOWERCASE</code> or
+	 *         <code>CASE_INSENSITIVE</code>
+	 */
+	public final Case getCaseSensitivity() {
+		return caseSensitivity;
 	}
 
 	/**
@@ -141,21 +142,40 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 	}
 
 	/**
-	 * Returns the case sensitivity, which is used by the validator.
+	 * Returns, whether spaces are allowed, or not.
 	 * 
-	 * @return The case sensitivity, which is used by the validator, as a value
-	 *         of the enum {@link Case}. The value may either be
-	 *         <code>UPPERCASE</code>, <code>LOWERCASE</code> or
-	 *         <code>CASE_INSENSITIVE</code>
+	 * @return True, if spaces are allowed, false otherwise
 	 */
-	public final Case getCaseSensitivity() {
-		return caseSensitivity;
+	public final boolean areSpacesAllowed() {
+		return allowSpaces;
+	}
+
+	/**
+	 * Sets, whether spaces should be allowed, or not.
+	 * 
+	 * @param allowSpaces
+	 *            True, if spaces should be allowed, false otherwise
+	 */
+	public final void allowSpaces(final boolean allowSpaces) {
+		this.allowSpaces = allowSpaces;
 	}
 
 	@Override
 	public final boolean validate(final CharSequence value) {
-		Pattern pattern = Pattern.compile(getCaseSensitivity().getRegex());
-		Matcher matcher = pattern.matcher(value);
+		String text = value.toString();
+		Pattern regex = CASE_INSENSITIVE_PATTERN;
+
+		if (areSpacesAllowed()) {
+			text = text.replaceAll("\\s+", "");
+		}
+
+		if (getCaseSensitivity() == Case.UPPERCASE) {
+			regex = UPPERCASE_PATTERN;
+		} else if (getCaseSensitivity() == Case.LOWERCASE) {
+			regex = LOWERCASE_PATTERN;
+		}
+
+		Matcher matcher = regex.matcher(value);
 		return matcher.matches();
 	}
 

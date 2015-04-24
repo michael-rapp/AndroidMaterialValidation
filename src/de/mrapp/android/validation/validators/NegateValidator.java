@@ -70,9 +70,9 @@ public class NegateValidator<Type> extends AbstractValidator<Type> {
 	 *            The validator, whose result should be negated, as an instance
 	 *            of the type {@link Validator}. The validator may not be null
 	 * @return The validator, which has been created, as an instance of the
-	 *         class {@link DisjunctiveValidator}
+	 *         class {@link NegateValidator}
 	 */
-	public static <Type> Validator<Type> create(
+	public static <Type> NegateValidator<Type> create(
 			final CharSequence errorMessage, final Validator<Type> validator) {
 		return new NegateValidator<>(errorMessage, validator);
 	}
@@ -96,9 +96,9 @@ public class NegateValidator<Type> extends AbstractValidator<Type> {
 	 *            The validator, whose result should be negated, as an instance
 	 *            of the type {@link Validator}. The validator may not be null
 	 * @return The validator, which has been created, as an instance of the
-	 *         class {@link DisjunctiveValidator}
+	 *         class {@link NegateValidator}
 	 */
-	public static <Type> Validator<Type> create(final Context context,
+	public static <Type> NegateValidator<Type> create(final Context context,
 			final int resourceId, final Validator<Type> validator) {
 		return new NegateValidator<>(context, resourceId, validator);
 	}

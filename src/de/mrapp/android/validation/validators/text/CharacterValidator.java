@@ -175,7 +175,7 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 			regex = LOWERCASE_PATTERN;
 		}
 
-		Matcher matcher = regex.matcher(value);
+		Matcher matcher = regex.matcher(text);
 		return matcher.matches();
 	}
 

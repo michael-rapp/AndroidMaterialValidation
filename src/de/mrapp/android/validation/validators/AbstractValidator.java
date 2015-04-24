@@ -18,6 +18,7 @@
 package de.mrapp.android.validation.validators;
 
 import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.validation.util.Condition.ensureNotEmpty;
 import android.content.Context;
 import de.mrapp.android.validation.Validator;
 
@@ -79,6 +80,7 @@ public abstract class AbstractValidator<Type> implements Validator<Type> {
 	 */
 	public final void setErrorMessage(final CharSequence errorMessage) {
 		ensureNotNull(errorMessage, "The error message may not be null");
+		ensureNotEmpty(errorMessage, "The error message may not be empty");
 		this.errorMessage = errorMessage;
 	}
 

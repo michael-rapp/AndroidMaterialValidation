@@ -29,6 +29,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,15 +38,23 @@ import android.widget.TextView;
  * validated according to the pattern, which is suggested by the Material Design
  * guidelines.
  * 
- * @param <Type>
+ * @param <ViewType>
+ *            The type of the view, whose value should be able to be validated
+ * @param <ValueType>
  *            The type of the values, which should be validated
  * 
  * @author Michael Rapp
  * 
  * @since 1.0.0
  */
-public abstract class AbstractValidateableView<Type> extends LinearLayout
-		implements Validateable<Type> {
+public abstract class AbstractValidateableView<ViewType extends View, ValueType>
+		extends LinearLayout implements Validateable<ValueType>,
+		OnFocusChangeListener {
+
+	/**
+	 * The view, whose value should be able to be validated.
+	 */
+	private ViewType view;
 
 	/**
 	 * The text view, which may be used to show messages at the left edge of the
@@ -74,7 +83,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 * A set, which contains the validators, which should be used for
 	 * validation.
 	 */
-	private Set<Validator<Type>> validators;
+	private Set<Validator<ValueType>> validators;
 
 	/**
 	 * True, if the view's value is automatically validated, when its value has
@@ -83,10 +92,16 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	private boolean validateOnValueChange;
 
 	/**
+	 * True, if the view's value is automatically validated, when the view loses
+	 * its focus, false otherwise.
+	 */
+	private boolean validateOnFocusLost;
+
+	/**
 	 * A set, which contains the listeners, which should be notified, when the
 	 * view has been validated.
 	 */
-	private Set<ValidationListener<Type>> listeners;
+	private Set<ValidationListener<ValueType>> listeners;
 
 	/**
 	 * Initializes the view.
@@ -96,13 +111,14 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void initialize(final AttributeSet attributeSet) {
-		validators = new LinkedHashSet<Validator<Type>>();
-		listeners = new LinkedHashSet<ValidationListener<Type>>();
+		validators = new LinkedHashSet<Validator<ValueType>>();
+		listeners = new LinkedHashSet<ValidationListener<ValueType>>();
 		setOrientation(VERTICAL);
-		initializeErrorMessageTextViews();
+		inflateView();
+		inflateErrorMessageTextViews();
 		obtainStyledAttributes(attributeSet);
 		setLeftMessage(null);
-		setRightMessage(null, false);
+		setRightMessage(null);
 	}
 
 	/**
@@ -118,6 +134,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 		try {
 			obtainHelperText(typedArray);
 			obtainValidateOnValueChange(typedArray);
+			obtainValidateOnFocusLost(typedArray);
 		} finally {
 			typedArray.recycle();
 		}
@@ -136,13 +153,14 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	}
 
 	/**
-	 * Obtains, whether the view should be validated, when its value has been
-	 * changed, or not, from a specific typed array.
+	 * Obtains, whether the value of the view should be validated, when its
+	 * value has been changed, or not, from a specific typed array.
 	 * 
 	 * @param typedArray
-	 *            The typed array, it should be obtained from, whether the view
-	 *            should be validated, when its value has been changed, as an
-	 *            instance of the class {@link TypedArray}
+	 *            The typed array, it should be obtained from, whether the value
+	 *            of the view should be validated, when its value has been
+	 *            changed, or not, as an instance of the class
+	 *            {@link TypedArray}
 	 */
 	private void obtainValidateOnValueChange(final TypedArray typedArray) {
 		validateOnValueChange(typedArray.getBoolean(
@@ -151,13 +169,38 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	}
 
 	/**
-	 * Initializes the text views, which are used to show validation errors.
+	 * Obtains, whether the value of the view should be validated, when the view
+	 * loses its focus, or not, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, it should be obtained from, whether the value
+	 *            of the view should be validated, when the view loses its
+	 *            focus, or not, as an instance of the class {@link TypedArray}
 	 */
-	private void initializeErrorMessageTextViews() {
-		View view = View.inflate(getContext(), R.layout.error_messages, null);
+	private void obtainValidateOnFocusLost(final TypedArray typedArray) {
+		validateOnFocusLost(typedArray
+				.getBoolean(
+						R.styleable.AbstractValidateableView_validateOnFocusLost,
+						false));
+	}
+
+	/**
+	 * Inflates the view, whose value should be able to be validated.
+	 */
+	private void inflateView() {
+		view = createView();
+		view.setOnFocusChangeListener(this);
 		addView(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		leftMessage = (TextView) view.findViewById(R.id.left_error_message);
-		rightMessage = (TextView) view.findViewById(R.id.right_error_message);
+	}
+
+	/**
+	 * Inflates the text views, which are used to show validation errors.
+	 */
+	private void inflateErrorMessageTextViews() {
+		View parent = View.inflate(getContext(), R.layout.error_messages, null);
+		addView(parent, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		leftMessage = (TextView) parent.findViewById(R.id.left_error_message);
+		rightMessage = (TextView) parent.findViewById(R.id.right_error_message);
 		defaultColor = leftMessage.getTextColors().getDefaultColor();
 
 	}
@@ -166,7 +209,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 * Notifies all registered listeners, that a validation succeeded.
 	 */
 	private void notifyOnValidationSuccess() {
-		for (ValidationListener<Type> listener : listeners) {
+		for (ValidationListener<ValueType> listener : listeners) {
 			listener.onValidationSuccess(this);
 		}
 	}
@@ -178,8 +221,8 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 *            The validation, which failed, as an instance of the type
 	 *            {@link Validator}
 	 */
-	private void notifyOnValidationFailure(final Validator<Type> validator) {
-		for (ValidationListener<Type> listener : listeners) {
+	private void notifyOnValidationFailure(final Validator<ValueType> validator) {
+		for (ValidationListener<ValueType> listener : listeners) {
 			listener.onValidationFailure(this, validator);
 		}
 	}
@@ -194,10 +237,10 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 */
 	private CharSequence getLeftErrorMessage() {
 		CharSequence result = null;
-		Collection<Validator<Type>> subValidators = onGetLeftErrorMessage();
+		Collection<Validator<ValueType>> subValidators = onGetLeftErrorMessage();
 
 		if (subValidators != null) {
-			for (Validator<Type> validator : subValidators) {
+			for (Validator<ValueType> validator : subValidators) {
 				notifyOnValidationFailure(validator);
 
 				if (result == null) {
@@ -206,7 +249,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 			}
 		}
 
-		for (Validator<Type> validator : validators) {
+		for (Validator<ValueType> validator : validators) {
 			if (!validator.validate(getValue())) {
 				notifyOnValidationFailure(validator);
 
@@ -229,10 +272,10 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 */
 	private CharSequence getRightErrorMessage() {
 		CharSequence result = null;
-		Collection<Validator<Type>> subValidators = onGetRightErrorMessage();
+		Collection<Validator<ValueType>> subValidators = onGetRightErrorMessage();
 
 		if (subValidators != null) {
-			for (Validator<Type> validator : subValidators) {
+			for (Validator<ValueType> validator : subValidators) {
 				notifyOnValidationFailure(validator);
 
 				if (result == null) {
@@ -242,6 +285,16 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 		}
 
 		return result;
+	}
+
+	/**
+	 * Returns the view, whose value should be able to be validated.
+	 * 
+	 * @return The view, whose value should be able to be validated, as an
+	 *         instance of the generic type ViewType
+	 */
+	protected final ViewType getView() {
+		return view;
 	}
 
 	/**
@@ -324,7 +377,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 *         null, if the validation succeeded, as an instance of the type
 	 *         {@link Collection}
 	 */
-	protected Collection<Validator<Type>> onGetLeftErrorMessage() {
+	protected Collection<Validator<ValueType>> onGetLeftErrorMessage() {
 		return null;
 	}
 
@@ -338,9 +391,18 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 *         null, if the validation succeeded, as an instance of the type
 	 *         {@link Collection}
 	 */
-	protected Collection<Validator<Type>> onGetRightErrorMessage() {
+	protected Collection<Validator<ValueType>> onGetRightErrorMessage() {
 		return null;
 	}
+
+	/**
+	 * The method, which is invoked in order to create the view, whose value
+	 * should be able to be validated.
+	 * 
+	 * @return The view, which has been created, as an instance of the generic
+	 *         type ViewType
+	 */
+	protected abstract ViewType createView();
 
 	/**
 	 * The method, which is invoked in order to retrieve the current value of
@@ -349,7 +411,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	 * @return The current value of the view as an instance of the generic type
 	 *         Type
 	 */
-	protected abstract Type getValue();
+	protected abstract ValueType getValue();
 
 	/**
 	 * Creates a new view, which allows to enter text.
@@ -435,7 +497,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	}
 
 	@Override
-	public final void addValidator(final Validator<Type> validator) {
+	public final void addValidator(final Validator<ValueType> validator) {
 		ensureNotNull(validator, "The validator may not be null");
 		validators.add(validator);
 	}
@@ -479,7 +541,7 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	}
 
 	@Override
-	public final void removeValidator(final Validator<Type> validator) {
+	public final void removeValidator(final Validator<ValueType> validator) {
 		ensureNotNull(validator, "The validator may not be null");
 		validators.remove(validator);
 	}
@@ -500,27 +562,44 @@ public abstract class AbstractValidateableView<Type> extends LinearLayout
 	}
 
 	@Override
-	public final void validateOnValueChange(final boolean validateOnValueChange) {
-		this.validateOnValueChange = validateOnValueChange;
-	}
-
-	@Override
 	public final boolean isValidatedOnValueChange() {
 		return validateOnValueChange;
 	}
 
 	@Override
+	public final void validateOnValueChange(final boolean validateOnValueChange) {
+		this.validateOnValueChange = validateOnValueChange;
+	}
+
+	@Override
+	public final boolean isValidatedOnFocusLost() {
+		return validateOnFocusLost;
+	}
+
+	@Override
+	public final void validateOnFocusLost(final boolean validateOnFocusLost) {
+		this.validateOnFocusLost = validateOnFocusLost;
+	}
+
+	@Override
 	public final void addValidationListener(
-			final ValidationListener<Type> listener) {
+			final ValidationListener<ValueType> listener) {
 		ensureNotNull(listener, "The listener may not be null");
 		listeners.add(listener);
 	}
 
 	@Override
 	public final void removeValidationListener(
-			final ValidationListener<Type> listener) {
+			final ValidationListener<ValueType> listener) {
 		ensureNotNull(listener, "The listener may not be null");
 		listeners.remove(listener);
+	}
+
+	@Override
+	public final void onFocusChange(final View view, final boolean hasFocus) {
+		if (!hasFocus && isValidatedOnFocusLost()) {
+			validate();
+		}
 	}
 
 }

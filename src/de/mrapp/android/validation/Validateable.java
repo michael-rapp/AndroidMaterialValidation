@@ -59,16 +59,6 @@ public interface Validateable<Type> {
 	boolean validate();
 
 	/**
-	 * Sets, whether the value of the view should automatically be validated,
-	 * when its value has been changed, or not.
-	 * 
-	 * @param validateOnValueChange
-	 *            True, if the view should automatically be validated, when its
-	 *            value has been changed, false otherwise
-	 */
-	void validateOnValueChange(boolean validateOnValueChange);
-
-	/**
 	 * Returns, whether the value of the view is automatically validated, when
 	 * its value has been changed, or not.
 	 * 
@@ -76,6 +66,35 @@ public interface Validateable<Type> {
 	 *         its value has been changed, false otherwise
 	 */
 	boolean isValidatedOnValueChange();
+
+	/**
+	 * Sets, whether the value of the view should automatically be validated,
+	 * when its value has been changed, or not.
+	 * 
+	 * @param validateOnValueChange
+	 *            True, if the value of the view should automatically be
+	 *            validated, when its value has been changed, false otherwise
+	 */
+	void validateOnValueChange(boolean validateOnValueChange);
+
+	/**
+	 * Returns, whether the value of the view is automatically validated, when
+	 * the view loses its focus, or not.
+	 * 
+	 * @return True, if the value of the view is automatically validated, when
+	 *         the view loses its focus, false otherwise
+	 */
+	boolean isValidatedOnFocusLost();
+
+	/**
+	 * Sets, whether the value of the view should automatically be validated,
+	 * when the view loses its focus, or not.
+	 * 
+	 * @param validateOnFocusLost
+	 *            True, if the value of the view should automatically be
+	 *            validated, when the view loses its focus, false otherwise
+	 */
+	void validateOnFocusLost(boolean validateOnFocusLost);
 
 	/**
 	 * Adds a new listener, which should be notified, when the view has been

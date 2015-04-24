@@ -40,13 +40,9 @@ import android.util.TypedValue;
  *
  * @since 1.0.0
  */
-public class EditText extends AbstractValidateableView<CharSequence> implements
-		TextWatcher, ValidationListener<CharSequence> {
-
-	/**
-	 * The edit text, which can be used to enter a text.
-	 */
-	private android.widget.EditText editText;
+public class EditText extends
+		AbstractValidateableView<android.widget.EditText, CharSequence>
+		implements TextWatcher, ValidationListener<CharSequence> {
 
 	/**
 	 * The maximum number of characters, the edit text is allowed to contain.
@@ -61,21 +57,9 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void initialize(final AttributeSet attributeSet) {
-		initializeEditText();
 		obtainStyledAttributes(attributeSet);
 		setEditTextColor(getAccentColor());
-		editText.addTextChangedListener(this);
 		addValidationListener(this);
-	}
-
-	/**
-	 * Initializes the edit text, which can be used to enter a text.
-	 */
-	private void initializeEditText() {
-		editText = new android.widget.EditText(getContext());
-		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT);
-		addView(editText, 0, layoutParams);
 	}
 
 	/**
@@ -132,8 +116,8 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 	 *            The color, which should be set, as an {@link Integer} value
 	 */
 	private void setEditTextColor(final int color) {
-		editText.getBackground()
-				.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+		getView().getBackground().setColorFilter(color,
+				PorterDuff.Mode.SRC_ATOP);
 	}
 
 	/**
@@ -148,7 +132,7 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 	 */
 	private CharSequence getMaxNumberOfCharactersMessage() {
 		int maxLength = getMaxNumberOfCharacters();
-		int currentLength = editText.length();
+		int currentLength = getView().length();
 		return String.format(
 				getResources().getString(
 						R.string.edit_text_size_violation_error_message),
@@ -174,8 +158,16 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 	}
 
 	@Override
+	protected final android.widget.EditText createView() {
+		android.widget.EditText editText = new android.widget.EditText(
+				getContext());
+		editText.addTextChangedListener(this);
+		return editText;
+	}
+
+	@Override
 	protected final CharSequence getValue() {
-		return editText.getText();
+		return getView().getText();
 	}
 
 	/**
@@ -257,16 +249,6 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 	}
 
 	/**
-	 * Returns the edit text, which allows to enter text.
-	 * 
-	 * @return The edit text, which allows to enter text, as an instance of the
-	 *         class {@link android.widget.EditText}
-	 */
-	public final android.widget.EditText getEditText() {
-		return editText;
-	}
-
-	/**
 	 * Returns the maximum number of characters, the edit text is allowed to
 	 * contain.
 	 * 
@@ -292,8 +274,8 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 		if (maxNumberOfCharacters != -1) {
 			ensureAtLeast(maxNumberOfCharacters, 1,
 					"The maximum number of characters must be at least 1");
-			setRightMessage(getMaxNumberOfCharactersMessage(),
-					editText.length() > maxNumberOfCharacters);
+			setRightMessage(getMaxNumberOfCharactersMessage(), getView()
+					.length() > maxNumberOfCharacters);
 		} else {
 			setRightMessage(null);
 		}
@@ -317,8 +299,8 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 	public final void afterTextChanged(final Editable s) {
 		if (isValidatedOnValueChange()) {
 			validate();
-			setRightMessage(getMaxNumberOfCharactersMessage(),
-					editText.length() > getMaxNumberOfCharacters());
+			setRightMessage(getMaxNumberOfCharactersMessage(), getView()
+					.length() > getMaxNumberOfCharacters());
 		}
 
 	}

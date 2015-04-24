@@ -19,7 +19,6 @@ package de.mrapp.android.validation.validators;
 
 import android.content.Context;
 import de.mrapp.android.validation.Validator;
-
 import static de.mrapp.android.validation.util.Condition.ensureNotNull;
 
 /**
@@ -55,6 +54,53 @@ public class NegateValidator<Type> extends AbstractValidator<Type> {
 			final Validator<Type> validator) {
 		super(errorMessage);
 		setValidator(validator);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to negate the result of an
+	 * other validator.
+	 * 
+	 * @param <Type>
+	 *            The type of the values, which should be validated
+	 * @param errorMessage
+	 *            The error message, which should be shown, if the validation
+	 *            fails, as an instance of the type {@link CharSequence}. The
+	 *            error message may not be null
+	 * @param validator
+	 *            The validator, whose result should be negated, as an instance
+	 *            of the type {@link Validator}. The validator may not be null
+	 * @return The validator, which has been created, as an instance of the
+	 *         class {@link DisjunctiveValidator}
+	 */
+	public static <Type> Validator<Type> create(
+			final CharSequence errorMessage, final Validator<Type> validator) {
+		return new NegateValidator<>(errorMessage, validator);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to negate the result of an
+	 * other validator.
+	 * 
+	 * @param <Type>
+	 *            The type of the values, which should be validated
+	 * @param context
+	 *            The context, which should be used to retrieve the error
+	 *            message, as an instance of the class {@link Context}. The
+	 *            context may not be null
+	 * @param resourceId
+	 *            The resource ID of the string resource, which contains the
+	 *            error message, which should be set, as an {@link Integer}
+	 *            value. The resource ID must correspond to a valid string
+	 *            resource
+	 * @param validator
+	 *            The validator, whose result should be negated, as an instance
+	 *            of the type {@link Validator}. The validator may not be null
+	 * @return The validator, which has been created, as an instance of the
+	 *         class {@link DisjunctiveValidator}
+	 */
+	public static <Type> Validator<Type> create(final Context context,
+			final int resourceId, final Validator<Type> validator) {
+		return new NegateValidator<>(context, resourceId, validator);
 	}
 
 	/**

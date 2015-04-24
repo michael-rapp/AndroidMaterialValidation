@@ -40,8 +40,8 @@ public class NegateValidator<Type> extends AbstractValidator<Type> {
 	private Validator<Type> validator;
 
 	/**
-	 * Creates a new validator, which allows to combine multiple validators in a
-	 * disjunctive manner.
+	 * Creates a new validator, which allows to negate the result of an other
+	 * validator.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -58,8 +58,8 @@ public class NegateValidator<Type> extends AbstractValidator<Type> {
 	}
 
 	/**
-	 * Creates a new validator, which allows to combine multiple validators in a
-	 * disjunctive manner.
+	 * Creates a new validator, which allows to negate the result of an other
+	 * validator.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error

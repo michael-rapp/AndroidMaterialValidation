@@ -17,6 +17,8 @@
  */
 package de.mrapp.android.validation.util;
 
+import android.text.TextUtils;
+
 /**
  * An utility class, which offers static methods to ensure, that attributes
  * satisfy specific conditions by throwing exceptions, if the conditions are not
@@ -52,6 +54,25 @@ public final class Condition {
 			final String exceptionMessage) {
 		if (reference == null) {
 			throw new NullPointerException(exceptionMessage);
+		}
+	}
+
+	/**
+	 * Ensures, that a char sequence is not empty. Otherwise an
+	 * {@link IllegalArgumentException} with a specific message will be thrown.
+	 * 
+	 * @param charSequence
+	 *            The char sequence, which should be checked, as an instance of
+	 *            the type {@link CharSequence}
+	 * @param exceptionMessage
+	 *            The message of the {@link IllegalArgumentException}, which is
+	 *            thrown, if the given char sequence is empty, as a
+	 *            {@link String}
+	 */
+	public static void ensureNotEmpty(final CharSequence charSequence,
+			final String exceptionMessage) {
+		if (TextUtils.isEmpty(charSequence)) {
+			throw new IllegalArgumentException(exceptionMessage);
 		}
 	}
 

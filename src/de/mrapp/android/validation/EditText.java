@@ -31,7 +31,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import de.mrapp.android.validation.validators.text.MaxLengthValidator;
 
 /**
  * A view, which allows to enter text. The text may be validated according to
@@ -159,13 +158,16 @@ public class EditText extends AbstractValidateableView<CharSequence> implements
 	@Override
 	protected final Collection<Validator<CharSequence>> onGetRightErrorMessage() {
 		CharSequence errorMessage = getMaxNumberOfCharactersMessage();
-		Validator<CharSequence> validator = new MaxLengthValidator(errorMessage,
-				getMaxNumberOfCharacters());
 
-		if (!validator.validate(getValue())) {
-			Collection<Validator<CharSequence>> result = new LinkedList<>();
-			result.add(validator);
-			return result;
+		if (getMaxNumberOfCharacters() != -1) {
+			Validator<CharSequence> validator = Validators.maxLength(
+					errorMessage, getMaxNumberOfCharacters());
+
+			if (!validator.validate(getValue())) {
+				Collection<Validator<CharSequence>> result = new LinkedList<>();
+				result.add(validator);
+				return result;
+			}
 		}
 
 		return null;

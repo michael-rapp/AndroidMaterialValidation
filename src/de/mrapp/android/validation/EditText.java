@@ -58,7 +58,7 @@ public class EditText extends
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setEditTextColor(getAccentColor());
+		setEditTextLineColor(getAccentColor());
 		addValidationListener(this);
 	}
 
@@ -110,13 +110,15 @@ public class EditText extends
 	}
 
 	/**
-	 * Sets the color of the edit text, which allows to enter a text.
+	 * Sets the color of the line of the edit text, which allows to enter a
+	 * text.
 	 * 
 	 * @param color
 	 *            The color, which should be set, as an {@link Integer} value
 	 */
-	private void setEditTextColor(final int color) {
-		getView().getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+	private void setEditTextLineColor(final int color) {
+		getView().getBackground().setColorFilter(color,
+				PorterDuff.Mode.SRC_ATOP);
 	}
 
 	/**
@@ -160,6 +162,7 @@ public class EditText extends
 	protected final android.widget.EditText createView() {
 		android.widget.EditText editText = new android.widget.EditText(
 				getContext());
+		editText.setBackgroundResource(R.drawable.edit_text);
 		editText.addTextChangedListener(this);
 		return editText;
 	}
@@ -309,14 +312,15 @@ public class EditText extends
 
 	@Override
 	public final void onValidationSuccess(final Validateable<CharSequence> view) {
-		setEditTextColor(getAccentColor());
+		setEditTextLineColor(getAccentColor());
 	}
 
 	@Override
 	public final void onValidationFailure(
 			final Validateable<CharSequence> view,
 			final Validator<CharSequence> validator) {
-		setEditTextColor(getResources().getColor(R.color.error_message_color));
+		setEditTextLineColor(getResources().getColor(
+				R.color.error_message_color));
 	}
 
 }

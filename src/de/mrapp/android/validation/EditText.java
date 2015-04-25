@@ -116,8 +116,7 @@ public class EditText extends
 	 *            The color, which should be set, as an {@link Integer} value
 	 */
 	private void setEditTextColor(final int color) {
-		getView().getBackground().setColorFilter(color,
-				PorterDuff.Mode.SRC_ATOP);
+		getView().getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 	}
 
 	/**
@@ -299,8 +298,11 @@ public class EditText extends
 	public final void afterTextChanged(final Editable s) {
 		if (isValidatedOnValueChange()) {
 			validate();
-			setRightMessage(getMaxNumberOfCharactersMessage(), getView()
-					.length() > getMaxNumberOfCharacters());
+
+			if (getMaxNumberOfCharacters() != -1) {
+				setRightMessage(getMaxNumberOfCharactersMessage(), getView()
+						.length() > getMaxNumberOfCharacters());
+			}
 		}
 
 	}

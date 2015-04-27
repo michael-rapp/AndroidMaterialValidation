@@ -71,6 +71,12 @@ public class EditText extends
 		AbstractValidateableView<android.widget.EditText, CharSequence> {
 
 	/**
+	 * The maximum number of characters, the edit should be allowed to contain
+	 * by default.
+	 */
+	private static final int DEFAULT_MAX_NUMBER_OF_CHARACTERS = -1;
+
+	/**
 	 * The value, which corresponds to the enum value
 	 * <code>TruncateAt.START</code>.
 	 */
@@ -159,7 +165,8 @@ public class EditText extends
 	 */
 	private void obtainMaxNumberOfCharacters(final TypedArray typedArray) {
 		setMaxNumberOfCharacters(typedArray.getInt(
-				R.styleable.EditText_maxNumberOfCharacters, -1));
+				R.styleable.EditText_maxNumberOfCharacters,
+				DEFAULT_MAX_NUMBER_OF_CHARACTERS));
 	}
 
 	/**

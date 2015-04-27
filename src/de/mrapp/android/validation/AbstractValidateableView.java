@@ -51,6 +51,18 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		extends LinearLayout implements Validateable<ValueType> {
 
 	/**
+	 * True, if the view's value should be automatically validated, when the
+	 * value has been changed, by default, false otherwise.
+	 */
+	private static final boolean DEFAULT_VALIDATE_ON_VALUE_CHANGE = true;
+
+	/**
+	 * True, if the view's value should be automatically validated, when the
+	 * view has lost its focus, by default, false otherwise.
+	 */
+	private static final boolean DEFAULT_VALIDATE_ON_FOCUS_LOST = true;
+
+	/**
 	 * The view, whose value should be able to be validated.
 	 */
 	private ViewType view;
@@ -164,7 +176,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	private void obtainValidateOnValueChange(final TypedArray typedArray) {
 		validateOnValueChange(typedArray.getBoolean(
 				R.styleable.AbstractValidateableView_validateOnValueChange,
-				true));
+				DEFAULT_VALIDATE_ON_VALUE_CHANGE));
 	}
 
 	/**
@@ -177,10 +189,9 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 *            focus, or not, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainValidateOnFocusLost(final TypedArray typedArray) {
-		validateOnFocusLost(typedArray
-				.getBoolean(
-						R.styleable.AbstractValidateableView_validateOnFocusLost,
-						false));
+		validateOnFocusLost(typedArray.getBoolean(
+				R.styleable.AbstractValidateableView_validateOnFocusLost,
+				DEFAULT_VALIDATE_ON_FOCUS_LOST));
 	}
 
 	/**

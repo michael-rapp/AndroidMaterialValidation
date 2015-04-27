@@ -608,7 +608,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 *            The icon, which should be displayed,as an instance of the type
 	 *            {@link Drawable} or null, if no icon should be displayed
 	 */
-	public final void setError(final CharSequence error, final Drawable icon) {
+	public void setError(final CharSequence error, final Drawable icon) {
 		setLeftMessage(error, icon);
 	}
 

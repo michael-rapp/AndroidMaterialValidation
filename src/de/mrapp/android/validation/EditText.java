@@ -640,6 +640,16 @@ public class EditText extends
 		this.maxNumberOfCharacters = maxNumberOfCharacters;
 	}
 
+	@Override
+	public final void setError(final CharSequence error, final Drawable icon) {
+		super.setError(error, icon);
+
+		if (error == null) {
+			setEditTextLineColor(getAccentColor());
+			getView().setActivated(false);
+		}
+	}
+
 	// ------------- Methods of the class android.widget.EditText -------------
 
 	// CHECKSTYLE:OFF

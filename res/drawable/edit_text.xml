@@ -17,14 +17,26 @@ You should have received a copy of the GNU Lesser General Public
 License along with this program.  If not, see
 <http://www.gnu.org/licenses/>. 
 -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetBottom="@dimen/edit_text_inset_bottom"
+    android:insetLeft="@dimen/edit_text_inset_left"
+    android:insetRight="@dimen/edit_text_inset_right"
+    android:insetTop="@dimen/edit_text_inset_top" >
 
-    <item android:drawable="@drawable/edit_text_default" android:state_enabled="true" android:state_window_focused="false"/>
-    <item android:drawable="@drawable/edit_text_disabled" android:state_enabled="false" android:state_window_focused="false"/>
-    <item android:drawable="@drawable/edit_text_activated" android:state_enabled="true" android:state_focused="true"/>
-    <item android:drawable="@drawable/edit_text_focused" android:state_activated="true" android:state_enabled="true"/>
-    <item android:drawable="@drawable/edit_text_default" android:state_enabled="true"/>
-    <item android:drawable="@drawable/edit_text_disabled_focused" android:state_focused="true"/>
-    <item android:drawable="@drawable/edit_text_disabled"/>
+    <selector>
+        <item android:state_enabled="false">
+            <nine-patch
+                android:alpha="?android:attr/disabledAlpha"
+                android:src="@drawable/edit_text_default" />
+        </item>
+        <item
+            android:state_focused="false"
+            android:state_pressed="false">
+            <nine-patch android:src="@drawable/edit_text_default" />
+        </item>
+        <item>
+            <nine-patch android:src="@drawable/edit_text_activated" />
+        </item>
+    </selector>
 
-</selector>
+</inset>

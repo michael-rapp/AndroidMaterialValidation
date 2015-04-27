@@ -27,11 +27,7 @@ License along with this program.  If not, see
     <declare-styleable name="EditText">
         <attr name="maxNumberOfCharacters" format="integer" />
         <attr name="android:autoLink" />
-        <attr name="android:autoText" />
-        <attr name="android:bufferType" />
-        <attr name="android:capitalize" />
         <attr name="android:cursorVisible" />
-        <attr name="android:digits" />
         <attr name="android:drawableBottom" />
         <attr name="android:drawableEnd" />
         <attr name="android:drawableLeft" />
@@ -39,22 +35,16 @@ License along with this program.  If not, see
         <attr name="android:drawableRight" />
         <attr name="android:drawableStart" />
         <attr name="android:drawableTop" />
-        <attr name="android:editable" />
-        <attr name="android:editorExtras" />
         <attr name="android:elegantTextHeight" />
         <attr name="android:ellipsize" />
         <attr name="android:ems" />
-        <attr name="android:fontFamily" />
         <attr name="android:fontFeatureSettings" />
         <attr name="android:freezesText" />
-        <attr name="android:gravity" />
-        <attr name="android:height" />
         <attr name="android:hint" />
         <attr name="android:imeActionId" />
         <attr name="android:imeActionLabel" />
         <attr name="android:imeOptions" />
         <attr name="android:includeFontPadding" />
-        <attr name="android:inputMethod" />
         <attr name="android:inputType" />
         <attr name="android:letterSpacing" />
         <attr name="android:lineSpacingExtra" />
@@ -63,20 +53,13 @@ License along with this program.  If not, see
         <attr name="android:linksClickable" />
         <attr name="android:marqueeRepeatLimit" />
         <attr name="android:maxEms" />
-        <attr name="android:maxHeight" />
         <attr name="android:maxLength" />
         <attr name="android:maxLines" />
-        <attr name="android:maxWidth" />
         <attr name="android:minEms" />
-        <attr name="android:minHeight" />
         <attr name="android:minLines" />
-        <attr name="android:minWidth" />
-        <attr name="android:numeric" />
-        <attr name="android:password" />
-        <attr name="android:phoneNumber" />
         <attr name="android:privateImeOptions" />
-        <attr name="android:scrollHorizontally" />
         <attr name="android:selectAllOnFocus" />
+        <attr name="android:scrollHorizontally" />
         <attr name="android:shadowColor" />
         <attr name="android:shadowDx" />
         <attr name="android:shadowDy" />
@@ -92,9 +75,7 @@ License along with this program.  If not, see
         <attr name="android:textIsSelectable" />
         <attr name="android:textScaleX" />
         <attr name="android:textSize" />
-        <attr name="android:textStyle" />
         <attr name="android:typeface" />
-        <attr name="android:width" />
     </declare-styleable>
 
 </resources>

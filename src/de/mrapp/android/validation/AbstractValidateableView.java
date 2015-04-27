@@ -26,10 +26,10 @@ import java.util.Set;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -116,7 +116,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		inflateView();
 		inflateErrorMessageTextViews();
 		obtainStyledAttributes(attributeSet);
-		setLeftMessage(null);
+		setLeftMessage(null, null);
 		setRightMessage(null);
 	}
 
@@ -248,15 +248,14 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	/**
-	 * Validates the current value of the view and returns the error message,
-	 * which should be shown at the left edge of the view, if a validation
-	 * fails.
+	 * Validates the current value of the view in order to retrieve the error
+	 * message and icon, which should be shown at the left edge of the view, if
+	 * a validation fails.
 	 * 
-	 * @return The error message of the validation, which failed or null, if the
-	 *         validation succeeded
+	 * @return The validator, which failed or null, if the validation succeeded
 	 */
-	private CharSequence getLeftErrorMessage() {
-		CharSequence result = null;
+	private Validator<ValueType> validateLeft() {
+		Validator<ValueType> result = null;
 		Collection<Validator<ValueType>> subValidators = onGetLeftErrorMessage();
 
 		if (subValidators != null) {
@@ -264,7 +263,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 				notifyOnValidationFailure(validator);
 
 				if (result == null) {
-					result = validator.getErrorMessage();
+					result = validator;
 				}
 			}
 		}
@@ -274,7 +273,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 				notifyOnValidationFailure(validator);
 
 				if (result == null) {
-					result = validator.getErrorMessage();
+					result = validator;
 				}
 			}
 		}
@@ -283,15 +282,14 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	/**
-	 * Validates the current value of the view and returns the error message,
-	 * which should be shown at the right edge of the view, if a validation
-	 * fails.
+	 * Validates the current value of the view in order to retrieve the error
+	 * message and icon, which should be shown at the right edge of the view, if
+	 * a validation fails.
 	 * 
-	 * @return The error message of the validation, which failed or null, if the
-	 *         validation succeeded
+	 * @return The validator, which failed or null, if the validation succeeded
 	 */
-	private CharSequence getRightErrorMessage() {
-		CharSequence result = null;
+	private Validator<ValueType> validateRight() {
+		Validator<ValueType> result = null;
 		Collection<Validator<ValueType>> subValidators = onGetRightErrorMessage();
 
 		if (subValidators != null) {
@@ -299,7 +297,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 				notifyOnValidationFailure(validator);
 
 				if (result == null) {
-					result = validator.getErrorMessage();
+					result = validator;
 				}
 			}
 		}
@@ -324,9 +322,13 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 * @param message
 	 *            The message, which should be shown, as an instance of the type
 	 *            {@link CharSequence} or null, if no message should be shown
+	 * @param icon
+	 *            The icon, which should be shown, as an instance of the type
+	 *            {@link Drawable} or null, if no icon should be shown
 	 */
-	protected final void setLeftMessage(final CharSequence message) {
-		setLeftMessage(message, true);
+	protected final void setLeftMessage(final CharSequence message,
+			final Drawable icon) {
+		setLeftMessage(message, icon, true);
 	}
 
 	/**
@@ -335,19 +337,24 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 * @param message
 	 *            The message, which should be shown, as an instance of the type
 	 *            {@link CharSequence} or null, if no message should be shown
+	 * @param icon
+	 *            The icon, which should be shown, as an instance of the type
+	 *            {@link Drawable} or null, if no icon should be shown
 	 * @param error
 	 *            True, if the message should be highlighted as an error, false
 	 *            otherwise
 	 */
 	protected final void setLeftMessage(final CharSequence message,
-			final boolean error) {
+			final Drawable icon, final boolean error) {
 		if (message != null) {
 			leftMessage.setText(message);
+			leftMessage.setCompoundDrawablesWithIntrinsicBounds(icon, null,
+					null, null);
 			leftMessage.setTextColor(error ? getResources().getColor(
 					R.color.error_message_color) : defaultColor);
 			leftMessage.setVisibility(View.VISIBLE);
 		} else if (getHelperText() != null) {
-			setLeftMessage(getHelperText(), false);
+			setLeftMessage(getHelperText(), null, false);
 		} else {
 			leftMessage.setVisibility(View.GONE);
 		}
@@ -560,6 +567,51 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		setHelperText(getContext().getText(resourceId));
 	}
 
+	/**
+	 * Returns the error message, which has been previously set to be displayed.
+	 * 
+	 * @return The error message, which has been previously set to be displayed,
+	 *         as an instance of the type {@link CharSequence} or null, if no
+	 *         error has been set or if it has already been cleared by the
+	 *         widget
+	 */
+	public final CharSequence getError() {
+		if (leftMessage.getVisibility() == View.VISIBLE
+				&& leftMessage.getCurrentTextColor() == getResources()
+						.getColor(R.color.error_message_color)) {
+			return leftMessage.getText();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Sets an error message, which should be displayed.
+	 * 
+	 * @param error
+	 *            The error message, which should be displayed, as an instance
+	 *            of the type {@link CharSequence} or null, if a previously set
+	 *            error message should be cleared be cleared
+	 */
+	public final void setError(final CharSequence error) {
+		setError(error, null);
+	}
+
+	/**
+	 * Sets an error message and an icon, which should be displayed.
+	 * 
+	 * @param error
+	 *            The error message, which should be displayed, as an instance
+	 *            of the type {@link CharSequence} or null, if a previously set
+	 *            error message should be cleared be cleared
+	 * @param icon
+	 *            The icon, which should be displayed,as an instance of the type
+	 *            {@link Drawable} or null, if no icon should be displayed
+	 */
+	public final void setError(final CharSequence error, final Drawable icon) {
+		setLeftMessage(error, icon);
+	}
+
 	@Override
 	public final void removeValidator(final Validator<ValueType> validator) {
 		ensureNotNull(validator, "The validator may not be null");
@@ -568,12 +620,14 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 
 	@Override
 	public final boolean validate() {
-		CharSequence leftErrorMessage = getLeftErrorMessage();
-		CharSequence rightErrorMessage = getRightErrorMessage();
-		setLeftMessage(leftErrorMessage);
-		setRightMessage(rightErrorMessage);
+		Validator<ValueType> leftValidator = validateLeft();
+		Validator<ValueType> rightValidator = validateRight();
+		setLeftMessage(leftValidator != null ? leftValidator.getErrorMessage()
+				: null, leftValidator != null ? leftValidator.getIcon() : null);
+		setRightMessage(rightValidator != null ? rightValidator
+				.getErrorMessage() : null);
 
-		if (leftErrorMessage == null && rightErrorMessage == null) {
+		if (leftValidator == null && rightValidator == null) {
 			notifyOnValidationSuccess();
 			return true;
 		}

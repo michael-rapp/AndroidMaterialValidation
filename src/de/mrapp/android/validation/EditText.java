@@ -2324,40 +2324,6 @@ public class EditText extends
 	}
 
 	/**
-	 * Returns the error message that was set to be displayed with
-	 * {@link #setError}, or <code>null</code> if no error was set or if it the
-	 * error was cleared by the widget after user input.
-	 */
-	public final CharSequence getError() {
-		return getView().getError();
-	}
-
-	/**
-	 * Sets the right-hand compound drawable of the TextView to the "error" icon
-	 * and sets an error message that will be displayed in a popup when the
-	 * TextView has focus. The icon and error message will be reset to null when
-	 * any key events cause changes to the TextView's text. If the
-	 * <code>error</code> is <code>null</code>, the error message and icon will
-	 * be cleared.
-	 */
-	public final void setError(final CharSequence error) {
-		getView().setError(error);
-	}
-
-	/**
-	 * Sets the right-hand compound drawable of the TextView to the specified
-	 * icon and sets an error message that will be displayed in a popup when the
-	 * TextView has focus. The icon and error message will be reset to null when
-	 * any key events cause changes to the TextView's text. The drawable must
-	 * already have had {@link Drawable#setBounds} set on it. If the
-	 * <code>error</code> is <code>null</code>, the error message will be
-	 * cleared (and you should provide a <code>null</code> icon as well).
-	 */
-	public final void setError(final CharSequence error, final Drawable icon) {
-		getView().setError(error);
-	}
-
-	/**
 	 * Return the number of lines of text, or 0 if the internal Layout has not
 	 * been built.
 	 */

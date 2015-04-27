@@ -68,8 +68,7 @@ import android.widget.TextView.OnEditorActionListener;
  * @since 1.0.0
  */
 public class EditText extends
-		AbstractValidateableView<android.widget.EditText, CharSequence>
-		implements TextWatcher, ValidationListener<CharSequence> {
+		AbstractValidateableView<android.widget.EditText, CharSequence> {
 
 	/**
 	 * The value, which corresponds to the enum value
@@ -128,7 +127,7 @@ public class EditText extends
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
 		setEditTextLineColor(getAccentColor());
-		addValidationListener(this);
+		addValidationListener(createValidationListener());
 	}
 
 	/**
@@ -384,6 +383,70 @@ public class EditText extends
 	}
 
 	/**
+	 * Creates and returns a listener, which allows to validate the value of the
+	 * view, when its text has been changed.
+	 * 
+	 * @return The listener, which has been created, as an instance of the type
+	 *         {@link TextWatcher}
+	 */
+	private TextWatcher createTextChangeListener() {
+		return new TextWatcher() {
+
+			@Override
+			public final void beforeTextChanged(final CharSequence s,
+					final int start, final int count, final int after) {
+				return;
+			}
+
+			@Override
+			public final void onTextChanged(final CharSequence s,
+					final int start, final int before, final int count) {
+				return;
+			}
+
+			@Override
+			public final void afterTextChanged(final Editable s) {
+				if (isValidatedOnValueChange()) {
+					validate();
+
+					if (getMaxNumberOfCharacters() != -1) {
+						setRightMessage(getMaxNumberOfCharactersMessage(),
+								getView().length() > getMaxNumberOfCharacters());
+					}
+				}
+			}
+
+		};
+	}
+
+	/**
+	 * Creates and returns a listener, which allows to adapt the view's
+	 * appearance when its value has been validated.
+	 * 
+	 * @return The listener, which has been created, as an instance of the type
+	 *         {@link ValidationListener}
+	 */
+	private ValidationListener<CharSequence> createValidationListener() {
+		return new ValidationListener<CharSequence>() {
+
+			@Override
+			public void onValidationSuccess(
+					final Validateable<CharSequence> view) {
+				setEditTextLineColor(getAccentColor());
+			}
+
+			@Override
+			public void onValidationFailure(
+					final Validateable<CharSequence> view,
+					final Validator<CharSequence> validator) {
+				setEditTextLineColor(getResources().getColor(
+						R.color.error_message_color));
+			}
+
+		};
+	}
+
+	/**
 	 * Returns the color of the theme attribute
 	 * <code>android.R.attr.colorAccent</code>.
 	 * 
@@ -453,7 +516,7 @@ public class EditText extends
 		android.widget.EditText editText = new android.widget.EditText(
 				getContext());
 		editText.setBackgroundResource(R.drawable.edit_text);
-		editText.addTextChangedListener(this);
+		editText.addTextChangedListener(createTextChangeListener());
 		return editText;
 	}
 
@@ -573,44 +636,6 @@ public class EditText extends
 		}
 
 		this.maxNumberOfCharacters = maxNumberOfCharacters;
-	}
-
-	@Override
-	public final void beforeTextChanged(final CharSequence s, final int start,
-			final int count, final int after) {
-		return;
-	}
-
-	@Override
-	public final void onTextChanged(final CharSequence s, final int start,
-			final int before, final int count) {
-		return;
-	}
-
-	@Override
-	public final void afterTextChanged(final Editable s) {
-		if (isValidatedOnValueChange()) {
-			validate();
-
-			if (getMaxNumberOfCharacters() != -1) {
-				setRightMessage(getMaxNumberOfCharactersMessage(), getView()
-						.length() > getMaxNumberOfCharacters());
-			}
-		}
-
-	}
-
-	@Override
-	public final void onValidationSuccess(final Validateable<CharSequence> view) {
-		setEditTextLineColor(getAccentColor());
-	}
-
-	@Override
-	public final void onValidationFailure(
-			final Validateable<CharSequence> view,
-			final Validator<CharSequence> validator) {
-		setEditTextLineColor(getResources().getColor(
-				R.color.error_message_color));
 	}
 
 	// ------------- Methods of the class android.widget.EditText -------------

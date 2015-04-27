@@ -48,8 +48,7 @@ import android.widget.TextView;
  * @since 1.0.0
  */
 public abstract class AbstractValidateableView<ViewType extends View, ValueType>
-		extends LinearLayout implements Validateable<ValueType>,
-		OnFocusChangeListener {
+		extends LinearLayout implements Validateable<ValueType> {
 
 	/**
 	 * The view, whose value should be able to be validated.
@@ -189,7 +188,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 */
 	private void inflateView() {
 		view = createView();
-		view.setOnFocusChangeListener(this);
+		view.setOnFocusChangeListener(createFocusChangeListener());
 		addView(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	}
 
@@ -203,6 +202,27 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		rightMessage = (TextView) parent.findViewById(R.id.right_error_message);
 		defaultColor = leftMessage.getTextColors().getDefaultColor();
 
+	}
+
+	/**
+	 * Creates and returns a listener, which allows to validate the value of the
+	 * view, when the view loses its focus.
+	 * 
+	 * @return The listener, which has been created, as an instance of the type
+	 *         {@link OnFocusChangeListener}
+	 */
+	private OnFocusChangeListener createFocusChangeListener() {
+		return new OnFocusChangeListener() {
+
+			@Override
+			public final void onFocusChange(final View view,
+					final boolean hasFocus) {
+				if (!hasFocus && isValidatedOnFocusLost()) {
+					validate();
+				}
+			}
+
+		};
 	}
 
 	/**
@@ -593,13 +613,6 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 			final ValidationListener<ValueType> listener) {
 		ensureNotNull(listener, "The listener may not be null");
 		listeners.remove(listener);
-	}
-
-	@Override
-	public final void onFocusChange(final View view, final boolean hasFocus) {
-		if (!hasFocus && isValidatedOnFocusLost()) {
-			validate();
-		}
 	}
 
 }

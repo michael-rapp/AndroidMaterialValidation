@@ -72,6 +72,48 @@ public class EditText extends
 		implements TextWatcher, ValidationListener<CharSequence> {
 
 	/**
+	 * The value, which corresponds to the enum value
+	 * <code>TruncateAt.START</code>.
+	 */
+	private static final int ELLIPSIZE_START_VALUE = 1;
+
+	/**
+	 * The value, which corresponds to the enum value
+	 * <code>TruncateAt.MIDDLE</code>.
+	 */
+	private static final int ELLIPSIZE_MIDDLE_VALUE = 2;
+
+	/**
+	 * The value, which corresponds to the enum value
+	 * <code>TruncateAt.END</code>.
+	 */
+	private static final int ELLIPSIZE_END_VALUE = 3;
+
+	/**
+	 * The value, which corresponds to the enum value
+	 * <code>TruncateAt.MARQUEE</code>.
+	 */
+	private static final int ELLIPSIZE_MARQUEE_VALUE = 4;
+
+	/**
+	 * The value, which corresponds to the enum value
+	 * <code>Typeface.SANS_SERIF</code>.
+	 */
+	private static final int TYPEFACE_SANS_SERIF_VALUE = 1;
+
+	/**
+	 * The value, which corresponds to the enum value
+	 * <code>Typeface.SERIF</code>.
+	 */
+	private static final int TYPEFACE_SERIF_VALUE = 2;
+
+	/**
+	 * The value, which corresponds to the enum value
+	 * <code>Typeface.MONOSPACE</code>.
+	 */
+	private static final int TYPEFACE_MONOSPACE_VALUE = 3;
+
+	/**
 	 * The maximum number of characters, the edit text is allowed to contain.
 	 */
 	private int maxNumberOfCharacters;
@@ -306,13 +348,13 @@ public class EditText extends
 	 */
 	private TruncateAt parseEllipsize(final int value) {
 		switch (value) {
-		case 1:
+		case ELLIPSIZE_START_VALUE:
 			return TruncateAt.START;
-		case 2:
+		case ELLIPSIZE_MIDDLE_VALUE:
 			return TruncateAt.MIDDLE;
-		case 3:
+		case ELLIPSIZE_END_VALUE:
 			return TruncateAt.END;
-		case 4:
+		case ELLIPSIZE_MARQUEE_VALUE:
 			return TruncateAt.MARQUEE;
 		default:
 			return TruncateAt.END;
@@ -330,11 +372,11 @@ public class EditText extends
 	 */
 	private Typeface parseTypeface(final int value) {
 		switch (value) {
-		case 1:
+		case TYPEFACE_SANS_SERIF_VALUE:
 			return Typeface.SANS_SERIF;
-		case 2:
+		case TYPEFACE_SERIF_VALUE:
 			return Typeface.SERIF;
-		case 3:
+		case TYPEFACE_MONOSPACE_VALUE:
 			return Typeface.MONOSPACE;
 		default:
 			return Typeface.DEFAULT;

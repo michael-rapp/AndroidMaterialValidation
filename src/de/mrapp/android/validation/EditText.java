@@ -433,6 +433,7 @@ public class EditText extends
 			public void onValidationSuccess(
 					final Validateable<CharSequence> view) {
 				setEditTextLineColor(getAccentColor());
+				getView().setActivated(false);
 			}
 
 			@Override
@@ -441,6 +442,7 @@ public class EditText extends
 					final Validator<CharSequence> validator) {
 				setEditTextLineColor(getResources().getColor(
 						R.color.error_message_color));
+				getView().setActivated(true);
 			}
 
 		};

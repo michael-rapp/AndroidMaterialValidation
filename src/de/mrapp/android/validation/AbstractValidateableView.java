@@ -613,6 +613,17 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	@Override
+	public final void setEnabled(final boolean enabled) {
+		super.setEnabled(enabled);
+
+		if (!enabled) {
+			setError(null);
+		}
+
+		getView().setEnabled(enabled);
+	}
+
+	@Override
 	public final void removeValidator(final Validator<ValueType> validator) {
 		ensureNotNull(validator, "The validator may not be null");
 		validators.remove(validator);

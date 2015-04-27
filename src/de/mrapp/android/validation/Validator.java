@@ -17,6 +17,8 @@
  */
 package de.mrapp.android.validation;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Defines the interface, a class, which should be able to validate values of a
  * specific type, must implement.
@@ -49,5 +51,14 @@ public interface Validator<Type> {
 	 *         message may not be null
 	 */
 	CharSequence getErrorMessage();
+
+	/**
+	 * Returns the icon, which should be shown, if the validation fails.
+	 * 
+	 * @return The icon, which should be shown, if the validation fails, as an
+	 *         instance of the class {@link Drawable} or null, if no icon should
+	 *         be shown
+	 */
+	Drawable getIcon();
 
 }

@@ -107,6 +107,12 @@ public class EditText extends
 		public boolean validated;
 
 		/**
+		 * The maximum number of characters, the edit text is allowed to
+		 * contain.
+		 */
+		public int maxNumberOfCharacters;
+
+		/**
 		 * Creates a new data structure, which allows to store the internal
 		 * state of a {@link EditText}. This constructor is used when reading
 		 * from a parcel. It reads the state of the superclass.
@@ -120,6 +126,7 @@ public class EditText extends
 			ClassLoader classLoader = Parcelable.class.getClassLoader();
 			viewState = source.readParcelable(classLoader);
 			validated = source.readInt() == 1;
+			maxNumberOfCharacters = source.readInt();
 		}
 
 		/**
@@ -141,6 +148,7 @@ public class EditText extends
 			super.writeToParcel(destination, flags);
 			destination.writeParcelable(viewState, flags);
 			destination.writeInt(validated ? 1 : 0);
+			destination.writeInt(maxNumberOfCharacters);
 		}
 
 	};
@@ -2696,6 +2704,7 @@ public class EditText extends
 		SavedState savedState = new SavedState(superState);
 		savedState.viewState = getView().onSaveInstanceState();
 		savedState.validated = getError() != null;
+		savedState.maxNumberOfCharacters = getMaxNumberOfCharacters();
 		return savedState;
 	}
 
@@ -2708,6 +2717,8 @@ public class EditText extends
 			if (savedState.validated) {
 				validate();
 			}
+
+			setMaxNumberOfCharacters(savedState.maxNumberOfCharacters);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);

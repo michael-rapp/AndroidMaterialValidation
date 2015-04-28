@@ -37,6 +37,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
@@ -69,6 +71,79 @@ import android.widget.TextView.OnEditorActionListener;
  */
 public class EditText extends
 		AbstractValidateableView<android.widget.EditText, CharSequence> {
+
+	/**
+	 * A data structure, which allows to save the internal state of an
+	 * {@link EditText}.
+	 */
+	public static class SavedState extends BaseSavedState {
+
+		/**
+		 * A creator, which allows to create instances of the class
+		 * {@link EditText} from parcels.
+		 */
+		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+
+			@Override
+			public SavedState createFromParcel(final Parcel in) {
+				return new SavedState(in);
+			}
+
+			@Override
+			public SavedState[] newArray(final int size) {
+				return new SavedState[size];
+			}
+
+		};
+
+		/**
+		 * The internal state of the edit text.
+		 */
+		public Parcelable viewState;
+
+		/**
+		 * True, if the view displays an error, false otherwise.
+		 */
+		public boolean validated;
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of a {@link EditText}. This constructor is used when reading
+		 * from a parcel. It reads the state of the superclass.
+		 * 
+		 * @param source
+		 *            The parcel to read read from as a instance of the class
+		 *            {@link Parcel}
+		 */
+		private SavedState(final Parcel source) {
+			super(source);
+			ClassLoader classLoader = Parcelable.class.getClassLoader();
+			viewState = source.readParcelable(classLoader);
+			validated = source.readInt() == 1;
+		}
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of a {@link EditText}. This constructor is called by derived
+		 * classes when saving their states.
+		 * 
+		 * @param superState
+		 *            The state of the superclass of this view, as an instance
+		 *            of the type {@link Parcelable}
+		 */
+		public SavedState(final Parcelable superState) {
+			super(superState);
+		}
+
+		@Override
+		public final void writeToParcel(final Parcel destination,
+				final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeParcelable(viewState, flags);
+			destination.writeInt(validated ? 1 : 0);
+		}
+
+	};
 
 	/**
 	 * The maximum number of characters, the edit should be allowed to contain
@@ -2614,5 +2689,29 @@ public class EditText extends
 	}
 
 	// CHECKSTYLE:ON
+
+	@Override
+	protected final Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(superState);
+		savedState.viewState = getView().onSaveInstanceState();
+		savedState.validated = getError() != null;
+		return savedState;
+	}
+
+	@Override
+	protected final void onRestoreInstanceState(final Parcelable state) {
+		if (state != null && state instanceof SavedState) {
+			SavedState savedState = (SavedState) state;
+			getView().onRestoreInstanceState(savedState.viewState);
+
+			if (savedState.validated) {
+				validate();
+			}
+			super.onRestoreInstanceState(savedState.getSuperState());
+		} else {
+			super.onRestoreInstanceState(state);
+		}
+	}
 
 }

@@ -561,6 +561,8 @@ public class EditText extends
 		if (getMaxNumberOfCharacters() != -1) {
 			setRightMessage(getMaxNumberOfCharactersMessage(), getView()
 					.length() > getMaxNumberOfCharacters());
+		} else {
+			setRightMessage(null);
 		}
 	}
 
@@ -714,13 +716,10 @@ public class EditText extends
 		if (maxNumberOfCharacters != -1) {
 			ensureAtLeast(maxNumberOfCharacters, 1,
 					"The maximum number of characters must be at least 1");
-			setRightMessage(getMaxNumberOfCharactersMessage(), getView()
-					.length() > maxNumberOfCharacters);
-		} else {
-			setRightMessage(null);
 		}
 
 		this.maxNumberOfCharacters = maxNumberOfCharacters;
+		adaptMaxNumberOfCharactersMessage();
 	}
 
 	@Override

@@ -434,6 +434,18 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	/**
+	 * The method, which is invoked when the value of the view has been
+	 * validated. This method may be overridden by subclasses in order to adapt
+	 * the view depending on the validation result.
+	 * 
+	 * @param valid
+	 *            True, if the validation succeeded, false otherwise
+	 */
+	protected void onValidate(final boolean valid) {
+		return;
+	}
+
+	/**
 	 * The method, which is invoked in order to create the view, whose value
 	 * should be able to be validated.
 	 * 
@@ -651,9 +663,11 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 
 		if (leftValidator == null && rightValidator == null) {
 			notifyOnValidationSuccess();
+			onValidate(true);
 			return true;
 		}
 
+		onValidate(false);
 		return false;
 	}
 

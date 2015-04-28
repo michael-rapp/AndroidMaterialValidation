@@ -216,7 +216,6 @@ public class EditText extends
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
 		setEditTextLineColor(getAccentColor());
-		addValidationListener(createValidationListener());
 	}
 
 	/**
@@ -498,41 +497,9 @@ public class EditText extends
 			public final void afterTextChanged(final Editable s) {
 				if (isValidatedOnValueChange()) {
 					validate();
-
-					if (getMaxNumberOfCharacters() != -1) {
-						setRightMessage(getMaxNumberOfCharactersMessage(),
-								getView().length() > getMaxNumberOfCharacters());
-					}
 				}
-			}
 
-		};
-	}
-
-	/**
-	 * Creates and returns a listener, which allows to adapt the view's
-	 * appearance when its value has been validated.
-	 * 
-	 * @return The listener, which has been created, as an instance of the type
-	 *         {@link ValidationListener}
-	 */
-	private ValidationListener<CharSequence> createValidationListener() {
-		return new ValidationListener<CharSequence>() {
-
-			@Override
-			public void onValidationSuccess(
-					final Validateable<CharSequence> view) {
-				setEditTextLineColor(getAccentColor());
-				getView().setActivated(false);
-			}
-
-			@Override
-			public void onValidationFailure(
-					final Validateable<CharSequence> view,
-					final Validator<CharSequence> validator) {
-				setEditTextLineColor(getResources().getColor(
-						R.color.error_message_color));
-				getView().setActivated(true);
+				adaptMaxNumberOfCharactersMessage();
 			}
 
 		};
@@ -585,6 +552,18 @@ public class EditText extends
 				currentLength, maxLength);
 	}
 
+	/**
+	 * Adapts the text view, which shows the message, which shows how many
+	 * characters, in relation ot the maximum number of characters, the edit
+	 * text is allowed to contain, have already been entered.
+	 */
+	private void adaptMaxNumberOfCharactersMessage() {
+		if (getMaxNumberOfCharacters() != -1) {
+			setRightMessage(getMaxNumberOfCharactersMessage(), getView()
+					.length() > getMaxNumberOfCharacters());
+		}
+	}
+
 	@Override
 	protected final Collection<Validator<CharSequence>> onGetRightErrorMessage() {
 		CharSequence errorMessage = getMaxNumberOfCharactersMessage();
@@ -601,6 +580,20 @@ public class EditText extends
 		}
 
 		return null;
+	}
+
+	@Override
+	protected final void onValidate(final boolean valid) {
+		if (valid) {
+			setEditTextLineColor(getAccentColor());
+			getView().setActivated(false);
+		} else {
+			setEditTextLineColor(getResources().getColor(
+					R.color.error_message_color));
+			getView().setActivated(true);
+		}
+
+		adaptMaxNumberOfCharactersMessage();
 	}
 
 	@Override

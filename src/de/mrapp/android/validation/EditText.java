@@ -102,11 +102,6 @@ public class EditText extends
 		public Parcelable viewState;
 
 		/**
-		 * True, if the view displays an error, false otherwise.
-		 */
-		public boolean validated;
-
-		/**
 		 * The maximum number of characters, the edit text is allowed to
 		 * contain.
 		 */
@@ -125,7 +120,6 @@ public class EditText extends
 			super(source);
 			ClassLoader classLoader = Parcelable.class.getClassLoader();
 			viewState = source.readParcelable(classLoader);
-			validated = source.readInt() == 1;
 			maxNumberOfCharacters = source.readInt();
 		}
 
@@ -147,7 +141,6 @@ public class EditText extends
 				final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeParcelable(viewState, flags);
-			destination.writeInt(validated ? 1 : 0);
 			destination.writeInt(maxNumberOfCharacters);
 		}
 
@@ -2695,7 +2688,6 @@ public class EditText extends
 		Parcelable superState = super.onSaveInstanceState();
 		SavedState savedState = new SavedState(superState);
 		savedState.viewState = getView().onSaveInstanceState();
-		savedState.validated = getError() != null;
 		savedState.maxNumberOfCharacters = getMaxNumberOfCharacters();
 		return savedState;
 	}
@@ -2705,11 +2697,6 @@ public class EditText extends
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			getView().onRestoreInstanceState(savedState.viewState);
-
-			if (savedState.validated) {
-				validate();
-			}
-
 			setMaxNumberOfCharacters(savedState.maxNumberOfCharacters);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {

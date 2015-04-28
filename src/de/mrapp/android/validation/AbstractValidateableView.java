@@ -28,6 +28,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -49,6 +51,87 @@ import android.widget.TextView;
  */
 public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		extends LinearLayout implements Validateable<ValueType> {
+
+	/**
+	 * A data structure, which allows to save the internal state of an
+	 * {@link AbstractValidateableView}.
+	 */
+	public static class SavedState extends BaseSavedState {
+
+		/**
+		 * A creator, which allows to create instances of the class
+		 * {@link AbstractValidateableView} from parcels.
+		 */
+		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+
+			@Override
+			public SavedState createFromParcel(final Parcel in) {
+				return new SavedState(in);
+			}
+
+			@Override
+			public SavedState[] newArray(final int size) {
+				return new SavedState[size];
+			}
+
+		};
+
+		/**
+		 * True, if the view displays an error, false otherwise.
+		 */
+		public boolean validated;
+
+		/**
+		 * True, if the view's value should be automatically validated, when the
+		 * value has been changed, false otherwise.
+		 */
+		public boolean validateOnValueChange;
+
+		/**
+		 * True, if the view's value should be automatically validated, when the
+		 * view has lost its focus, false otherwise.
+		 */
+		public boolean validateOnFocusLost;
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of a {@link EditText}. This constructor is used when reading
+		 * from a parcel. It reads the state of the superclass.
+		 * 
+		 * @param source
+		 *            The parcel to read read from as a instance of the class
+		 *            {@link Parcel}
+		 */
+		private SavedState(final Parcel source) {
+			super(source);
+			validated = source.readInt() == 1;
+			validateOnValueChange = source.readInt() == 1;
+			validateOnFocusLost = source.readInt() == 1;
+		}
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of a {@link EditText}. This constructor is called by derived
+		 * classes when saving their states.
+		 * 
+		 * @param superState
+		 *            The state of the superclass of this view, as an instance
+		 *            of the type {@link Parcelable}
+		 */
+		public SavedState(final Parcelable superState) {
+			super(superState);
+		}
+
+		@Override
+		public final void writeToParcel(final Parcel destination,
+				final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeInt(validated ? 1 : 0);
+			destination.writeInt(validateOnValueChange ? 1 : 0);
+			destination.writeInt(validateOnFocusLost ? 1 : 0);
+		}
+
+	};
 
 	/**
 	 * True, if the view's value should be automatically validated, when the
@@ -703,6 +786,33 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 			final ValidationListener<ValueType> listener) {
 		ensureNotNull(listener, "The listener may not be null");
 		listeners.remove(listener);
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(superState);
+		savedState.validated = getError() != null;
+		savedState.validateOnValueChange = isValidatedOnValueChange();
+		savedState.validateOnFocusLost = isValidatedOnFocusLost();
+		return savedState;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(final Parcelable state) {
+		if (state != null && state instanceof SavedState) {
+			SavedState savedState = (SavedState) state;
+
+			if (savedState.validated) {
+				validate();
+			}
+
+			validateOnValueChange(savedState.validateOnValueChange);
+			validateOnFocusLost(savedState.validateOnFocusLost);
+			super.onRestoreInstanceState(savedState.getSuperState());
+		} else {
+			super.onRestoreInstanceState(state);
+		}
 	}
 
 }

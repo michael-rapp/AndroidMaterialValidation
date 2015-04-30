@@ -23,6 +23,9 @@ import android.content.Context;
 import de.mrapp.android.validation.validators.ConjunctiveValidator;
 import de.mrapp.android.validation.validators.DisjunctiveValidator;
 import de.mrapp.android.validation.validators.NegateValidator;
+import de.mrapp.android.validation.validators.misc.DomainNameValidator;
+import de.mrapp.android.validation.validators.misc.IPv4AddressValidator;
+import de.mrapp.android.validation.validators.misc.IPv6AddressValidator;
 import de.mrapp.android.validation.validators.text.Case;
 import de.mrapp.android.validation.validators.text.CharacterOrNumberValidator;
 import de.mrapp.android.validation.validators.text.CharacterValidator;
@@ -521,6 +524,117 @@ public final class Validators {
 			final Case caseSensitivity, final boolean allowSpaces) {
 		return new CharacterOrNumberValidator(context, resourceId,
 				caseSensitivity, allowSpaces);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they represent valid IPv4 addresses.
+	 * 
+	 * @param errorMessage
+	 *            The error message, which should be shown, if the validation
+	 *            fails, as an instance of the type {@link CharSequence}. The
+	 *            error message may not be null
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> iPv4Address(
+			final CharSequence errorMessage) {
+		return new IPv4AddressValidator(errorMessage);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they represent valid IPv4 addresses.
+	 * 
+	 * @param context
+	 *            The context, which should be used to retrieve the error
+	 *            message, as an instance of the class {@link Context}. The
+	 *            context may not be null
+	 * @param resourceId
+	 *            The resource ID of the string resource, which contains the
+	 *            error message, which should be set, as an {@link Integer}
+	 *            value. The resource ID must correspond to a valid string
+	 *            resource
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> iPv4Address(final Context context,
+			final int resourceId) {
+		return new IPv4AddressValidator(context, resourceId);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they represent valid IPv6 addresses.
+	 * 
+	 * @param errorMessage
+	 *            The error message, which should be shown, if the validation
+	 *            fails, as an instance of the type {@link CharSequence}. The
+	 *            error message may not be null
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> iPv6Address(
+			final CharSequence errorMessage) {
+		return new IPv6AddressValidator(errorMessage);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they represent valid IPv6 addresses.
+	 * 
+	 * @param context
+	 *            The context, which should be used to retrieve the error
+	 *            message, as an instance of the class {@link Context}. The
+	 *            context may not be null
+	 * @param resourceId
+	 *            The resource ID of the string resource, which contains the
+	 *            error message, which should be set, as an {@link Integer}
+	 *            value. The resource ID must correspond to a valid string
+	 *            resource
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> iPv6Address(final Context context,
+			final int resourceId) {
+		return new IPv6AddressValidator(context, resourceId);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they represent valid domain names.
+	 * 
+	 * @param errorMessage
+	 *            The error message, which should be shown, if the validation
+	 *            fails, as an instance of the type {@link CharSequence}. The
+	 *            error message may not be null
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> domainName(
+			final CharSequence errorMessage) {
+		return new DomainNameValidator(errorMessage);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they represent valid domain names.
+	 * 
+	 * @param context
+	 *            The context, which should be used to retrieve the error
+	 *            message, as an instance of the class {@link Context}. The
+	 *            context may not be null
+	 * @param resourceId
+	 *            The resource ID of the string resource, which contains the
+	 *            error message, which should be set, as an {@link Integer}
+	 *            value. The resource ID must correspond to a valid string
+	 *            resource
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> domainName(final Context context,
+			final int resourceId) {
+		return new DomainNameValidator(context, resourceId);
 	}
 
 }

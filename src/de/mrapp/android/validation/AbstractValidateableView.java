@@ -658,6 +658,10 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 */
 	public final void setHelperText(final CharSequence helperText) {
 		this.helperText = helperText;
+
+		if (getError() == null) {
+			setLeftMessage(helperText, null, false);
+		}
 	}
 
 	/**

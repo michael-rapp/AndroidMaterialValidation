@@ -24,7 +24,7 @@ License along with this program.  If not, see
     <dimen name="edit_text_inset_right">8dp</dimen>
     <dimen name="edit_text_inset_bottom">4dp</dimen>
     <dimen name="error_message_inset_left">8dp</dimen>
-    <dimen name="error_message_inset_top">4dp</dimen>
+    <dimen name="error_message_inset_top">0dp</dimen>
     <dimen name="error_message_inset_right">8dp</dimen>
     <dimen name="error_message_inset_bottom">4dp</dimen>
 

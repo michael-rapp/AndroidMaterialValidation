@@ -19,7 +19,7 @@ package de.mrapp.android.validation;
 
 /**
  * Defines the interface, a class, which should be able to verify, whether a
- * specific type satisfies a specific constraint, must implement.
+ * specific type satisfies a constraint, must implement.
  * 
  * @param <Type>
  *            The type of the values, which should be verified

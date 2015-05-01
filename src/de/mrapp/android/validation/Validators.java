@@ -502,7 +502,7 @@ public final class Validators {
 			final CharSequence errorMessage, final Case caseSensitivity,
 			final boolean allowSpaces, final char... allowedChars) {
 		return new CharacterOrNumberValidator(errorMessage, caseSensitivity,
-				allowSpaces);
+				allowSpaces, allowedChars);
 	}
 
 	/**

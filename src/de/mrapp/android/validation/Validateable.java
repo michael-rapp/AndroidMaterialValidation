@@ -17,6 +17,8 @@
  */
 package de.mrapp.android.validation;
 
+import java.util.Collection;
+
 /**
  * Defines the interface, a view, whose value should be able to be validated,
  * must implement.
@@ -42,6 +44,29 @@ public interface Validateable<Type> {
 	void addValidator(Validator<Type> validator);
 
 	/**
+	 * Adds all validators, which are contained by a specific collection. The
+	 * validators are applied in the given order.
+	 * 
+	 * @param validators
+	 *            A collection, which contains the validators, which should be
+	 *            added, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no validators should be added
+	 */
+	void addAllValidators(Collection<Validator<Type>> validators);
+
+	/**
+	 * Adds all validators, which are contained by a specific array. The
+	 * validators are applied in the given order.
+	 * 
+	 * @param validators
+	 *            An array, which contains the validators, which should be
+	 *            added, as an array of the type {@link Validator} or an empty
+	 *            array, if no validators should be added
+	 */
+	@SuppressWarnings("unchecked")
+	void addAllValidators(Validator<Type>... validators);
+
+	/**
 	 * Removes a specific validator, which should not be used to validate the
 	 * view's value, anymore.
 	 * 
@@ -50,6 +75,27 @@ public interface Validateable<Type> {
 	 *            type {@link Validator}. The validator may not be null
 	 */
 	void removeValidator(Validator<Type> validator);
+
+	/**
+	 * Removes all validators, which are contained by a specific collection.
+	 * 
+	 * @param validators
+	 *            A collection, which contains the validators, which should be
+	 *            removed, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no validators should be removed
+	 */
+	void removeAllValidators(Collection<Validator<Type>> validators);
+
+	/**
+	 * Removes all validators, which are contained by a specific array.
+	 * 
+	 * @param validators
+	 *            An array, which contains the validators, which should be
+	 *            removed, as an array of the type {@link Validator} or an empty
+	 *            array, if no validators should be removed
+	 */
+	@SuppressWarnings("unchecked")
+	void removeAllValidators(Validator<Type>... validators);
 
 	/**
 	 * Validates the current value of the view.

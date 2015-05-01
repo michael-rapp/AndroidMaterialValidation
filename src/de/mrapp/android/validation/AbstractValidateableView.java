@@ -19,6 +19,7 @@ package de.mrapp.android.validation;
 
 import static de.mrapp.android.validation.util.Condition.ensureNotNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -635,6 +636,47 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		validators.add(validator);
 	}
 
+	@Override
+	public final void addAllValidators(
+			final Collection<Validator<ValueType>> validators) {
+		ensureNotNull(validators, "The collection may not be null");
+
+		for (Validator<ValueType> validator : validators) {
+			addValidator(validator);
+		}
+	}
+
+	@SafeVarargs
+	@Override
+	public final void addAllValidators(final Validator<ValueType>... validators) {
+		ensureNotNull(validators, "The array may not be null");
+		addAllValidators(Arrays.asList(validators));
+	}
+
+	@Override
+	public final void removeValidator(final Validator<ValueType> validator) {
+		ensureNotNull(validator, "The validator may not be null");
+		validators.remove(validator);
+	}
+
+	@Override
+	public final void removeAllValidators(
+			final Collection<Validator<ValueType>> validators) {
+		ensureNotNull(validators, "The collection may not be null");
+
+		for (Validator<ValueType> validator : validators) {
+			removeValidator(validator);
+		}
+	}
+
+	@SafeVarargs
+	@Override
+	public final void removeAllValidators(
+			final Validator<ValueType>... validators) {
+		ensureNotNull(validators, "The array may not be null");
+		removeAllValidators(Arrays.asList(validators));
+	}
+
 	/**
 	 * Returns the helper text, which is shown, when no validation error is
 	 * currently shown.
@@ -731,12 +773,6 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		}
 
 		getView().setEnabled(enabled);
-	}
-
-	@Override
-	public final void removeValidator(final Validator<ValueType> validator) {
-		ensureNotNull(validator, "The validator may not be null");
-		validators.remove(validator);
 	}
 
 	@Override

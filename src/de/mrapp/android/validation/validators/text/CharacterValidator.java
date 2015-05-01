@@ -65,6 +65,11 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 	private boolean allowSpaces;
 
 	/**
+	 * An array, which contains allowed chars.
+	 */
+	private char[] allowedChars;
+
+	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
 	 * they only contain characters.
 	 * 
@@ -79,12 +84,17 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
+	 * @param allowedChars
+	 *            The allowed chars as an array of the type <code>char</code>.
+	 *            The array may not be null
 	 */
 	public CharacterValidator(final CharSequence errorMessage,
-			final Case caseSensitivity, final boolean allowSpaces) {
+			final Case caseSensitivity, final boolean allowSpaces,
+			final char... allowedChars) {
 		super(errorMessage);
 		setCaseSensitivity(caseSensitivity);
 		allowSpaces(allowSpaces);
+		setAllowedChars(allowedChars);
 	}
 
 	/**
@@ -107,12 +117,17 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
+	 * @param allowedChars
+	 *            The allowed chars as an array of the type <code>char</code>.
+	 *            The array may not be null
 	 */
 	public CharacterValidator(final Context context, final int resourceId,
-			final Case caseSensitivity, final boolean allowSpaces) {
+			final Case caseSensitivity, final boolean allowSpaces,
+			final char... allowedChars) {
 		super(context, resourceId);
 		setCaseSensitivity(caseSensitivity);
 		allowSpaces(allowSpaces);
+		setAllowedChars(allowedChars);
 	}
 
 	/**
@@ -160,6 +175,28 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 		this.allowSpaces = allowSpaces;
 	}
 
+	/**
+	 * Returns the allowed chars.
+	 * 
+	 * @return An array, which contains the allowed chars, as an array of the
+	 *         type <code>char</code>
+	 */
+	public final char[] getAllowedChars() {
+		return allowedChars;
+	}
+
+	/**
+	 * Sets the allowed chars.
+	 * 
+	 * @param allowedChars
+	 *            The allowed chars, which should be set, as an array of the
+	 *            type <code>char</code>. The array may not be null
+	 */
+	public final void setAllowedChars(final char[] allowedChars) {
+		ensureNotNull(allowedChars, "The array may not be null");
+		this.allowedChars = allowedChars;
+	}
+
 	@Override
 	public final boolean validate(final CharSequence value) {
 		String text = value.toString();
@@ -167,6 +204,10 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 
 		if (areSpacesAllowed()) {
 			text = text.replaceAll("\\s+", "");
+		}
+
+		for (char character : getAllowedChars()) {
+			text = text.replaceAll(String.valueOf(character), "");
 		}
 
 		if (getCaseSensitivity() == Case.UPPERCASE) {

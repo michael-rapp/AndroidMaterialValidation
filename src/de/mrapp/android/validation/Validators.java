@@ -431,14 +431,17 @@ public final class Validators {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
+	 * @param allowedChars
+	 *            The allowed chars as an array of the type <code>char</code>.
+	 *            The array may not be null
 	 * @return The validator, which has been created, as an instance of the type
 	 *         {@link Validator}
 	 */
 	public static Validator<CharSequence> character(
 			final CharSequence errorMessage, final Case caseSensitivity,
-			final boolean allowSpaces) {
+			final boolean allowSpaces, final char... allowedChars) {
 		return new CharacterValidator(errorMessage, caseSensitivity,
-				allowSpaces);
+				allowSpaces, allowedChars);
 	}
 
 	/**
@@ -461,14 +464,17 @@ public final class Validators {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
+	 * @param allowedChars
+	 *            The allowed chars as an array of the type <code>char</code>.
+	 *            The array may not be null
 	 * @return The validator, which has been created, as an instance of the type
 	 *         {@link Validator}
 	 */
 	public static Validator<CharSequence> character(final Context context,
 			final int resourceId, final Case caseSensitivity,
-			final boolean allowSpaces) {
+			final boolean allowSpaces, final char... allowedChars) {
 		return new CharacterValidator(context, resourceId, caseSensitivity,
-				allowSpaces);
+				allowSpaces, allowedChars);
 	}
 
 	/**
@@ -486,12 +492,15 @@ public final class Validators {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
+	 * @param allowedChars
+	 *            The allowed chars as an array of the type <code>char</code>.
+	 *            The array may not be null
 	 * @return The validator, which has been created, as an instance of the type
 	 *         {@link Validator}
 	 */
 	public static Validator<CharSequence> characterOrNumber(
 			final CharSequence errorMessage, final Case caseSensitivity,
-			final boolean allowSpaces) {
+			final boolean allowSpaces, final char... allowedChars) {
 		return new CharacterOrNumberValidator(errorMessage, caseSensitivity,
 				allowSpaces);
 	}
@@ -516,14 +525,18 @@ public final class Validators {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
+	 * @param allowedChars
+	 *            The allowed chars as an array of the type <code>char</code>.
+	 *            The array may not be null
 	 * @return The validator, which has been created, as an instance of the type
 	 *         {@link Validator}
 	 */
 	public static Validator<CharSequence> characterOrNumber(
 			final Context context, final int resourceId,
-			final Case caseSensitivity, final boolean allowSpaces) {
+			final Case caseSensitivity, final boolean allowSpaces,
+			final char... allowedChars) {
 		return new CharacterOrNumberValidator(context, resourceId,
-				caseSensitivity, allowSpaces);
+				caseSensitivity, allowSpaces, allowedChars);
 	}
 
 	/**

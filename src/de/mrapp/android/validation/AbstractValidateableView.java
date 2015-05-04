@@ -857,7 +857,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	@Override
-	public final void setEnabled(final boolean enabled) {
+	public void setEnabled(final boolean enabled) {
 		super.setEnabled(enabled);
 
 		if (!enabled) {

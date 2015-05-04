@@ -177,7 +177,8 @@ public class PasswordEditText extends EditText {
 	 * accordingly.
 	 */
 	private void verifyPasswordSafety() {
-		if (!constraints.isEmpty() && !TextUtils.isEmpty(getText())) {
+		if (isEnabled() && !constraints.isEmpty()
+				&& !TextUtils.isEmpty(getText())) {
 			float score = getPasswordSafety();
 			adaptHelperText(score);
 		} else {
@@ -862,6 +863,12 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void setPasswordVerificationPrefix(final int resourceId) {
 		setPasswordVerificationPrefix(getResources().getString(resourceId));
+	}
+
+	@Override
+	public final void setEnabled(final boolean enabled) {
+		super.setEnabled(enabled);
+		verifyPasswordSafety();
 	}
 
 }

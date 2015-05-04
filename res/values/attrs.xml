@@ -79,5 +79,8 @@ License along with this program.  If not, see
         <attr name="android:textSize" />
         <attr name="android:typeface" />
     </declare-styleable>
+    <declare-styleable name="PasswordEditText">
+        <attr name="passwordVerificationPrefix" format="string" />
+    </declare-styleable>
 
 </resources>

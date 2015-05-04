@@ -27,8 +27,10 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -66,6 +68,12 @@ public class PasswordEditText extends EditText {
 	private List<Integer> helperTextColors;
 
 	/**
+	 * The prefix of the helper texts, which are shown depending on the password
+	 * safety.
+	 */
+	private String passwordVerificationPrefix;
+
+	/**
 	 * The helper text, which is shown, when the password safety is not
 	 * verified.
 	 */
@@ -92,6 +100,44 @@ public class PasswordEditText extends EditText {
 		regularHelperTextColor = getHelperTextColor();
 		setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		getView().addTextChangedListener(createTextChangeListener());
+		obtainStyledAttributes(attributeSet);
+	}
+
+	/**
+	 * Obtains all attributes from a specific attribute set.
+	 * 
+	 * @param attributeSet
+	 *            The attribute set, the attributes should be obtained from, as
+	 *            an instance of the type {@link AttributeSet}
+	 */
+	private void obtainStyledAttributes(final AttributeSet attributeSet) {
+		TypedArray typedArray = getContext().obtainStyledAttributes(
+				attributeSet, R.styleable.PasswordEditText);
+		try {
+			obtainPasswordVerificationPrefix(typedArray);
+		} finally {
+			typedArray.recycle();
+		}
+	}
+
+	/**
+	 * Obtains the prefix of helper texts, which are shown depending on the
+	 * password safety, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the prefix should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	private void obtainPasswordVerificationPrefix(final TypedArray typedArray) {
+		String format = typedArray
+				.getString(R.styleable.PasswordEditText_passwordVerificationPrefix);
+
+		if (format == null) {
+			format = getResources().getString(
+					R.string.password_verification_prefix);
+		}
+
+		setPasswordVerificationPrefix(format);
 	}
 
 	/**
@@ -133,7 +179,6 @@ public class PasswordEditText extends EditText {
 		if (!constraints.isEmpty()) {
 			float score = getPasswordSafety();
 			adaptHelperText(score);
-			adaptHelperTextColor(score);
 		} else {
 			setHelperText(regularHelperText);
 		}
@@ -169,32 +214,64 @@ public class PasswordEditText extends EditText {
 	 */
 	private void adaptHelperText(final float score) {
 		if (!helperTexts.isEmpty()) {
-			float interval = 1.0f / helperTexts.size();
-			int index = (int) Math.floor(score / interval);
-			index = Math.min(index, helperTexts.size() - 1);
-			setHelperText(helperTexts.get(index));
+			String helperText = getHelperText(score).toString();
+			int color = getHelperTextColor(score);
+			helperText = "<font color=\"" + color + "\">" + helperText
+					+ "</font>";
+			String prefix = getPasswordVerificationPrefix();
+
+			if (prefix != null) {
+				prefix = "<font color=\"" + regularHelperTextColor + "\">"
+						+ prefix + ": </font>";
+			} else {
+				prefix = "";
+			}
+
+			setHelperText(Html.fromHtml(prefix + helperText));
 		} else {
 			setHelperText(regularHelperText);
 		}
 	}
 
 	/**
-	 * Adapts the helper text color, depending on a specific password safety.
+	 * Returns the helper text, which corresponds to a specific password safety.
 	 * 
 	 * @param score
 	 *            The password safety as a {@link Float} value between 0.0 and
 	 *            1.0, which represents the fraction of constraints, which are
 	 *            satisfied
+	 * @return The helper text as an instance of the type {@link CharSequence}
 	 */
-	private void adaptHelperTextColor(final float score) {
+	private CharSequence getHelperText(final float score) {
+		if (!helperTexts.isEmpty()) {
+			float interval = 1.0f / helperTexts.size();
+			int index = (int) Math.floor(score / interval);
+			index = Math.min(index, helperTexts.size() - 1);
+			return helperTexts.get(index);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the color of the helper text, which corresponds to a specific
+	 * password safety.
+	 * 
+	 * @param score
+	 *            The password safety as a {@link Float} value between 0.0 and
+	 *            1.0, which represents the fraction of constraints, which are
+	 *            satisfied
+	 * @return The color of the helper text as an {@link Integer} value
+	 */
+	private int getHelperTextColor(final float score) {
 		if (!helperTextColors.isEmpty()) {
 			float interval = 1.0f / helperTextColors.size();
 			int index = (int) Math.floor(score / interval);
 			index = Math.min(index, helperTextColors.size() - 1);
 			setHelperTextColor(helperTextColors.get(index));
-		} else {
-			setHelperTextColor(regularHelperTextColor);
 		}
+
+		return -1;
 	}
 
 	/**
@@ -747,6 +824,43 @@ public class PasswordEditText extends EditText {
 		for (int resourceId : resourceIds) {
 			removeHelperTextColorId(resourceId);
 		}
+	}
+
+	/**
+	 * Returns the prefix of the helper texts, which are shown depending on the
+	 * password safety.
+	 * 
+	 * @return The prefix of the helper texts, which are shown depending on the
+	 *         password safety, as a {@link String}
+	 */
+	public final String getPasswordVerificationPrefix() {
+		return passwordVerificationPrefix;
+	}
+
+	/**
+	 * Sets the prefix of the helper texts, which are shown depending on the
+	 * password safety.
+	 * 
+	 * @param format
+	 *            The prefix, which should be set, as a {@link String} or null,
+	 *            if no prefix should be set
+	 */
+	public final void setPasswordVerificationPrefix(final String format) {
+		this.passwordVerificationPrefix = format;
+		verifyPasswordSafety();
+	}
+
+	/**
+	 * Sets the format of the helper texts, which are shown depending on the
+	 * password safety.
+	 * 
+	 * @param resourceId
+	 *            The resourceID of the format, which should be set, as an
+	 *            {@link Integer} value. The resource ID must correspond to a
+	 *            valid string resource
+	 */
+	public final void setPasswordVerificationPrefix(final int resourceId) {
+		setPasswordVerificationPrefix(getResources().getString(resourceId));
 	}
 
 }

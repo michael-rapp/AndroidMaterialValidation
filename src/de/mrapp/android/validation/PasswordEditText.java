@@ -273,7 +273,7 @@ public class PasswordEditText extends EditText {
 			setHelperTextColor(helperTextColors.get(index));
 		}
 
-		return -1;
+		return regularHelperTextColor;
 	}
 
 	/**

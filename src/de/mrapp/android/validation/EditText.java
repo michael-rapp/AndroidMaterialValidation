@@ -584,7 +584,7 @@ public class EditText extends
 			getView().setActivated(false);
 		} else {
 			setEditTextLineColor(getResources().getColor(
-					R.color.error_message_color));
+					R.color.default_error_color));
 			getView().setActivated(true);
 		}
 

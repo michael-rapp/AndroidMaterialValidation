@@ -264,7 +264,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	private void obtainHelperTextColor(final TypedArray typedArray) {
 		setHelperTextColor(typedArray.getColor(
 				R.styleable.AbstractValidateableView_helperTextColor,
-				leftMessage.getTextColors().getDefaultColor()));
+				getResources().getColor(R.color.default_helper_text_color)));
 	}
 
 	/**
@@ -278,7 +278,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	private void obtainErrorColor(final TypedArray typedArray) {
 		setErrorColor(typedArray.getColor(
 				R.styleable.AbstractValidateableView_errorColor, getResources()
-						.getColor(R.color.error_message_color)));
+						.getColor(R.color.default_error_color)));
 	}
 
 	/**

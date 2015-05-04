@@ -28,7 +28,9 @@ import java.util.List;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 /**
@@ -45,11 +47,35 @@ import android.util.AttributeSet;
  */
 public class PasswordEditText extends EditText {
 
+	/**
+	 * A list, which contains the constraints, which are used to verify the
+	 * password safety.
+	 */
 	private List<Constraint<CharSequence>> constraints;
 
+	/**
+	 * A list, which contains the helper texts, which are shown depending on the
+	 * password safety.
+	 */
 	private List<CharSequence> helperTexts;
 
+	/**
+	 * A list, which contains the colors, which are used to highlight the helper
+	 * texts, which are shown depending on the password safety.
+	 */
 	private List<Integer> helperTextColors;
+
+	/**
+	 * The helper text, which is shown, when the password safety is not
+	 * verified.
+	 */
+	private CharSequence regularHelperText;
+
+	/**
+	 * The color of the helper text, which is used, when the password safety is
+	 * not verified.
+	 */
+	private int regularHelperTextColor;
 
 	/**
 	 * Initializes the view.
@@ -59,10 +85,116 @@ public class PasswordEditText extends EditText {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void initialize(final AttributeSet attributeSet) {
-		setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		constraints = new ArrayList<>();
 		helperTexts = new ArrayList<>();
 		helperTextColors = new ArrayList<>();
+		regularHelperText = getHelperText();
+		regularHelperTextColor = getHelperTextColor();
+		setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		getView().addTextChangedListener(createTextChangeListener());
+	}
+
+	/**
+	 * Creates and returns a listener, which allows to verify the password
+	 * safety, when the password has been changed.
+	 * 
+	 * @return The listener, which has been created, as an instance of the type
+	 *         {@link TextWatcher}
+	 */
+	private TextWatcher createTextChangeListener() {
+		return new TextWatcher() {
+
+			@Override
+			public final void beforeTextChanged(final CharSequence s,
+					final int start, final int count, final int after) {
+				return;
+			}
+
+			@Override
+			public final void onTextChanged(final CharSequence s,
+					final int start, final int before, final int count) {
+				return;
+			}
+
+			@Override
+			public final void afterTextChanged(final Editable s) {
+				verifyPasswordSafety();
+			}
+
+		};
+	}
+
+	/**
+	 * Verifies the safety of the current password, depending on the
+	 * constraints, which have been added and adapts the appearance of the view
+	 * accordingly.
+	 */
+	private void verifyPasswordSafety() {
+		if (!constraints.isEmpty()) {
+			float score = getPasswordSafety();
+			adaptHelperText(score);
+			adaptHelperTextColor(score);
+		} else {
+			setHelperText(regularHelperText);
+		}
+	}
+
+	/**
+	 * Returns the safety of the current password, depending on the constraints,
+	 * which have been added.
+	 * 
+	 * @return The fraction of constraints, which are satisfied, as a
+	 *         {@link Float} value between 0.0 and 1.0
+	 */
+	private float getPasswordSafety() {
+		int absoluteScore = 0;
+		CharSequence password = getView().getText();
+
+		for (Constraint<CharSequence> constraint : constraints) {
+			if (constraint.isSatisfied(password)) {
+				absoluteScore++;
+			}
+		}
+
+		return ((float) absoluteScore / (float) constraints.size());
+	}
+
+	/**
+	 * Adapts the helper text, depending on a specific password safety.
+	 * 
+	 * @param score
+	 *            The password safety as a {@link Float} value between 0.0 and
+	 *            1.0, which represents the fraction of constraints, which are
+	 *            satisfied
+	 */
+	private void adaptHelperText(final float score) {
+		if (!helperTexts.isEmpty()) {
+			float interval = 1.0f / helperTexts.size();
+			int index = (int) Math.floor(score / interval);
+			index = Math.min(index, helperTexts.size() - 1);
+			setHelperText(helperTexts.get(index));
+		} else {
+			setHelperText(regularHelperText);
+		}
+	}
+
+	/**
+	 * Adapts the helper text color, depending on a specific password safety.
+	 * 
+	 * @param score
+	 *            The password safety as a {@link Float} value between 0.0 and
+	 *            1.0, which represents the fraction of constraints, which are
+	 *            satisfied
+	 */
+	private void adaptHelperTextColor(final float score) {
+		if (!helperTextColors.isEmpty()) {
+			float interval = 1.0f / helperTextColors.size();
+			int index = (int) Math.floor(score / interval);
+			index = Math.min(index, helperTextColors.size() - 1);
+			setHelperTextColor(helperTextColors.get(index));
+		} else {
+			setHelperTextColor(regularHelperTextColor);
+		}
 	}
 
 	/**
@@ -156,6 +288,7 @@ public class PasswordEditText extends EditText {
 	public final void addConstraint(final Constraint<CharSequence> constraint) {
 		ensureNotNull(constraint, "The constraint may not be null");
 		constraints.add(constraint);
+		verifyPasswordSafety();
 	}
 
 	/**
@@ -201,6 +334,7 @@ public class PasswordEditText extends EditText {
 	public final void removeConstraint(final Constraint<CharSequence> constraint) {
 		ensureNotNull(constraint, "The constraint may not be null");
 		constraints.remove(constraint);
+		verifyPasswordSafety();
 	}
 
 	/**
@@ -249,6 +383,7 @@ public class PasswordEditText extends EditText {
 		ensureNotNull(helperText, "The helper text may not be null");
 		ensureNotEmpty(helperText, "The helper text may not be empty");
 		helperTexts.add(helperText);
+		verifyPasswordSafety();
 	}
 
 	/**
@@ -296,6 +431,7 @@ public class PasswordEditText extends EditText {
 		ensureNotNull(helperText, "The helper text may not be null");
 		ensureNotEmpty(helperText, "The helper text may not be empty");
 		helperTexts.remove(helperText);
+		verifyPasswordSafety();
 	}
 
 	/**
@@ -337,6 +473,7 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void addHelperTextColor(final int color) {
 		helperTextColors.add(color);
+		verifyPasswordSafety();
 	}
 
 	/**
@@ -350,7 +487,10 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void addAllHelperTextColors(final Collection<Integer> colors) {
 		ensureNotNull(colors, "The collection may not be null");
-		helperTextColors.addAll(colors);
+
+		for (int color : colors) {
+			addHelperTextColor(color);
+		}
 	}
 
 	/**
@@ -379,6 +519,7 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void removeHelperTextColor(final int color) {
 		helperTextColors.remove(color);
+		verifyPasswordSafety();
 	}
 
 	/**
@@ -392,6 +533,10 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void removeAllHelperTextColors(final Collection<Integer> colors) {
 		ensureNotNull(colors, "The collection may not be null");
+
+		for (int color : colors) {
+			removeHelperTextColor(color);
+		}
 	}
 
 	/**

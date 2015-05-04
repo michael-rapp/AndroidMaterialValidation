@@ -20,8 +20,6 @@ package de.mrapp.android.validation.constraints;
 import static de.mrapp.android.validation.util.Condition.ensureAtLeast;
 import static de.mrapp.android.validation.util.Condition.ensureNotNull;
 import de.mrapp.android.validation.Constraint;
-import de.mrapp.android.validation.Validator;
-import de.mrapp.android.validation.validators.ConjunctiveValidator;
 
 /**
  * A validator, which allows to combine multiple constraints in a disjunctive

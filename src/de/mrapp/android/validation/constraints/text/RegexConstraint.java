@@ -15,7 +15,7 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>. 
  */
-package de.mrapp.android.validation.constraints.test;
+package de.mrapp.android.validation.constraints.text;
 
 import static de.mrapp.android.validation.util.Condition.ensureNotNull;
 

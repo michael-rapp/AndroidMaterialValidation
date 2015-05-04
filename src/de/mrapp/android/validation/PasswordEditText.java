@@ -17,6 +17,14 @@
  */
 package de.mrapp.android.validation;
 
+import static de.mrapp.android.validation.util.Condition.ensureNotEmpty;
+import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -26,13 +34,22 @@ import android.util.AttributeSet;
 /**
  * A view, which allows to enter a password. The text may be validated according
  * to the pattern, which is suggested by the Material Design guidelines.
- * Additionally, the password can be validated, regarding its safety.
+ * 
+ * Additionally, the password safety can be automatically verified, according to
+ * customizable constraints, while typing and a text, which indicates the
+ * password safety can be shown as the edit text's helper text.
  * 
  * @author Michael Rapp
  *
  * @since 1.0.0
  */
 public class PasswordEditText extends EditText {
+
+	private List<Constraint<CharSequence>> constraints;
+
+	private List<CharSequence> helperTexts;
+
+	private List<Integer> helperTextColors;
 
 	/**
 	 * Initializes the view.
@@ -43,6 +60,9 @@ public class PasswordEditText extends EditText {
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		constraints = new ArrayList<>();
+		helperTexts = new ArrayList<>();
+		helperTextColors = new ArrayList<>();
 	}
 
 	/**
@@ -123,6 +143,271 @@ public class PasswordEditText extends EditText {
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
+	}
+
+	/**
+	 * Adds a new constraint, which should be used to verify the password
+	 * safety.
+	 * 
+	 * @param constraint
+	 *            The constraint, which should be added, as an instance of the
+	 *            type {@link Constraint}. The constraint may not be null
+	 */
+	public final void addConstraint(final Constraint<CharSequence> constraint) {
+		ensureNotNull(constraint, "The constraint may not be null");
+		constraints.add(constraint);
+	}
+
+	/**
+	 * Adds all constraints, which are contained by a specific collection.
+	 * 
+	 * @param constraints
+	 *            A collection, which contains the constraints, which should be
+	 *            added, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no constraints should be added
+	 */
+	public final void addAllConstraints(
+			final Collection<Constraint<CharSequence>> constraints) {
+		ensureNotNull(constraints, "The collection may not be null");
+
+		for (Constraint<CharSequence> constraint : constraints) {
+			addConstraint(constraint);
+		}
+	}
+
+	/**
+	 * Adds all constraints, which are contained by a specific array.
+	 * 
+	 * @param constraints
+	 *            An array, which contains the constraints, which should be
+	 *            added, as an array of the type {@link Constraint}, or an empty
+	 *            array, if no constraint should be added
+	 */
+	@SafeVarargs
+	public final void addAllConstraints(
+			final Constraint<CharSequence>... constraints) {
+		ensureNotNull(constraints, "The array may not be null");
+		addAllConstraints(Arrays.asList(constraints));
+	}
+
+	/**
+	 * Removes a specific constraint, which should not be used to verify the
+	 * password safety, anymore.
+	 * 
+	 * @param constraint
+	 *            The constraint, which should be removed, as an instance of the
+	 *            type {@link Constraint}. The constraint may not be null
+	 */
+	public final void removeConstraint(final Constraint<CharSequence> constraint) {
+		ensureNotNull(constraint, "The constraint may not be null");
+		constraints.remove(constraint);
+	}
+
+	/**
+	 * Removes all constraints, which are contained by a specific collection.
+	 * 
+	 * @param constraints
+	 *            A collection, which contains the constraints, which should be
+	 *            removed, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no constraints should be removed
+	 */
+	public final void removeAllConstraints(
+			final Collection<Constraint<CharSequence>> constraints) {
+		ensureNotNull(constraints, "The collection may not be null");
+
+		for (Constraint<CharSequence> constraint : constraints) {
+			removeConstraint(constraint);
+		}
+	}
+
+	/**
+	 * Removes all constraints, which are contained by a specific array.
+	 * 
+	 * @param constraints
+	 *            An array, which contains the constraints, which should be
+	 *            removed, as an array of the type {@link Constraint}, or an
+	 *            empty array, if no constraints should be removed
+	 */
+	@SafeVarargs
+	public final void removeAllConstraints(
+			final Constraint<CharSequence>... constraints) {
+		ensureNotNull(constraints, "The array may not be null");
+		removeAllConstraints(Arrays.asList(constraints));
+	}
+
+	/**
+	 * Adds a new helper text, which should be shown, depending on the password
+	 * safety. Helper texts, which have been added later than others, are
+	 * supposed to indicate a higher password safety.
+	 * 
+	 * @param helperText
+	 *            The helper text, which should be added, as an instance of the
+	 *            type {@link CharSequence}. The helper text may neither be
+	 *            null, nor empty
+	 */
+	public final void addHelperText(final CharSequence helperText) {
+		ensureNotNull(helperText, "The helper text may not be null");
+		ensureNotEmpty(helperText, "The helper text may not be empty");
+		helperTexts.add(helperText);
+	}
+
+	/**
+	 * Adds all helper texts, which are contained by a specific collection. The
+	 * helper texts are added in the given order.
+	 * 
+	 * @param helperTexts
+	 *            A collection, which contains the helper texts, which should be
+	 *            added, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no helper texts should be added
+	 */
+	public final void addAllHelperTexts(
+			final Collection<CharSequence> helperTexts) {
+		ensureNotNull(helperTexts, "The collection may not be null");
+
+		for (CharSequence helperText : helperTexts) {
+			addHelperText(helperText);
+		}
+	}
+
+	/**
+	 * Adds all helper texts, which are contained by a specific array. The
+	 * helper texts are added in the given order.
+	 * 
+	 * @param helperTexts
+	 *            An array, which contains the helper texts, which should be
+	 *            added, as an array of the type {@link CharSequence}, or an
+	 *            empty array, if no helper texts should be added
+	 */
+	public final void addAllHelperTexts(final CharSequence... helperTexts) {
+		ensureNotNull(helperTexts, "The array may not be null");
+		addAllHelperTexts(Arrays.asList(helperTexts));
+	}
+
+	/**
+	 * Removes a specific helper text, which should not be shown, depending on
+	 * the password safety, anymore.
+	 * 
+	 * @param helperText
+	 *            The helper text, which should be removed, as an instance of
+	 *            the type {@link CharSequence}. The helper text may neither be
+	 *            null, nor empty
+	 */
+	public final void removeHelperText(final CharSequence helperText) {
+		ensureNotNull(helperText, "The helper text may not be null");
+		ensureNotEmpty(helperText, "The helper text may not be empty");
+		helperTexts.remove(helperText);
+	}
+
+	/**
+	 * Removes all helper texts, which are contained by a specific collection.
+	 * 
+	 * @param helperTexts
+	 *            A collection, which contains the helper texts, which should be
+	 *            removed, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no helper texts should be removed
+	 */
+	public final void removeAllHelperTexts(
+			final Collection<CharSequence> helperTexts) {
+		ensureNotNull(helperTexts, "The collection may not be null");
+
+		for (CharSequence helperText : helperTexts) {
+			removeHelperText(helperText);
+		}
+	}
+
+	/**
+	 * Removes all helper texts, which are contained by a specific array.
+	 * 
+	 * @param helperTexts
+	 *            An array, which contains the helper texts, which should be
+	 *            removed, as an array of the type {@link CharSequence}, or an
+	 *            empty array, if no helper texts should be removed
+	 */
+	public final void removeAllHelperTexts(final CharSequence... helperTexts) {
+		ensureNotNull(helperTexts, "The array may not be null");
+		removeAllHelperTexts(Arrays.asList(helperTexts));
+	}
+
+	/**
+	 * Adds a new helper text color, which should be used to highlight the
+	 * helper text, which indicates the password safety.
+	 * 
+	 * @param color
+	 *            The color, which should be added, as an {@link Integer} value
+	 */
+	public final void addHelperTextColor(final int color) {
+		helperTextColors.add(color);
+	}
+
+	/**
+	 * Adds all helper text colors, which are contained by a specific
+	 * collection.
+	 * 
+	 * @param colors
+	 *            A collection, which contains the colors, which should be
+	 *            added, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no colors should be added
+	 */
+	public final void addAllHelperTextColors(final Collection<Integer> colors) {
+		ensureNotNull(colors, "The collection may not be null");
+		helperTextColors.addAll(colors);
+	}
+
+	/**
+	 * Adds all helper text colors, which are contained by a specific array.
+	 * 
+	 * @param colors
+	 *            An array, which contains the helper text colors, which should
+	 *            be added, as an {@link Integer} array or an empty array, if no
+	 *            colors should be added
+	 */
+	public final void addAllHelperTextColors(final int... colors) {
+		ensureNotNull(colors, "The array may not be null");
+
+		for (int color : colors) {
+			addHelperTextColor(color);
+		}
+	}
+
+	/**
+	 * Removes a specific helper text color, which should not be used to
+	 * highlight the helper text, which indicates the password safety, anymore.
+	 * 
+	 * @param color
+	 *            The color, which should be removed, as an {@link Integer}
+	 *            value
+	 */
+	public final void removeHelperTextColor(final int color) {
+		helperTextColors.remove(color);
+	}
+
+	/**
+	 * Removes all helper text colors, which are contained by a specific
+	 * collection.
+	 * 
+	 * @param colors
+	 *            A collection, which contains the colors, which should be
+	 *            removed, as an instance of the type {@link Collection} or an
+	 *            empty collection, if no colors should be removed
+	 */
+	public final void removeAllHelperTextColors(final Collection<Integer> colors) {
+		ensureNotNull(colors, "The collection may not be null");
+	}
+
+	/**
+	 * Removes all helper text colors, which are contained by a specific array.
+	 * 
+	 * @param colors
+	 *            An array, which contains the colors, which should be removed,
+	 *            as an {@link Integer} array or an empty array, if no colors
+	 *            should be removed
+	 */
+	public final void removeAllHelperTextColors(final int... colors) {
+		ensureNotNull(colors, "The array may not be null");
+
+		for (int color : colors) {
+			removeHelperTextColor(color);
+		}
 	}
 
 }

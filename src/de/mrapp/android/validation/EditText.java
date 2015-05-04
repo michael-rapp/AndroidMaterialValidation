@@ -508,7 +508,7 @@ public class EditText extends
 	private int getAccentColor() {
 		TypedValue typedValue = new TypedValue();
 		TypedArray typedArray = getContext().obtainStyledAttributes(
-				typedValue.data, new int[] { R.attr.colorAccent });
+				typedValue.data, new int[] { android.R.attr.colorAccent });
 		int color = typedArray.getColor(0, 0);
 		typedArray.recycle();
 		return color;

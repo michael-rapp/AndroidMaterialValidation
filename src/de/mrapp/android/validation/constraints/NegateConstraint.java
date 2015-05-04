@@ -89,8 +89,8 @@ public class NegateConstraint<Type> implements Constraint<Type> {
 	}
 
 	@Override
-	public final boolean isSatified(final Type value) {
-		return !getConstraint().isSatified(value);
+	public final boolean isSatisfied(final Type value) {
+		return !getConstraint().isSatisfied(value);
 	}
 
 }

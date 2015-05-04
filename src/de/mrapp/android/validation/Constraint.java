@@ -39,6 +39,6 @@ public interface Constraint<Type> {
 	 * @return True, if the given value satisfies the constraint, false
 	 *         otherwise
 	 */
-	boolean isSatified(Type value);
+	boolean isSatisfied(Type value);
 
 }

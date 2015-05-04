@@ -97,9 +97,9 @@ public class ConjunctiveConstraint<Type> implements Constraint<Type> {
 	}
 
 	@Override
-	public final boolean isSatified(final Type value) {
+	public final boolean isSatisfied(final Type value) {
 		for (Constraint<Type> constraint : constraints) {
-			if (!constraint.isSatified(value)) {
+			if (!constraint.isSatisfied(value)) {
 				return false;
 			}
 		}

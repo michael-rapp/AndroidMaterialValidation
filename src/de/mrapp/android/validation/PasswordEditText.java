@@ -387,6 +387,20 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Adds a new helper text, which should be shown, depending on the password
+	 * safety. Helper texts, which have been added later than others, are
+	 * supposed to indicate a higher password safety.
+	 * 
+	 * @param resourceId
+	 *            The resource ID of the helper text, which should be added, as
+	 *            an {@link Integer} value. The resource ID must correspond to a
+	 *            valid string resource
+	 */
+	public final void addHelperTextId(final int resourceId) {
+		addHelperText(getResources().getText(resourceId));
+	}
+
+	/**
 	 * Adds all helper texts, which are contained by a specific collection. The
 	 * helper texts are added in the given order.
 	 * 
@@ -405,6 +419,24 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Adds all helper texts, which are contained by a specific collection. The
+	 * helper texts are added in the given order.
+	 * 
+	 * @param resourceIds
+	 *            A collection, which contains the resource IDs of the helper
+	 *            texts, which should be added, as an instance of the type
+	 *            {@link Collection} or an empty collection, if no helper texts
+	 *            should be added
+	 */
+	public final void addAllHelperTextIds(final Collection<Integer> resourceIds) {
+		ensureNotNull(resourceIds, "The collection may not be null");
+
+		for (int resourceId : resourceIds) {
+			addHelperTextId(resourceId);
+		}
+	}
+
+	/**
 	 * Adds all helper texts, which are contained by a specific array. The
 	 * helper texts are added in the given order.
 	 * 
@@ -416,6 +448,24 @@ public class PasswordEditText extends EditText {
 	public final void addAllHelperTexts(final CharSequence... helperTexts) {
 		ensureNotNull(helperTexts, "The array may not be null");
 		addAllHelperTexts(Arrays.asList(helperTexts));
+	}
+
+	/**
+	 * Adds all helper texts, which are contained by a specific array. The
+	 * helper texts are added in the given order.
+	 * 
+	 * @param resourceIds
+	 *            An array, which contains the resource IDs of the helper texts,
+	 *            which should be added, as an array of the type
+	 *            {@link CharSequence}, or an empty array, if no helper texts
+	 *            should be added
+	 */
+	public final void addAllHelperTextIds(final int... resourceIds) {
+		ensureNotNull(resourceIds, "The array may not be null");
+
+		for (int resourceId : resourceIds) {
+			addHelperTextId(resourceId);
+		}
 	}
 
 	/**
@@ -432,6 +482,19 @@ public class PasswordEditText extends EditText {
 		ensureNotEmpty(helperText, "The helper text may not be empty");
 		helperTexts.remove(helperText);
 		verifyPasswordSafety();
+	}
+
+	/**
+	 * Removes a specific helper text, which should not be shown, depending on
+	 * the password safety, anymore.
+	 * 
+	 * @param resourceId
+	 *            The resource ID of the helper text, which should be removed,
+	 *            as an {@link Integer} value. The resource ID must correspond
+	 *            to a valid string resource
+	 */
+	public final void removeHelperTextId(final int resourceId) {
+		removeHelperText(getResources().getText(resourceId));
 	}
 
 	/**
@@ -452,6 +515,24 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Removes all helper texts, which are contained by a specific collection.
+	 * 
+	 * @param resourceIds
+	 *            A collection, which contains the resource IDs of the helper
+	 *            texts, which should be removed, as an instance of the type
+	 *            {@link Collection} or an empty collection, if no helper texts
+	 *            should be removed
+	 */
+	public final void removeAllHelperTextIds(
+			final Collection<Integer> resourceIds) {
+		ensureNotNull(resourceIds, "The collection may not be null");
+
+		for (int resourceId : resourceIds) {
+			removeHelperTextId(resourceId);
+		}
+	}
+
+	/**
 	 * Removes all helper texts, which are contained by a specific array.
 	 * 
 	 * @param helperTexts
@@ -465,6 +546,23 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Removes all helper texts, which are contained by a specific array.
+	 * 
+	 * @param resourceIds
+	 *            An array, which contains the resource IDs of the helper texts,
+	 *            which should be removed, as an array of the type
+	 *            {@link CharSequence}, or an empty array, if no helper texts
+	 *            should be removed
+	 */
+	public final void removeAllHelperTextIds(final int... resourceIds) {
+		ensureNotNull(resourceIds, "The array may not be null");
+
+		for (int resourceId : resourceIds) {
+			removeHelperTextId(resourceId);
+		}
+	}
+
+	/**
 	 * Adds a new helper text color, which should be used to highlight the
 	 * helper text, which indicates the password safety.
 	 * 
@@ -474,6 +572,19 @@ public class PasswordEditText extends EditText {
 	public final void addHelperTextColor(final int color) {
 		helperTextColors.add(color);
 		verifyPasswordSafety();
+	}
+
+	/**
+	 * Adds a new helper text color, which should be used to highlight the
+	 * helper text, which indicates the password safety.
+	 * 
+	 * @param resourceId
+	 *            The resource ID of the color, which should be added, as an
+	 *            {@link Integer} value. The resource ID must correspond to a
+	 *            valid color resource
+	 */
+	public final void addHelperTextColorId(final int resourceId) {
+		addHelperTextColor(getResources().getColor(resourceId));
 	}
 
 	/**
@@ -494,6 +605,25 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Adds all helper text colors, which are contained by a specific
+	 * collection.
+	 * 
+	 * @param resourceIds
+	 *            A collection, which contains the resource IDs of the colors,
+	 *            which should be added, as an instance of the type
+	 *            {@link Collection} or an empty collection, if no colors should
+	 *            be added
+	 */
+	public final void addAllHelperTextColorIds(
+			final Collection<Integer> resourceIds) {
+		ensureNotNull(resourceIds, "The collection may not be null");
+
+		for (int resourceId : resourceIds) {
+			addHelperTextColorId(resourceId);
+		}
+	}
+
+	/**
 	 * Adds all helper text colors, which are contained by a specific array.
 	 * 
 	 * @param colors
@@ -510,6 +640,22 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Adds all helper text colors, which are contained by a specific array.
+	 * 
+	 * @param resourceIds
+	 *            An array, which contains the resource IDs of the helper text
+	 *            colors, which should be added, as an {@link Integer} array or
+	 *            an empty array, if no colors should be added
+	 */
+	public final void addAllHelperTextColorIds(final int... resourceIds) {
+		ensureNotNull(resourceIds, "The array may not be null");
+
+		for (int resourceId : resourceIds) {
+			addHelperTextColorId(resourceId);
+		}
+	}
+
+	/**
 	 * Removes a specific helper text color, which should not be used to
 	 * highlight the helper text, which indicates the password safety, anymore.
 	 * 
@@ -520,6 +666,19 @@ public class PasswordEditText extends EditText {
 	public final void removeHelperTextColor(final int color) {
 		helperTextColors.remove(color);
 		verifyPasswordSafety();
+	}
+
+	/**
+	 * Removes a specific helper text color, which should not be used to
+	 * highlight the helper text, which indicates the password safety, anymore.
+	 * 
+	 * @param resourceId
+	 *            The resource ID of the color, which should be removed, as an
+	 *            {@link Integer} value. The resource ID must correspond to a
+	 *            valid color resource
+	 */
+	public final void removeHelperTextColorId(final int resourceId) {
+		removeHelperTextColor(getResources().getColor(resourceId));
 	}
 
 	/**
@@ -540,6 +699,25 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Removes all helper text colors, which are contained by a specific
+	 * collection.
+	 * 
+	 * @param resourceIds
+	 *            A collection, which contains the resource IDs of the colors,
+	 *            which should be removed, as an instance of the type
+	 *            {@link Collection} or an empty collection, if no colors should
+	 *            be removed
+	 */
+	public final void removeAllHelperTextColorIds(
+			final Collection<Integer> resourceIds) {
+		ensureNotNull(resourceIds, "The collection may not be null");
+
+		for (int resourceId : resourceIds) {
+			removeHelperTextColorId(resourceId);
+		}
+	}
+
+	/**
 	 * Removes all helper text colors, which are contained by a specific array.
 	 * 
 	 * @param colors
@@ -552,6 +730,22 @@ public class PasswordEditText extends EditText {
 
 		for (int color : colors) {
 			removeHelperTextColor(color);
+		}
+	}
+
+	/**
+	 * Removes all helper text colors, which are contained by a specific array.
+	 * 
+	 * @param resourceIds
+	 *            An array, which contains the resourceIDs of the colors, which
+	 *            should be removed, as an {@link Integer} array or an empty
+	 *            array, if no colors should be removed
+	 */
+	public final void removeAllHelperTextColorIds(final int... resourceIds) {
+		ensureNotNull(resourceIds, "The array may not be null");
+
+		for (int resourceId : resourceIds) {
+			removeHelperTextColorId(resourceId);
 		}
 	}
 

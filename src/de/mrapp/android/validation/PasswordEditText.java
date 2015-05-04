@@ -32,6 +32,7 @@ import android.os.Build;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
@@ -176,7 +177,7 @@ public class PasswordEditText extends EditText {
 	 * accordingly.
 	 */
 	private void verifyPasswordSafety() {
-		if (!constraints.isEmpty()) {
+		if (!constraints.isEmpty() && !TextUtils.isEmpty(getText())) {
 			float score = getPasswordSafety();
 			adaptHelperText(score);
 		} else {

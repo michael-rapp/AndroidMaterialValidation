@@ -31,6 +31,7 @@ import de.mrapp.android.validation.validators.text.CharacterOrNumberValidator;
 import de.mrapp.android.validation.validators.text.CharacterValidator;
 import de.mrapp.android.validation.validators.text.MaxLengthValidator;
 import de.mrapp.android.validation.validators.text.MinLengthValidator;
+import de.mrapp.android.validation.validators.text.NoWhitespaceValidator;
 import de.mrapp.android.validation.validators.text.NotEmptyValidator;
 import de.mrapp.android.validation.validators.text.NumberValidator;
 import de.mrapp.android.validation.validators.text.RegexValidator;
@@ -378,6 +379,43 @@ public final class Validators {
 	public static Validator<CharSequence> maxLength(final Context context,
 			final int resourceId, final int maxLength) {
 		return new MaxLengthValidator(context, resourceId, maxLength);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they contain no whitespace.
+	 * 
+	 * @param errorMessage
+	 *            The error message, which should be shown, if the validation
+	 *            fails, as an instance of the type {@link CharSequence}. The
+	 *            error message may not be null
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> noWhitespace(
+			final CharSequence errorMessage) {
+		return new NoWhitespaceValidator(errorMessage);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they contain no whitespace.
+	 * 
+	 * @param context
+	 *            The context, which should be used to retrieve the error
+	 *            message, as an instance of the class {@link Context}. The
+	 *            context may not be null
+	 * @param resourceId
+	 *            The resource ID of the string resource, which contains the
+	 *            error message, which should be set, as an {@link Integer}
+	 *            value. The resource ID must correspond to a valid string
+	 *            resource
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> noWhitespace(final Context context,
+			final int resourceId) {
+		return new NoWhitespaceValidator(context, resourceId);
 	}
 
 	/**

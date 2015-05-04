@@ -128,8 +128,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to combine multiple
-	 * validators in a conjunctive manner. Only if all single validators
-	 * succeed, the resulting validator will also succeed.
+	 * validators in a conjunctive manner. If all single validators succeed, the
+	 * resulting validator will also succeed.
 	 * 
 	 * 
 	 * @param <Type>
@@ -214,7 +214,7 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they match certain regular expressions.
+	 * ensure, that they match a certain regular expression.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation

@@ -164,15 +164,20 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	private TextView rightMessage;
 
 	/**
-	 * The default color of a text view.
-	 */
-	private int defaultColor;
-
-	/**
 	 * The helper text, which is shown, when no validation errors are currently
 	 * shown at the left edge of the view.
 	 */
 	private CharSequence helperText;
+
+	/**
+	 * The color, which is used to indicate validation errors.
+	 */
+	private int errorColor;
+
+	/**
+	 * The color of the helper text.
+	 */
+	private int helperTextColor;
 
 	/**
 	 * A set, which contains the validators, which should be used for
@@ -228,6 +233,8 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 				attributeSet, R.styleable.AbstractValidateableView);
 		try {
 			obtainHelperText(typedArray);
+			obtainHelperTextColor(typedArray);
+			obtainErrorColor(typedArray);
 			obtainValidateOnValueChange(typedArray);
 			obtainValidateOnFocusLost(typedArray);
 		} finally {
@@ -245,6 +252,33 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	private void obtainHelperText(final TypedArray typedArray) {
 		setHelperText(typedArray
 				.getString(R.styleable.AbstractValidateableView_helperText));
+	}
+
+	/**
+	 * Obtains the color of the helper text from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the color of the helper text should be
+	 *            obtained from, as an instance of the class {@link TypedArray}
+	 */
+	private void obtainHelperTextColor(final TypedArray typedArray) {
+		setHelperTextColor(typedArray.getColor(
+				R.styleable.AbstractValidateableView_helperTextColor,
+				leftMessage.getTextColors().getDefaultColor()));
+	}
+
+	/**
+	 * Obtains the color, which is used to indicate validation errors, from a
+	 * specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the error color should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainErrorColor(final TypedArray typedArray) {
+		setErrorColor(typedArray.getColor(
+				R.styleable.AbstractValidateableView_errorColor, getResources()
+						.getColor(R.color.error_message_color)));
 	}
 
 	/**
@@ -294,9 +328,9 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		View parent = View.inflate(getContext(), R.layout.error_messages, null);
 		addView(parent, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		leftMessage = (TextView) parent.findViewById(R.id.left_error_message);
+		leftMessage.setTag(false);
 		rightMessage = (TextView) parent.findViewById(R.id.right_error_message);
-		defaultColor = leftMessage.getTextColors().getDefaultColor();
-
+		rightMessage.setTag(false);
 	}
 
 	/**
@@ -445,12 +479,14 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 			leftMessage.setText(message);
 			leftMessage.setCompoundDrawablesWithIntrinsicBounds(icon, null,
 					null, null);
-			leftMessage.setTextColor(error ? getResources().getColor(
-					R.color.error_message_color) : defaultColor);
+			leftMessage.setTextColor(error ? getErrorColor()
+					: getHelperTextColor());
+			leftMessage.setTag(error);
 			leftMessage.setVisibility(View.VISIBLE);
 		} else if (getHelperText() != null) {
 			setLeftMessage(getHelperText(), null, false);
 		} else {
+			leftMessage.setTag(false);
 			leftMessage.setVisibility(View.GONE);
 		}
 	}
@@ -482,9 +518,11 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		if (message != null) {
 			rightMessage.setVisibility(View.VISIBLE);
 			rightMessage.setText(message);
-			rightMessage.setTextColor(error ? getResources().getColor(
-					R.color.error_message_color) : defaultColor);
+			rightMessage.setTextColor(error ? getErrorColor()
+					: getHelperTextColor());
+			rightMessage.setTag(error);
 		} else {
+			rightMessage.setTag(false);
 			rightMessage.setVisibility(View.GONE);
 		}
 	}
@@ -720,6 +758,61 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	/**
+	 * Returns the color, which is used to indicate validation errors.
+	 * 
+	 * @return The color, which is used to indicate validation errors, as an
+	 *         {@link Integer} value
+	 */
+	public final int getErrorColor() {
+		return errorColor;
+	}
+
+	/**
+	 * Sets the color, which should be used to indicate validation errors.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	public final void setErrorColor(final int color) {
+		this.errorColor = color;
+
+		if ((Boolean) leftMessage.getTag()) {
+			leftMessage.setTextColor(color);
+		}
+
+		if ((Boolean) rightMessage.getTag()) {
+			rightMessage.setTextColor(color);
+		}
+	}
+
+	/**
+	 * Returns the color of the helper text.
+	 * 
+	 * @return The color of the helper text as an {@link Integer} value
+	 */
+	public final int getHelperTextColor() {
+		return helperTextColor;
+	}
+
+	/**
+	 * Sets the color of the helper text.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	public final void setHelperTextColor(final int color) {
+		this.helperTextColor = color;
+
+		if (!(Boolean) leftMessage.getTag()) {
+			leftMessage.setTextColor(color);
+		}
+
+		if (!(Boolean) rightMessage.getTag()) {
+			rightMessage.setTextColor(color);
+		}
+	}
+
+	/**
 	 * Returns the error message, which has been previously set to be displayed.
 	 * 
 	 * @return The error message, which has been previously set to be displayed,
@@ -729,8 +822,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 */
 	public final CharSequence getError() {
 		if (leftMessage.getVisibility() == View.VISIBLE
-				&& leftMessage.getCurrentTextColor() == getResources()
-						.getColor(R.color.error_message_color)) {
+				&& (Boolean) leftMessage.getTag()) {
 			return leftMessage.getText();
 		}
 

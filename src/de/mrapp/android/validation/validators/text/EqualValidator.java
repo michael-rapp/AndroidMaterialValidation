@@ -105,7 +105,7 @@ public class EqualValidator extends AbstractValidator<CharSequence> {
 
 	@Override
 	public final boolean validate(final CharSequence value) {
-		return getEditText().getText().equals(value);
+		return value.equals(getEditText().getText());
 	}
 
 }

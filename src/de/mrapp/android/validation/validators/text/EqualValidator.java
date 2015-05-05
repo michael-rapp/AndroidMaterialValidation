@@ -18,6 +18,7 @@
 package de.mrapp.android.validation.validators.text;
 
 import android.content.Context;
+import android.text.TextUtils;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.validators.AbstractValidator;
 import static de.mrapp.android.validation.util.Condition.ensureNotNull;
@@ -107,7 +108,7 @@ public class EqualValidator extends AbstractValidator<CharSequence> {
 
 	@Override
 	public final boolean validate(final CharSequence value) {
-		return value.equals(getEditText().getText().toString());
+		return TextUtils.equals(value, getEditText().getText());
 	}
 
 }

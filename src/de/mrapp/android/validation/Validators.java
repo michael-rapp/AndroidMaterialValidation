@@ -29,6 +29,7 @@ import de.mrapp.android.validation.validators.misc.IPv6AddressValidator;
 import de.mrapp.android.validation.validators.text.Case;
 import de.mrapp.android.validation.validators.text.CharacterOrNumberValidator;
 import de.mrapp.android.validation.validators.text.CharacterValidator;
+import de.mrapp.android.validation.validators.text.EqualValidator;
 import de.mrapp.android.validation.validators.text.MaxLengthValidator;
 import de.mrapp.android.validation.validators.text.MinLengthValidator;
 import de.mrapp.android.validation.validators.text.NoWhitespaceValidator;
@@ -575,6 +576,53 @@ public final class Validators {
 			final char... allowedChars) {
 		return new CharacterOrNumberValidator(context, resourceId,
 				caseSensitivity, allowSpaces, allowedChars);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they are equal to the text, which is contained by an
+	 * {@link EditText} widget.
+	 * 
+	 * @param errorMessage
+	 *            The error message, which should be shown, if the validation
+	 *            fails, as an instance of the type {@link CharSequence}. The
+	 *            error message may not be null
+	 * @param editText
+	 *            The edit text widget, which contains the content, the texts
+	 *            should be equal to, as an instance of the class
+	 *            {@link EditText}. The widget may not be null
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> equal(
+			final CharSequence errorMessage, final EditText editText) {
+		return new EqualValidator(errorMessage, editText);
+	}
+
+	/**
+	 * Creates and returns a validator, which allows to validate texts to
+	 * ensure, that they are equal to the text, which is contained by an
+	 * {@link EditText} widget.
+	 * 
+	 * @param context
+	 *            The context, which should be used to retrieve the error
+	 *            message, as an instance of the class {@link Context}. The
+	 *            context may not be null
+	 * @param resourceId
+	 *            The resource ID of the string resource, which contains the
+	 *            error message, which should be set, as an {@link Integer}
+	 *            value. The resource ID must correspond to a valid string
+	 *            resource
+	 * @param editText
+	 *            The edit text widget, which contains the content, the texts
+	 *            should be equal to, as an instance of the class
+	 *            {@link EditText}. The widget may not be null
+	 * @return The validator, which has been created, as an instance of the type
+	 *         {@link Validator}
+	 */
+	public static Validator<CharSequence> equal(final Context context,
+			final int resourceId, final EditText editText) {
+		return new EqualValidator(context, resourceId, editText);
 	}
 
 	/**

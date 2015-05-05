@@ -53,6 +53,7 @@ public class EqualValidator extends AbstractValidator<CharSequence> {
 	public EqualValidator(final CharSequence errorMessage,
 			final EditText editText) {
 		super(errorMessage);
+		setEditText(editText);
 	}
 
 	/**
@@ -77,6 +78,7 @@ public class EqualValidator extends AbstractValidator<CharSequence> {
 	public EqualValidator(final Context context, final int resourceId,
 			final EditText editText) {
 		super(context, resourceId);
+		setEditText(editText);
 	}
 
 	/**

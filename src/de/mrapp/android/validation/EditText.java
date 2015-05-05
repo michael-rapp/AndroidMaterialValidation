@@ -31,7 +31,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -54,7 +53,6 @@ import android.text.method.MovementMethod;
 import android.text.method.TransformationMethod;
 import android.text.style.URLSpan;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
@@ -506,14 +504,10 @@ public class EditText extends
 	 * @return The color of the theme attribute
 	 *         <code>android.R.attr.colorAccent</code>
 	 */
-	@SuppressLint("InlinedApi")
 	private int getAccentColor() {
-		TypedValue typedValue = new TypedValue();
-		TypedArray typedArray = getContext().obtainStyledAttributes(
-				typedValue.data, new int[] { android.R.attr.colorAccent });
-		int color = typedArray.getColor(0, Color.BLACK);
-		typedArray.recycle();
-		return color;
+		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
+				new int[] { R.attr.colorAccent });
+		return typedArray.getColor(0, 0);
 	}
 
 	/**

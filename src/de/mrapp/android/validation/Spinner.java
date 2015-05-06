@@ -26,6 +26,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -53,6 +54,11 @@ public class Spinner extends
 	 * The color of the hint, which is displayed, when no item is selected.
 	 */
 	private ColorStateList hintColor;
+
+	/**
+	 * The listener, which should be notified, when an item has been selected.
+	 */
+	private OnItemSelectedListener itemSelectedListener;
 
 	/**
 	 * Initializes the view.
@@ -165,6 +171,43 @@ public class Spinner extends
 		}
 	}
 
+	/**
+	 * Creates and returns a listener, which allows to validate the value of the
+	 * view, when the selected item has been changed.
+	 * 
+	 * @return The listener, which has been created, as an instance of the type
+	 *         {@link OnItemSelectedListener}
+	 */
+	private OnItemSelectedListener createItemSelectedListener() {
+		return new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(final AdapterView<?> parent,
+					final View view, final int position, final long id) {
+				if (getOnItemSelectedListener() != null) {
+					getOnItemSelectedListener().onItemSelected(parent, view,
+							position, id);
+				}
+
+				if (isValidatedOnValueChange()) {
+					validate();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(final AdapterView<?> parent) {
+				if (getOnItemSelectedListener() != null) {
+					getOnItemSelectedListener().onNothingSelected(parent);
+				}
+
+				if (isValidatedOnValueChange()) {
+					validate();
+				}
+			}
+
+		};
+	}
+
 	@Override
 	protected final void onValidate(final boolean valid) {
 		if (valid) {
@@ -181,6 +224,7 @@ public class Spinner extends
 		android.widget.Spinner spinner = new android.widget.Spinner(
 				getContext());
 		spinner.setBackgroundResource(R.drawable.edit_text);
+		spinner.setOnItemSelectedListener(createItemSelectedListener());
 		return spinner;
 	}
 
@@ -668,11 +712,11 @@ public class Spinner extends
 	 */
 	public final void setOnItemSelectedListener(
 			final OnItemSelectedListener listener) {
-		getView().setOnItemSelectedListener(listener);
+		this.itemSelectedListener = listener;
 	}
 
 	public final OnItemSelectedListener getOnItemSelectedListener() {
-		return getView().getOnItemSelectedListener();
+		return itemSelectedListener;
 	}
 
 	/**

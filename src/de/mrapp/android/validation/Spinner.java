@@ -26,6 +26,9 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,6 +49,94 @@ import android.widget.SpinnerAdapter;
  */
 public class Spinner extends
 		AbstractValidateableView<android.widget.Spinner, Object> {
+
+	/**
+	 * A data structure, which allows to save the internal state of a
+	 * {@link Spinner}.
+	 */
+	public static class SavedState extends BaseSavedState {
+
+		/**
+		 * A creator, which allows to create instances of the class
+		 * {@link EditText} from parcels.
+		 */
+		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+
+			@Override
+			public SavedState createFromParcel(final Parcel in) {
+				return new SavedState(in);
+			}
+
+			@Override
+			public SavedState[] newArray(final int size) {
+				return new SavedState[size];
+			}
+
+		};
+
+		/**
+		 * The internal state of the spinner.
+		 */
+		public Parcelable viewState;
+
+		/**
+		 * The hint, which is displayed, when no item is selected.
+		 */
+		public CharSequence hint;
+
+		/**
+		 * The color of the hint, which is displayed, when no item is selected.
+		 */
+		public ColorStateList hintColor;
+
+		/**
+		 * The position of the currently selected item.
+		 */
+		public int selectedItemPosition;
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of a {@link Spinner}. This constructor is used when reading
+		 * from a parcel. It reads the state of the superclass.
+		 * 
+		 * @param source
+		 *            The parcel to read read from as a instance of the class
+		 *            {@link Parcel}
+		 */
+		private SavedState(final Parcel source) {
+			super(source);
+			viewState = source
+					.readParcelable(Parcelable.class.getClassLoader());
+			hint = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source);
+			hintColor = source.readParcelable(ColorStateList.class
+					.getClassLoader());
+			selectedItemPosition = source.readInt();
+		}
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of a {@link Spinner}. This constructor is called by derived
+		 * classes when saving their states.
+		 * 
+		 * @param superState
+		 *            The state of the superclass of this view, as an instance
+		 *            of the type {@link Parcelable}
+		 */
+		public SavedState(final Parcelable superState) {
+			super(superState);
+		}
+
+		@Override
+		public final void writeToParcel(final Parcel destination,
+				final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeParcelable(viewState, flags);
+			TextUtils.writeToParcel(hint, destination, flags);
+			destination.writeParcelable(hintColor, flags);
+			destination.writeInt(selectedItemPosition);
+		}
+
+	};
 
 	/**
 	 * The hint, which is displayed, when no item is selected.
@@ -886,5 +977,30 @@ public class Spinner extends
 	}
 
 	// CHECKSTYLE:ON
+
+	@Override
+	protected final Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(superState);
+		savedState.viewState = getView().onSaveInstanceState();
+		savedState.hint = getHint();
+		savedState.hintColor = getHintTextColors();
+		savedState.selectedItemPosition = getSelectedItemPosition();
+		return savedState;
+	}
+
+	@Override
+	protected final void onRestoreInstanceState(final Parcelable state) {
+		if (state != null && state instanceof SavedState) {
+			SavedState savedState = (SavedState) state;
+			getView().onRestoreInstanceState(savedState.viewState);
+			setHint(savedState.hint);
+			setHintTextColor(savedState.hintColor);
+			setSelection(savedState.selectedItemPosition);
+			super.onRestoreInstanceState(savedState.getSuperState());
+		} else {
+			super.onRestoreInstanceState(state);
+		}
+	}
 
 }

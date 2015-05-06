@@ -63,6 +63,7 @@ public class Spinner extends
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
+		setLineColor(getAccentColor());
 	}
 
 	/**
@@ -161,6 +162,17 @@ public class Spinner extends
 					setAdapter(adapter);
 				}
 			}
+		}
+	}
+
+	@Override
+	protected final void onValidate(final boolean valid) {
+		if (valid) {
+			setLineColor(getAccentColor());
+			getView().setActivated(false);
+		} else {
+			setLineColor(getErrorColor());
+			getView().setActivated(true);
 		}
 	}
 
@@ -330,6 +342,16 @@ public class Spinner extends
 		if (getAdapter() != null) {
 			ProxySpinnerAdapter proxyAdapter = (ProxySpinnerAdapter) getAdapter();
 			setAdapter(proxyAdapter.getAdapter());
+		}
+	}
+
+	@Override
+	public final void setError(final CharSequence error, final Drawable icon) {
+		super.setError(error, icon);
+
+		if (error == null) {
+			setLineColor(getAccentColor());
+			getView().setActivated(false);
 		}
 	}
 

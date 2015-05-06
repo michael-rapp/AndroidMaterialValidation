@@ -70,6 +70,7 @@ public class Spinner extends
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
 		setLineColor(getAccentColor());
+		getView().setOnItemSelectedListener(createItemSelectedListener());
 	}
 
 	/**
@@ -181,6 +182,8 @@ public class Spinner extends
 	private OnItemSelectedListener createItemSelectedListener() {
 		return new OnItemSelectedListener() {
 
+			private boolean initialized = false;
+
 			@Override
 			public void onItemSelected(final AdapterView<?> parent,
 					final View view, final int position, final long id) {
@@ -189,9 +192,11 @@ public class Spinner extends
 							position, id);
 				}
 
-				if (isValidatedOnValueChange()) {
+				if (isValidatedOnValueChange() && initialized) {
 					validate();
 				}
+
+				initialized = true;
 			}
 
 			@Override
@@ -200,9 +205,11 @@ public class Spinner extends
 					getOnItemSelectedListener().onNothingSelected(parent);
 				}
 
-				if (isValidatedOnValueChange()) {
+				if (isValidatedOnValueChange() && initialized) {
 					validate();
 				}
+
+				initialized = true;
 			}
 
 		};
@@ -224,7 +231,6 @@ public class Spinner extends
 		android.widget.Spinner spinner = new android.widget.Spinner(
 				getContext());
 		spinner.setBackgroundResource(R.drawable.edit_text);
-		spinner.setOnItemSelectedListener(createItemSelectedListener());
 		return spinner;
 	}
 

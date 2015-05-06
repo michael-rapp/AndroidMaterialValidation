@@ -64,8 +64,8 @@ public class BeginsWithUppercaseLetterValidator extends
 
 	@Override
 	public final boolean validate(final CharSequence value) {
-		return TextUtils.isEmpty(value) ? null : Character.isUpperCase(value
+		return TextUtils.isEmpty(value) ? false : Character.isUpperCase(value
 				.charAt(0));
 	}
 
-} 
+}

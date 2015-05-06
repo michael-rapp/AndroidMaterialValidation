@@ -27,21 +27,21 @@ License along with this program.  If not, see
         <item android:state_enabled="false">
             <nine-patch
                 android:alpha="?android:attr/disabledAlpha"
-                android:src="@drawable/edit_text_default" />
+                android:src="@drawable/validateable_view_default" />
         </item>
         <item
             android:state_activated="false"
             android:state_focused="false"
             android:state_pressed="false">
-            <nine-patch android:src="@drawable/edit_text_default" />
+            <nine-patch android:src="@drawable/validateable_view_default" />
         </item>
         <item
             android:state_focused="false"
             android:state_pressed="false">
-            <nine-patch android:src="@drawable/edit_text_activated" />
+            <nine-patch android:src="@drawable/validateable_view_activated" />
         </item>
         <item>
-            <nine-patch android:src="@drawable/edit_text_activated" />
+            <nine-patch android:src="@drawable/validateable_view_activated" />
         </item>
     </selector>
 

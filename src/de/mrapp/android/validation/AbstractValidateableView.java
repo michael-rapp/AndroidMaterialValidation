@@ -447,17 +447,6 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 				new int[] { R.attr.colorAccent });
 		return typedArray.getColor(0, 0);
 	}
-	
-	/**
-	 * Sets the color of the view's line.
-	 * 
-	 * @param color
-	 *            The color, which should be set, as an {@link Integer} value
-	 */
-	protected final void setLineColor(final int color) {
-		getView().getBackground().setColorFilter(color,
-				PorterDuff.Mode.SRC_ATOP);
-	}
 
 	/**
 	 * Returns the view, whose value should be able to be validated.

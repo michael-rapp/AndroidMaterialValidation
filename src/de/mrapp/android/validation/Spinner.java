@@ -22,7 +22,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -173,6 +175,31 @@ public class Spinner extends
 	}
 
 	/**
+	 * Returns the color of the theme attribute
+	 * <code>android.R.attr.colorControlNormal</code>.
+	 * 
+	 * @return The color of the theme attribute
+	 *         <code>android.R.attr.colorControlNormal</code>
+	 */
+	private int getControlColor() {
+		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
+				new int[] { R.attr.colorControlNormal });
+		return typedArray.getColor(0, 0);
+	}
+
+	/**
+	 * Sets the color of the view's line.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	private void setLineColor(final int color) {
+		LayerDrawable layerDrawable = (LayerDrawable) getView().getBackground();
+		Drawable background = layerDrawable.getDrawable(0);
+		background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+	}
+
+	/**
 	 * Creates and returns a listener, which allows to validate the value of the
 	 * view, when the selected item has been changed.
 	 * 
@@ -229,11 +256,18 @@ public class Spinner extends
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected final android.widget.Spinner createView() {
 		android.widget.Spinner spinner = new android.widget.Spinner(
 				getContext());
-		spinner.setBackgroundResource(R.drawable.edit_text);
+		Drawable background = getResources().getDrawable(
+				R.drawable.validateable_view);
+		Drawable arrow = getResources().getDrawable(R.drawable.spinner_arrow);
+		arrow.setColorFilter(getControlColor(), PorterDuff.Mode.SRC_ATOP);
+		LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] {
+				background, arrow });
+		spinner.setBackgroundDrawable(layerDrawable);
 		return spinner;
 	}
 

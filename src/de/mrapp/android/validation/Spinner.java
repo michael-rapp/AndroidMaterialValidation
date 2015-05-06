@@ -277,7 +277,8 @@ public class Spinner extends
 		this.hint = hint;
 
 		if (getAdapter() != null) {
-			setAdapter(getAdapter());
+			ProxySpinnerAdapter proxyAdapter = (ProxySpinnerAdapter) getAdapter();
+			setAdapter(proxyAdapter.getAdapter());
 		}
 	}
 
@@ -312,7 +313,7 @@ public class Spinner extends
 	 *            The color, which should be set, as an {@link Integer} value
 	 */
 	public final void setHintTextColor(final int color) {
-		this.hintColor = ColorStateList.valueOf(color);
+		setHintTextColor(ColorStateList.valueOf(color));
 	}
 
 	/**
@@ -325,6 +326,11 @@ public class Spinner extends
 	 */
 	public final void setHintTextColor(final ColorStateList colors) {
 		this.hintColor = colors;
+
+		if (getAdapter() != null) {
+			ProxySpinnerAdapter proxyAdapter = (ProxySpinnerAdapter) getAdapter();
+			setAdapter(proxyAdapter.getAdapter());
+		}
 	}
 
 	// ------------- Methods of the class android.widget.Spinner -------------
@@ -520,13 +526,7 @@ public class Spinner extends
 	 * @return The adapter used to provide this view's content.
 	 */
 	public final SpinnerAdapter getAdapter() {
-		if (getView().getAdapter() != null) {
-			ProxySpinnerAdapter proxyAdapter = (ProxySpinnerAdapter) getView()
-					.getAdapter();
-			return proxyAdapter.getAdapter();
-		}
-
-		return null;
+		return getView().getAdapter();
 	}
 
 	/**

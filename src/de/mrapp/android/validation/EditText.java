@@ -108,7 +108,7 @@ public class EditText extends
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
-		 * state of a {@link EditText}. This constructor is used when reading
+		 * state of an {@link EditText}. This constructor is used when reading
 		 * from a parcel. It reads the state of the superclass.
 		 * 
 		 * @param source
@@ -124,7 +124,7 @@ public class EditText extends
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
-		 * state of a {@link EditText}. This constructor is called by derived
+		 * state of an {@link EditText}. This constructor is called by derived
 		 * classes when saving their states.
 		 * 
 		 * @param superState

@@ -31,7 +31,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -495,17 +494,6 @@ public class EditText extends
 			}
 
 		};
-	}
-
-	/**
-	 * Sets the color of the view's line.
-	 * 
-	 * @param color
-	 *            The color, which should be set, as an {@link Integer} value
-	 */
-	private void setLineColor(final int color) {
-		getView().getBackground().setColorFilter(color,
-				PorterDuff.Mode.SRC_ATOP);
 	}
 
 	/**

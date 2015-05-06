@@ -27,6 +27,7 @@ import java.util.Set;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -445,6 +446,17 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
 				new int[] { R.attr.colorAccent });
 		return typedArray.getColor(0, 0);
+	}
+	
+	/**
+	 * Sets the color of the view's line.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	protected final void setLineColor(final int color) {
+		getView().getBackground().setColorFilter(color,
+				PorterDuff.Mode.SRC_ATOP);
 	}
 
 	/**

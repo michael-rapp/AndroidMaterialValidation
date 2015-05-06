@@ -498,19 +498,6 @@ public class EditText extends
 	}
 
 	/**
-	 * Returns the color of the theme attribute
-	 * <code>android.R.attr.colorAccent</code>.
-	 * 
-	 * @return The color of the theme attribute
-	 *         <code>android.R.attr.colorAccent</code>
-	 */
-	private int getAccentColor() {
-		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
-				new int[] { R.attr.colorAccent });
-		return typedArray.getColor(0, 0);
-	}
-
-	/**
 	 * Sets the color of the view's line.
 	 * 
 	 * @param color

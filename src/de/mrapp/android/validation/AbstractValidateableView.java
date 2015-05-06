@@ -435,6 +435,19 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	/**
+	 * Returns the color of the theme attribute
+	 * <code>android.R.attr.colorAccent</code>.
+	 * 
+	 * @return The color of the theme attribute
+	 *         <code>android.R.attr.colorAccent</code>
+	 */
+	protected final int getAccentColor() {
+		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
+				new int[] { R.attr.colorAccent });
+		return typedArray.getColor(0, 0);
+	}
+
+	/**
 	 * Returns the view, whose value should be able to be validated.
 	 * 
 	 * @return The view, whose value should be able to be validated, as an

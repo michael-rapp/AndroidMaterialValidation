@@ -485,8 +485,6 @@ public class EditText extends
 	private TextWatcher createTextChangeListener() {
 		return new TextWatcher() {
 
-			private boolean initialized = false;
-
 			@Override
 			public final void beforeTextChanged(final CharSequence s,
 					final int start, final int count, final int after) {
@@ -501,12 +499,11 @@ public class EditText extends
 
 			@Override
 			public final void afterTextChanged(final Editable s) {
-				if (isValidatedOnValueChange() && initialized) {
+				if (isValidatedOnValueChange()) {
 					validate();
 				}
 
 				adaptMaxNumberOfCharactersMessage();
-				initialized = true;
 			}
 
 		};

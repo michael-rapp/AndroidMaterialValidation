@@ -208,6 +208,7 @@ public class EditText extends
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
 		setLineColor(getAccentColor());
+		getView().addTextChangedListener(createTextChangeListener());
 	}
 
 	/**
@@ -484,6 +485,8 @@ public class EditText extends
 	private TextWatcher createTextChangeListener() {
 		return new TextWatcher() {
 
+			private boolean initialized = false;
+
 			@Override
 			public final void beforeTextChanged(final CharSequence s,
 					final int start, final int count, final int after) {
@@ -498,11 +501,12 @@ public class EditText extends
 
 			@Override
 			public final void afterTextChanged(final Editable s) {
-				if (isValidatedOnValueChange()) {
+				if (isValidatedOnValueChange() && initialized) {
 					validate();
 				}
 
 				adaptMaxNumberOfCharactersMessage();
+				initialized = true;
 			}
 
 		};
@@ -577,7 +581,6 @@ public class EditText extends
 		android.widget.EditText editText = new android.widget.EditText(
 				getContext());
 		editText.setBackgroundResource(R.drawable.validateable_view);
-		editText.addTextChangedListener(createTextChangeListener());
 		return editText;
 	}
 

@@ -207,7 +207,7 @@ public class EditText extends
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setEditTextLineColor(getAccentColor());
+		setLineColor(getAccentColor());
 	}
 
 	/**
@@ -511,13 +511,12 @@ public class EditText extends
 	}
 
 	/**
-	 * Sets the color of the line of the edit text, which allows to enter a
-	 * text.
+	 * Sets the color of the view's line.
 	 * 
 	 * @param color
 	 *            The color, which should be set, as an {@link Integer} value
 	 */
-	private void setEditTextLineColor(final int color) {
+	private void setLineColor(final int color) {
 		getView().getBackground().setColorFilter(color,
 				PorterDuff.Mode.SRC_ATOP);
 	}
@@ -576,11 +575,10 @@ public class EditText extends
 	@Override
 	protected final void onValidate(final boolean valid) {
 		if (valid) {
-			setEditTextLineColor(getAccentColor());
+			setLineColor(getAccentColor());
 			getView().setActivated(false);
 		} else {
-			setEditTextLineColor(getResources().getColor(
-					R.color.default_error_color));
+			setLineColor(getResources().getColor(R.color.default_error_color));
 			getView().setActivated(true);
 		}
 
@@ -716,7 +714,7 @@ public class EditText extends
 		super.setError(error, icon);
 
 		if (error == null) {
-			setEditTextLineColor(getAccentColor());
+			setLineColor(getAccentColor());
 			getView().setActivated(false);
 		}
 	}

@@ -993,6 +993,7 @@ public class Spinner extends
 	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
+			validateOnValueChange(false);
 			getView().onRestoreInstanceState(savedState.viewState);
 			setHint(savedState.hint);
 			setHintTextColor(savedState.hintColor);

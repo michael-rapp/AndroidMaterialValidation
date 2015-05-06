@@ -2677,6 +2677,7 @@ public class EditText extends
 	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
+			validateOnValueChange(false);
 			getView().onRestoreInstanceState(savedState.viewState);
 			setMaxNumberOfCharacters(savedState.maxNumberOfCharacters);
 			super.onRestoreInstanceState(savedState.getSuperState());

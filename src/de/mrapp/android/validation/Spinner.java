@@ -182,6 +182,9 @@ public class Spinner extends
 	private OnItemSelectedListener createItemSelectedListener() {
 		return new OnItemSelectedListener() {
 
+			/**
+			 * True, if the listener has been already called, false otherwise.
+			 */
 			private boolean initialized = false;
 
 			@Override

@@ -553,7 +553,7 @@ public class EditText extends
 			setLineColor(getAccentColor());
 			getView().setActivated(false);
 		} else {
-			setLineColor(getResources().getColor(R.color.default_error_color));
+			setLineColor(getErrorColor());
 			getView().setActivated(true);
 		}
 

@@ -39,20 +39,20 @@ public class CharacterValidator extends AbstractValidator<CharSequence> {
 	 * The regular expression, which is used, when only uppercase characters
 	 * should be allowed.
 	 */
-	private static final Pattern UPPERCASE_PATTERN = Pattern.compile("[A-Z]+");
+	private static final Pattern UPPERCASE_PATTERN = Pattern.compile("[A-Z]*");
 
 	/**
 	 * The regular expression, which is used, when only lowercase characters
 	 * should be allowed.
 	 */
-	private static final Pattern LOWERCASE_PATTERN = Pattern.compile("[a-z]+");
+	private static final Pattern LOWERCASE_PATTERN = Pattern.compile("[a-z]*");
 
 	/**
 	 * The regular expression, which is used, when all characters, regardless of
 	 * their case, should be allowed.
 	 */
 	private static final Pattern CASE_INSENSITIVE_PATTERN = Pattern
-			.compile("[a-zA-Z]+");
+			.compile("[a-zA-Z]*");
 
 	/**
 	 * The case sensitivity, which is used by the validator.

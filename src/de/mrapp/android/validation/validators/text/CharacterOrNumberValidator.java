@@ -40,21 +40,21 @@ public class CharacterOrNumberValidator extends AbstractValidator<CharSequence> 
 	 * numbers should be allowed.
 	 */
 	private static final Pattern UPPERCASE_PATTERN = Pattern
-			.compile("^[A-Z0-9]+$");
+			.compile("^[A-Z0-9]*$");
 
 	/**
 	 * The regular expression, which is used, when only lowercase characters and
 	 * numbers should be allowed.
 	 */
 	private static final Pattern LOWERCASE_PATTERN = Pattern
-			.compile("^[a-z0-9]+$");
+			.compile("^[a-z0-9]*$");
 
 	/**
 	 * The regular expression, which is used, when all characters and numbers,
 	 * regardless of their case, should be allowed.
 	 */
 	private static final Pattern CASE_INSENSITIVE_PATTERN = Pattern
-			.compile("^[a-zA-Z0-9]+$");
+			.compile("^[a-zA-Z0-9]*$");
 
 	/**
 	 * The case sensitivity, which is used by the validator.

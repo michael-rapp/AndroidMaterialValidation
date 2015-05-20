@@ -25,13 +25,13 @@ import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they represent
- * valid URLs.
+ * valid IRIs.
  * 
  * @author Michael Rapp
  *
  * @since 1.0.0
  */
-public class UrlValidator extends RegexValidator {
+public class IRIValidator extends RegexValidator {
 
 	/**
 	 * The regular expression, which is used by the validator.
@@ -40,20 +40,20 @@ public class UrlValidator extends RegexValidator {
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
-	 * they represent valid URLs.
+	 * they represent valid IRIs.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
 	 *            fails, as an instance of the type {@link CharSequence}. The
 	 *            error message may not be null
 	 */
-	public UrlValidator(final CharSequence errorMessage) {
+	public IRIValidator(final CharSequence errorMessage) {
 		super(errorMessage, REGEX);
 	}
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
-	 * they represent valid URLs.
+	 * they represent valid IRIs.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -65,7 +65,7 @@ public class UrlValidator extends RegexValidator {
 	 *            value. The resource ID must correspond to a valid string
 	 *            resource
 	 */
-	public UrlValidator(final Context context, final int resourceId) {
+	public IRIValidator(final Context context, final int resourceId) {
 		super(context, resourceId, REGEX);
 	}
 

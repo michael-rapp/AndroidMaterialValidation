@@ -20,7 +20,6 @@ package de.mrapp.android.validation.validators.misc;
 import java.util.regex.Pattern;
 
 import android.content.Context;
-import android.util.Patterns;
 import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
@@ -36,7 +35,8 @@ public class PhoneNumberValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Patterns.PHONE;
+	private static final Pattern REGEX = Pattern
+			.compile("^\\+(?:[0-9] ?){6,14}[0-9]$");
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

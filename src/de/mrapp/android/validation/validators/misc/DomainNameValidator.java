@@ -20,6 +20,7 @@ package de.mrapp.android.validation.validators.misc;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.util.Patterns;
 import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
@@ -35,8 +36,7 @@ public class DomainNameValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Pattern
-			.compile("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$");
+	private static final Pattern REGEX = Patterns.DOMAIN_NAME;
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

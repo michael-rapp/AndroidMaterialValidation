@@ -20,6 +20,7 @@ package de.mrapp.android.validation.validators.misc;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.util.Patterns;
 import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
@@ -35,9 +36,7 @@ public class EmailAddressValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Pattern
-			.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+	private static final Pattern REGEX = Patterns.EMAIL_ADDRESS;
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

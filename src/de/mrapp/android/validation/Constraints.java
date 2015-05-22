@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 import de.mrapp.android.validation.constraints.ConjunctiveConstraint;
 import de.mrapp.android.validation.constraints.DisjunctiveConstraint;
 import de.mrapp.android.validation.constraints.NegateConstraint;
-import de.mrapp.android.validation.constraints.text.ContainsCharacterConstraint;
+import de.mrapp.android.validation.constraints.text.ContainsLetterConstraint;
 import de.mrapp.android.validation.constraints.text.ContainsNumberConstraint;
 import de.mrapp.android.validation.constraints.text.ContainsSymbolConstraint;
 import de.mrapp.android.validation.constraints.text.MinLengthConstraint;
@@ -145,13 +145,13 @@ public final class Constraints {
 
 	/**
 	 * Creates and returns a constraint, which allows to verify texts in order
-	 * to check, if they contain at least one character.
+	 * to check, if they contain at least one letter.
 	 * 
 	 * @return The constraint, which has been created, as an instance of the
 	 *         type {@link Constraint}
 	 */
-	public static Constraint<CharSequence> containsCharacter() {
-		return new ContainsCharacterConstraint();
+	public static Constraint<CharSequence> containsLetter() {
+		return new ContainsLetterConstraint();
 	}
 
 	/**

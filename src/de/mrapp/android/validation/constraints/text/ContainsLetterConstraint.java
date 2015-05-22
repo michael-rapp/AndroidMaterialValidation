@@ -21,13 +21,13 @@ import java.util.regex.Pattern;
 
 /**
  * A constraint, which allows to verify texts in order to check, if they contain
- * at least one character.
+ * at least one letter.
  * 
  * @author Michael Rapp
  * 
  * @since 1.0.0
  */
-public class ContainsCharacterConstraint extends RegexConstraint {
+public class ContainsLetterConstraint extends RegexConstraint {
 
 	/**
 	 * The regular expression, which is used by the constraint.
@@ -36,9 +36,9 @@ public class ContainsCharacterConstraint extends RegexConstraint {
 
 	/**
 	 * Creates a new constraint, which allows to verify texts in order to check,
-	 * if they contain at least one character.
+	 * if they contain at least one letter.
 	 */
-	public ContainsCharacterConstraint() {
+	public ContainsLetterConstraint() {
 		super(REGEX);
 	}
 

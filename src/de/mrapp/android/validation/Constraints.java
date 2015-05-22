@@ -156,7 +156,9 @@ public final class Constraints {
 
 	/**
 	 * Creates and returns a constraint, which allows to verify texts in order
-	 * to check, if they contain at least one symbol.
+	 * to check, if they contain at least one symbol. Symbols are considered to
+	 * be all characters except lower and uppercase letters from A to Z and
+	 * numbers.
 	 * 
 	 * @return The constraint, which has been created, as an instance of the
 	 *         type {@link Constraint}

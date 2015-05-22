@@ -25,7 +25,7 @@ import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they represent
- * valid email addresses.
+ * valid email addresses. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *
@@ -36,7 +36,8 @@ public class EmailAddressValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Patterns.EMAIL_ADDRESS;
+	private static final Pattern REGEX = Pattern.compile("(^$)|"
+			+ Patterns.EMAIL_ADDRESS.pattern());
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

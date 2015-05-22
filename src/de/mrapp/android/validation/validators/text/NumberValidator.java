@@ -23,7 +23,7 @@ import android.content.Context;
 
 /**
  * A validator, which allows to validate texts to ensure, that they only contain
- * numbers.
+ * numbers. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *

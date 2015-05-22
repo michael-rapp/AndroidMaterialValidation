@@ -24,7 +24,9 @@ import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they represent
- * valid phone numbers.
+ * valid phone numbers. Phone numbers, which are only consisting of numbers are
+ * allowed as well as international phone numbers, e.g. +49 1624812382. Empty
+ * texts are also accepted.
  * 
  * @author Michael Rapp
  *
@@ -36,7 +38,7 @@ public class PhoneNumberValidator extends RegexValidator {
 	 * The regular expression, which is used by the validator.
 	 */
 	private static final Pattern REGEX = Pattern
-			.compile("([0-9]+)|^\\+(?:[0-9] ?){6,14}[0-9]$");
+			.compile("(^$)|([0-9]+)|(^\\+(?:[0-9] ?){6,14}[0-9]$)");
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

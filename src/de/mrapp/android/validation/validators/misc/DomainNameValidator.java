@@ -25,7 +25,7 @@ import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they represent
- * valid domain names.
+ * valid domain names. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *
@@ -36,7 +36,8 @@ public class DomainNameValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Patterns.DOMAIN_NAME;
+	private static final Pattern REGEX = Pattern.compile("(^$)|"
+			+ Patterns.DOMAIN_NAME.pattern());
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

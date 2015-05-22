@@ -24,7 +24,7 @@ import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they represent
- * valid IPv4 addresses.
+ * valid IPv4 addresses. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *
@@ -35,11 +35,11 @@ public class IPv4AddressValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Pattern
-			.compile("^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
-					+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
-					+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
-					+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+	private static final Pattern REGEX = Pattern.compile("(^$)"
+			+ "|(^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$)");
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

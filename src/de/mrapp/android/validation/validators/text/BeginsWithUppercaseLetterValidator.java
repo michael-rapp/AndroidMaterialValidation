@@ -23,7 +23,7 @@ import de.mrapp.android.validation.validators.AbstractValidator;
 
 /**
  * A validator, which allows to validate text to ensure, that they begin with an
- * uppercase letter.
+ * uppercase letter. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  */

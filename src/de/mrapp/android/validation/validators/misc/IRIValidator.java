@@ -25,7 +25,8 @@ import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they represent
- * valid IRIs.
+ * valid IRIs. IRIs are internationalized URLs according to RFC 3987, which are
+ * for example used as internet addresses. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *
@@ -36,7 +37,8 @@ public class IRIValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Patterns.WEB_URL;
+	private static final Pattern REGEX = Pattern.compile("(^$)|"
+			+ Patterns.WEB_URL.pattern());
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

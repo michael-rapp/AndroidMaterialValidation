@@ -27,7 +27,7 @@ import de.mrapp.android.validation.validators.AbstractValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they only contain
- * characters or numbers.
+ * characters or numbers. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *

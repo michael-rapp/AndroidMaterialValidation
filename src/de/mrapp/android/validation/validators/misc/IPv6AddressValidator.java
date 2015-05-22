@@ -20,30 +20,25 @@ package de.mrapp.android.validation.validators.misc;
 import java.util.regex.Pattern;
 
 import android.content.Context;
-import de.mrapp.android.validation.Validators;
-import de.mrapp.android.validation.validators.DisjunctiveValidator;
+import de.mrapp.android.validation.validators.text.RegexValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they represent
- * valid IPv6 addresses.
+ * valid IPv6 addresses. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *
  * @since 1.0.0
  */
-public class IPv6AddressValidator extends DisjunctiveValidator<CharSequence> {
+public class IPv6AddressValidator extends RegexValidator {
 
 	/**
-	 * A regular expression, which matches standard IPv6 addresses.
+	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern STANDARD_REGEX = Pattern
-			.compile("^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$");
-
-	/**
-	 * A regular expression, which matches compressed IPv6 addresses.
-	 */
-	private static final Pattern COMPRESSED_REGEX = Pattern
-			.compile("^((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)$");
+	private static final Pattern REGEX = Pattern
+			.compile("(^$)"
+					+ "|(^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$)"
+					+ "|(^((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)$)");
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
@@ -55,8 +50,7 @@ public class IPv6AddressValidator extends DisjunctiveValidator<CharSequence> {
 	 *            error message may not be null
 	 */
 	public IPv6AddressValidator(final CharSequence errorMessage) {
-		super(errorMessage, Validators.regex(errorMessage, STANDARD_REGEX),
-				Validators.regex(errorMessage, COMPRESSED_REGEX));
+		super(errorMessage, REGEX);
 	}
 
 	/**
@@ -74,9 +68,7 @@ public class IPv6AddressValidator extends DisjunctiveValidator<CharSequence> {
 	 *            resource
 	 */
 	public IPv6AddressValidator(final Context context, final int resourceId) {
-		super(context, resourceId, Validators.regex(context, resourceId,
-				STANDARD_REGEX), Validators.regex(context, resourceId,
-				COMPRESSED_REGEX));
+		super(context, resourceId, REGEX);
 	}
 
 }

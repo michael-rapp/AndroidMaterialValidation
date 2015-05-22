@@ -425,7 +425,7 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they contain no whitespace.
+	 * ensure, that they contain no whitespace. Empty texts are also accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -441,7 +441,7 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they contain no whitespace.
+	 * ensure, that they contain no whitespace. Empty texts are also accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -462,7 +462,7 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain numbers.
+	 * ensure, that they only contain numbers. Empty texts are also accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -477,7 +477,7 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain numbers.
+	 * ensure, that they only contain numbers. Empty texts are also accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -498,7 +498,7 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain characters.
+	 * ensure, that they only contain characters. Empty texts are also accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -526,7 +526,7 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain characters.
+	 * ensure, that they only contain characters. Empty texts are also accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -559,7 +559,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain characters or numbers.
+	 * ensure, that they only contain characters or numbers. Empty texts are
+	 * also accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -587,7 +588,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain characters or numbers.
+	 * ensure, that they only contain characters or numbers. Empty texts are
+	 * also accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -621,7 +623,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they begin with an uppercase letter.
+	 * ensure, that they begin with an uppercase letter. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -637,7 +640,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they begin with an uppercase letter.
+	 * ensure, that they begin with an uppercase letter. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -705,7 +709,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid IPv4 addresses.
+	 * ensure, that they represent valid IPv4 addresses. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -721,7 +726,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid IPv4 addresses.
+	 * ensure, that they represent valid IPv4 addresses. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -742,7 +748,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid IPv6 addresses.
+	 * ensure, that they represent valid IPv6 addresses. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -758,7 +765,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid IPv6 addresses.
+	 * ensure, that they represent valid IPv6 addresses. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -779,7 +787,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid domain names.
+	 * ensure, that they represent valid domain names. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -795,7 +804,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid domain names.
+	 * ensure, that they represent valid domain names. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -816,7 +826,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid email addresses.
+	 * ensure, that they represent valid email addresses. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -832,7 +843,8 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid email addresses.
+	 * ensure, that they represent valid email addresses. Empty texts are also
+	 * accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -853,7 +865,9 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid IRIs.
+	 * ensure, that they represent valid IRIs. IRIs are internationalized URLs
+	 * according to RFC 3987, which are for example used as internet addresses..
+	 * Empty texts are also accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -868,11 +882,13 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid IRIs.
+	 * ensure, that they represent valid IRIs. IRIs are internationalized URLs
+	 * according to RFC 3987, which are for example used as internet addresses..
+	 * Empty texts are also accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
-	 *            message, as an instance of the class {@link Context}. The
+	 *            message, as an instance of the class {@link Context}. fhe
 	 *            context may not be null
 	 * @param resourceId
 	 *            The resource ID of the string resource, which contains the
@@ -889,7 +905,9 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid phone numbers.
+	 * ensure, that they represent valid phone numbers. Phone numbers, which are
+	 * only consisting of numbers are allowed as well as international phone
+	 * numbers, e.g. +49 1624812382. Empty texts are also accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -905,7 +923,9 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they represent valid phone numbers.
+	 * ensure, that they represent valid phone numbers. Phone numbers, which are
+	 * only consisting of numbers are allowed as well as international phone
+	 * numbers, e.g. +49 1624812382. Empty texts are also accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error

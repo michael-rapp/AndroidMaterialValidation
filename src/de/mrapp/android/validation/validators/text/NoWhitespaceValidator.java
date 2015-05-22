@@ -22,7 +22,7 @@ import de.mrapp.android.validation.validators.AbstractValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they contain no
- * whitespace.
+ * whitespace. Empty texts are also accepted.
  * 
  * @author Michael Rapp
  *

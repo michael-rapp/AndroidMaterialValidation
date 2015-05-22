@@ -27,30 +27,35 @@ import de.mrapp.android.validation.validators.AbstractValidator;
 
 /**
  * A validator, which allows to validate texts to ensure, that they only contain
- * characters or numbers. Empty texts are also accepted.
+ * letters or numbers. It is possible to specify, whether only uppercase or
+ * lowercase letters should be accepted, or if they should be threatened
+ * case-insensitive. Letters are considered to be all alphabetical characters
+ * from A to B. Additionally, it is possible to specify whether spaces should be
+ * allowed and to add special characters, which should also be accepted. Empty
+ * texts are also accepted.
  * 
  * @author Michael Rapp
  *
  * @since 1.0.0
  */
-public class CharacterOrNumberValidator extends AbstractValidator<CharSequence> {
+public class LetterOrNumberValidator extends AbstractValidator<CharSequence> {
 
 	/**
-	 * The regular expression, which is used, when only uppercase characters and
+	 * The regular expression, which is used, when only uppercase letters and
 	 * numbers should be allowed.
 	 */
 	private static final Pattern UPPERCASE_PATTERN = Pattern
 			.compile("^[A-Z0-9]*$");
 
 	/**
-	 * The regular expression, which is used, when only lowercase characters and
+	 * The regular expression, which is used, when only lowercase letters and
 	 * numbers should be allowed.
 	 */
 	private static final Pattern LOWERCASE_PATTERN = Pattern
 			.compile("^[a-z0-9]*$");
 
 	/**
-	 * The regular expression, which is used, when all characters and numbers,
+	 * The regular expression, which is used, when all letters and numbers,
 	 * regardless of their case, should be allowed.
 	 */
 	private static final Pattern CASE_INSENSITIVE_PATTERN = Pattern
@@ -67,13 +72,13 @@ public class CharacterOrNumberValidator extends AbstractValidator<CharSequence> 
 	private boolean allowSpaces;
 
 	/**
-	 * An array, which contains allowed chars.
+	 * An array, which contains allowed special characters.
 	 */
-	private char[] allowedChars;
+	private char[] allowedCharacters;
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
-	 * they only contain characters or numbers.
+	 * they only contain letters or numbers.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -86,22 +91,22 @@ public class CharacterOrNumberValidator extends AbstractValidator<CharSequence> 
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
-	 * @param allowedChars
-	 *            The allowed chars as an array of the type <code>char</code>.
-	 *            The array may not be null
+	 * @param allowedCharacters
+	 *            The allowed special characters as an array of the type
+	 *            <code>char</code>. The array may not be null
 	 */
-	public CharacterOrNumberValidator(final CharSequence errorMessage,
+	public LetterOrNumberValidator(final CharSequence errorMessage,
 			final Case caseSensitivity, final boolean allowSpaces,
-			final char... allowedChars) {
+			final char... allowedCharacters) {
 		super(errorMessage);
 		setCaseSensitivity(caseSensitivity);
 		allowSpaces(allowSpaces);
-		setAllowedChars(allowedChars);
+		setAllowedCharacters(allowedCharacters);
 	}
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that
-	 * they only contain characters or numbers.
+	 * they only contain letters or numbers.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -119,17 +124,17 @@ public class CharacterOrNumberValidator extends AbstractValidator<CharSequence> 
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
-	 * @param allowedChars
-	 *            The allowed chars as an array of the type <code>char</code>.
-	 *            The array may not be null
+	 * @param allowedCharacters
+	 *            The allowed special characters as an array of the type
+	 *            <code>char</code>. The array may not be null
 	 */
-	public CharacterOrNumberValidator(final Context context,
-			final int resourceId, final Case caseSensitivity,
-			final boolean allowSpaces, final char... allowedChars) {
+	public LetterOrNumberValidator(final Context context, final int resourceId,
+			final Case caseSensitivity, final boolean allowSpaces,
+			final char... allowedCharacters) {
 		super(context, resourceId);
 		setCaseSensitivity(caseSensitivity);
 		allowSpaces(allowSpaces);
-		setAllowedChars(allowedChars);
+		setAllowedCharacters(allowedCharacters);
 	}
 
 	/**
@@ -178,25 +183,25 @@ public class CharacterOrNumberValidator extends AbstractValidator<CharSequence> 
 	}
 
 	/**
-	 * Returns the allowed chars.
+	 * Returns the allowed special characters.
 	 * 
-	 * @return An array, which contains the allowed chars, as an array of the
-	 *         type <code>char</code>
+	 * @return An array, which contains the allowed special characters, as an
+	 *         array of the type <code>char</code>
 	 */
-	public final char[] getAllowedChars() {
-		return allowedChars;
+	public final char[] getAllowedCharacters() {
+		return allowedCharacters;
 	}
 
 	/**
-	 * Sets the allowed chars.
+	 * Sets the allowed special characters.
 	 * 
-	 * @param allowedChars
-	 *            The allowed chars, which should be set, as an array of the
-	 *            type <code>char</code>. The array may not be null
+	 * @param allowedCharacters
+	 *            The allowed special characters, which should be set, as an
+	 *            array of the type <code>char</code>. The array may not be null
 	 */
-	public final void setAllowedChars(final char[] allowedChars) {
-		ensureNotNull(allowedChars, "The array may not be null");
-		this.allowedChars = allowedChars;
+	public final void setAllowedCharacters(final char[] allowedCharacters) {
+		ensureNotNull(allowedCharacters, "The array may not be null");
+		this.allowedCharacters = allowedCharacters;
 	}
 
 	@Override
@@ -208,7 +213,7 @@ public class CharacterOrNumberValidator extends AbstractValidator<CharSequence> 
 			text = text.replaceAll("\\s+", "");
 		}
 
-		for (char character : getAllowedChars()) {
+		for (char character : getAllowedCharacters()) {
 			text = text.replaceAll(String.valueOf(character), "");
 		}
 

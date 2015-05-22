@@ -32,7 +32,7 @@ import de.mrapp.android.validation.validators.misc.IRIValidator;
 import de.mrapp.android.validation.validators.misc.PhoneNumberValidator;
 import de.mrapp.android.validation.validators.text.BeginsWithUppercaseLetterValidator;
 import de.mrapp.android.validation.validators.text.Case;
-import de.mrapp.android.validation.validators.text.CharacterOrNumberValidator;
+import de.mrapp.android.validation.validators.text.LetterOrNumberValidator;
 import de.mrapp.android.validation.validators.text.LetterValidator;
 import de.mrapp.android.validation.validators.text.EqualValidator;
 import de.mrapp.android.validation.validators.text.MaxLengthValidator;
@@ -569,8 +569,12 @@ public final class Validators {
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain characters or numbers. Empty texts are
-	 * also accepted.
+	 * ensure, that they only contain letters or numbers. It is possible to
+	 * specify, whether only uppercase or lowercase letters should be accepted,
+	 * or if they should be threatened case-insensitive. Letters are considered
+	 * to be all alphabetical characters from A to B. Additionally, it is
+	 * possible to specify whether spaces should be allowed and to add special
+	 * characters, which should also be accepted. Empty texts are also accepted.
 	 * 
 	 * @param errorMessage
 	 *            The error message, which should be shown, if the validation
@@ -583,23 +587,27 @@ public final class Validators {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
-	 * @param allowedChars
-	 *            The allowed chars as an array of the type <code>char</code>.
-	 *            The array may not be null
+	 * @param allowedCharacters
+	 *            The allowed special characters as an array of the type
+	 *            <code>char</code>. The array may not be null
 	 * @return The validator, which has been created, as an instance of the type
 	 *         {@link Validator}
 	 */
-	public static Validator<CharSequence> characterOrNumber(
+	public static Validator<CharSequence> letterOrNumber(
 			final CharSequence errorMessage, final Case caseSensitivity,
-			final boolean allowSpaces, final char... allowedChars) {
-		return new CharacterOrNumberValidator(errorMessage, caseSensitivity,
-				allowSpaces, allowedChars);
+			final boolean allowSpaces, final char... allowedCharacters) {
+		return new LetterOrNumberValidator(errorMessage, caseSensitivity,
+				allowSpaces, allowedCharacters);
 	}
 
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
-	 * ensure, that they only contain characters or numbers. Empty texts are
-	 * also accepted.
+	 * ensure, that they only contain letters or numbers. It is possible to
+	 * specify, whether only uppercase or lowercase letters should be accepted,
+	 * or if they should be threatened case-insensitive. Letters are considered
+	 * to be all alphabetical characters from A to B. Additionally, it is
+	 * possible to specify whether spaces should be allowed and to add special
+	 * characters, which should also be accepted. Empty texts are also accepted.
 	 * 
 	 * @param context
 	 *            The context, which should be used to retrieve the error
@@ -617,18 +625,17 @@ public final class Validators {
 	 *            <code>CASE_INSENSITIVE</code>
 	 * @param allowSpaces
 	 *            True, if spaces should be allowed, false otherwise
-	 * @param allowedChars
-	 *            The allowed chars as an array of the type <code>char</code>.
-	 *            The array may not be null
+	 * @param allowedCharacters
+	 *            The allowed special characters as an array of the type
+	 *            <code>char</code>. The array may not be null
 	 * @return The validator, which has been created, as an instance of the type
 	 *         {@link Validator}
 	 */
-	public static Validator<CharSequence> characterOrNumber(
-			final Context context, final int resourceId,
-			final Case caseSensitivity, final boolean allowSpaces,
-			final char... allowedChars) {
-		return new CharacterOrNumberValidator(context, resourceId,
-				caseSensitivity, allowSpaces, allowedChars);
+	public static Validator<CharSequence> letterOrNumber(final Context context,
+			final int resourceId, final Case caseSensitivity,
+			final boolean allowSpaces, final char... allowedCharacters) {
+		return new LetterOrNumberValidator(context, resourceId,
+				caseSensitivity, allowSpaces, allowedCharacters);
 	}
 
 	/**

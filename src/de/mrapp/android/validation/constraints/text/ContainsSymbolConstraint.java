@@ -21,7 +21,8 @@ import java.util.regex.Pattern;
 
 /**
  * A constraint, which allows to verify texts in order to check, if they contain
- * at least one symbol.
+ * at least one symbol. Symbols are considered to be all characters except lower
+ * and uppercase letters from A to Z and numbers.
  * 
  * @author Michael Rapp
  * 

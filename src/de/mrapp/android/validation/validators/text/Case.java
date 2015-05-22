@@ -23,17 +23,17 @@ package de.mrapp.android.validation.validators.text;
 public enum Case {
 
 	/**
-	 * If only uppercase characters should be allowed.
+	 * If only uppercase letters should be allowed.
 	 */
 	UPPERCASE,
 
 	/**
-	 * If only lowercase characters should be allowed.
+	 * If only lowercase letters should be allowed.
 	 */
 	LOWERCASE,
 
 	/**
-	 * If uppercase and lowercase characters should be allowed.
+	 * If uppercase and lowercase letters should be allowed.
 	 */
 	CASE_INSENSITIVE;
 

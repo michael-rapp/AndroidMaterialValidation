@@ -300,11 +300,6 @@ public class Spinner extends
 	private OnItemSelectedListener createItemSelectedListener() {
 		return new OnItemSelectedListener() {
 
-			/**
-			 * True, if the listener has been already called, false otherwise.
-			 */
-			private boolean initialized = false;
-
 			@Override
 			public void onItemSelected(final AdapterView<?> parent,
 					final View view, final int position, final long id) {
@@ -313,11 +308,9 @@ public class Spinner extends
 							position, id);
 				}
 
-				if (isValidatedOnValueChange() && initialized) {
+				if (isValidatedOnValueChange() && position != 0) {
 					validate();
 				}
-
-				initialized = true;
 			}
 
 			@Override
@@ -325,12 +318,6 @@ public class Spinner extends
 				if (getOnItemSelectedListener() != null) {
 					getOnItemSelectedListener().onNothingSelected(parent);
 				}
-
-				if (isValidatedOnValueChange() && initialized) {
-					validate();
-				}
-
-				initialized = true;
 			}
 
 		};

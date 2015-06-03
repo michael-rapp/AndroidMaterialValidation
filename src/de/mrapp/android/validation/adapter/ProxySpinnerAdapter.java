@@ -76,7 +76,11 @@ public class ProxySpinnerAdapter implements SpinnerAdapter, ListAdapter {
 		TextView view = (TextView) LayoutInflater.from(context).inflate(
 				hintViewId, parent, false);
 		view.setText(hint);
-		view.setTextColor(hintColor);
+
+		if (hintColor != null) {
+			view.setTextColor(hintColor);
+		}
+
 		return view;
 	}
 
@@ -98,10 +102,12 @@ public class ProxySpinnerAdapter implements SpinnerAdapter, ListAdapter {
 	 *            corresponds to a valid layout resource
 	 * @param hint
 	 *            The hint, which should be displayed initially, as an instance
-	 *            of the type {@link CharSequence}
+	 *            of the type {@link CharSequence} or null, if no hint should be
+	 *            displayed
 	 * @param hintColor
 	 *            The color of the hint, which should be displayed initially, as
-	 *            an instance of the class {@link ColorStateList}
+	 *            an instance of the class {@link ColorStateList} or null, if
+	 *            the default color should be used
 	 */
 	public ProxySpinnerAdapter(final Context context,
 			final SpinnerAdapter adapter, final int hintViewId,

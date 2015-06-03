@@ -37,8 +37,8 @@ public class PhoneNumberValidator extends RegexValidator {
 	/**
 	 * The regular expression, which is used by the validator.
 	 */
-	private static final Pattern REGEX = Pattern
-			.compile("(^$)|([0-9]+)|(^\\+(?:[0-9] ?){6,14}[0-9]$)");
+	private static final Pattern REGEX = Pattern.compile("(^$)" + "|"
+			+ "([0-9]{6,14})" + "|" + "(^\\+(?:[0-9] ?){6,14}[0-9]$)");
 
 	/**
 	 * Creates a new validator, which allows to validate texts to ensure, that

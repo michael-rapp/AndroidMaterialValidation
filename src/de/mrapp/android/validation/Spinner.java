@@ -517,6 +517,9 @@ public class Spinner extends
 		if (error == null) {
 			setLineColor(getAccentColor());
 			getView().setActivated(false);
+		} else {
+			setLineColor(getErrorColor());
+			getView().setActivated(true);
 		}
 	}
 

@@ -33,6 +33,17 @@ import java.util.Collection;
 public interface Validateable<Type> {
 
 	/**
+	 * Returns a collection, which contains all validators, which are used to
+	 * validate the view's value. The validators are applied in the given order.
+	 * 
+	 * @return A collection, which contains the validators, which are used to
+	 *         validate the view's value, as an instance of the type
+	 *         {@link Collection} or an empty collection, if no views are used
+	 *         to validate the view's value
+	 */
+	Collection<Validator<Type>> getValidators();
+
+	/**
 	 * Adds a new validator, which should be used to validate the view's value.
 	 * The validators are applied in the order, they have been added to the
 	 * view.

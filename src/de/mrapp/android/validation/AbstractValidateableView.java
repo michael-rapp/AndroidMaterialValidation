@@ -682,6 +682,11 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	}
 
 	@Override
+	public final Collection<Validator<ValueType>> getValidators() {
+		return validators;
+	}
+
+	@Override
 	public final void addValidator(final Validator<ValueType> validator) {
 		ensureNotNull(validator, "The validator may not be null");
 		validators.add(validator);

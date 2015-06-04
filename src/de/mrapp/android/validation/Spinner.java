@@ -450,7 +450,7 @@ public class Spinner extends
 	}
 
 	/**
-	 * Set the hint, which should be displayed, when no item is selected.
+	 * Sets the hint, which should be displayed, when no item is selected.
 	 *
 	 * @param hint
 	 *            The hint, which should be set, as an instance of the type
@@ -463,6 +463,18 @@ public class Spinner extends
 			ProxySpinnerAdapter proxyAdapter = (ProxySpinnerAdapter) getAdapter();
 			setAdapter(proxyAdapter.getAdapter());
 		}
+	}
+
+	/**
+	 * Sets the hint, which should be displayed, when no item is selected.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the hint, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid string resource
+	 */
+	public final void testSetHint(final int resourceId) {
+		setHint(getContext().getText(resourceId));
 	}
 
 	/**

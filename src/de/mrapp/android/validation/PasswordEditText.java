@@ -40,9 +40,9 @@ import android.util.AttributeSet;
  * A view, which allows to enter a password. The text may be validated according
  * to the pattern, which is suggested by the Material Design guidelines.
  * 
- * Additionally, the password safety can be automatically verified, according to
- * customizable constraints, while typing and a text, which indicates the
- * password safety can be shown as the edit text's helper text.
+ * Additionally, the password strength can be automatically verified, according
+ * to customizable constraints, while typing and a text, which indicates the
+ * password strength can be shown as the edit text's helper text.
  * 
  * @author Michael Rapp
  *
@@ -52,37 +52,37 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * A list, which contains the constraints, which are used to verify the
-	 * password safety.
+	 * password strength.
 	 */
 	private List<Constraint<CharSequence>> constraints;
 
 	/**
 	 * A list, which contains the helper texts, which are shown depending on the
-	 * password safety.
+	 * password strength.
 	 */
 	private List<CharSequence> helperTexts;
 
 	/**
 	 * A list, which contains the colors, which are used to highlight the helper
-	 * texts, which are shown depending on the password safety.
+	 * texts, which are shown depending on the password strength.
 	 */
 	private List<Integer> helperTextColors;
 
 	/**
 	 * The prefix of the helper texts, which are shown depending on the password
-	 * safety.
+	 * strength.
 	 */
 	private String passwordVerificationPrefix;
 
 	/**
-	 * The helper text, which is shown, when the password safety is not
+	 * The helper text, which is shown, when the password strength is not
 	 * verified.
 	 */
 	private CharSequence regularHelperText;
 
 	/**
-	 * The color of the helper text, which is used, when the password safety is
-	 * not verified.
+	 * The color of the helper text, which is used, when the password strength
+	 * is not verified.
 	 */
 	private int regularHelperTextColor;
 
@@ -123,7 +123,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Obtains the prefix of helper texts, which are shown depending on the
-	 * password safety, from a specific typed array.
+	 * password strength, from a specific typed array.
 	 * 
 	 * @param typedArray
 	 *            The typed array, the prefix should be obtained from, as an
@@ -143,7 +143,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Creates and returns a listener, which allows to verify the password
-	 * safety, when the password has been changed.
+	 * strength, when the password has been changed.
 	 * 
 	 * @return The listener, which has been created, as an instance of the type
 	 *         {@link TextWatcher}
@@ -165,21 +165,21 @@ public class PasswordEditText extends EditText {
 
 			@Override
 			public final void afterTextChanged(final Editable s) {
-				verifyPasswordSafety();
+				verifyPasswordStrength();
 			}
 
 		};
 	}
 
 	/**
-	 * Verifies the safety of the current password, depending on the
+	 * Verifies the strength of the current password, depending on the
 	 * constraints, which have been added and adapts the appearance of the view
 	 * accordingly.
 	 */
-	private void verifyPasswordSafety() {
+	private void verifyPasswordStrength() {
 		if (isEnabled() && !constraints.isEmpty()
 				&& !TextUtils.isEmpty(getText())) {
-			float score = getPasswordSafety();
+			float score = getPasswordStrength();
 			adaptHelperText(score);
 		} else {
 			setHelperText(regularHelperText);
@@ -187,13 +187,13 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
-	 * Returns the safety of the current password, depending on the constraints,
-	 * which have been added.
+	 * Returns the strength of the current password, depending on the
+	 * constraints, which have been added.
 	 * 
 	 * @return The fraction of constraints, which are satisfied, as a
 	 *         {@link Float} value between 0.0 and 1.0
 	 */
-	private float getPasswordSafety() {
+	private float getPasswordStrength() {
 		int absoluteScore = 0;
 		CharSequence password = getView().getText();
 
@@ -207,10 +207,10 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
-	 * Adapts the helper text, depending on a specific password safety.
+	 * Adapts the helper text, depending on a specific password strength.
 	 * 
 	 * @param score
-	 *            The password safety as a {@link Float} value between 0.0 and
+	 *            The password strength as a {@link Float} value between 0.0 and
 	 *            1.0, which represents the fraction of constraints, which are
 	 *            satisfied
 	 */
@@ -236,10 +236,11 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
-	 * Returns the helper text, which corresponds to a specific password safety.
+	 * Returns the helper text, which corresponds to a specific password
+	 * strength.
 	 * 
 	 * @param score
-	 *            The password safety as a {@link Float} value between 0.0 and
+	 *            The password strength as a {@link Float} value between 0.0 and
 	 *            1.0, which represents the fraction of constraints, which are
 	 *            satisfied
 	 * @return The helper text as an instance of the type {@link CharSequence}
@@ -257,10 +258,10 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Returns the color of the helper text, which corresponds to a specific
-	 * password safety.
+	 * password strength.
 	 * 
 	 * @param score
-	 *            The password safety as a {@link Float} value between 0.0 and
+	 *            The password strength as a {@link Float} value between 0.0 and
 	 *            1.0, which represents the fraction of constraints, which are
 	 *            satisfied
 	 * @return The color of the helper text as an {@link Integer} value
@@ -358,12 +359,12 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Returns a collection, which contains the constraints, which are used to
-	 * verify the password safety.
+	 * verify the password strength.
 	 * 
 	 * @return A collection, which contains the constraints, which are used to
-	 *         verify the password safety, as an instance of the type
+	 *         verify the password strength, as an instance of the type
 	 *         {@link Collection} or an empty collection, if no constraints are
-	 *         used to verify the password safety
+	 *         used to verify the password strength
 	 */
 	public final Collection<Constraint<CharSequence>> getConstraints() {
 		return constraints;
@@ -371,7 +372,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Adds a new constraint, which should be used to verify the password
-	 * safety.
+	 * strength.
 	 * 
 	 * @param constraint
 	 *            The constraint, which should be added, as an instance of the
@@ -380,7 +381,7 @@ public class PasswordEditText extends EditText {
 	public final void addConstraint(final Constraint<CharSequence> constraint) {
 		ensureNotNull(constraint, "The constraint may not be null");
 		constraints.add(constraint);
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 	/**
@@ -417,7 +418,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Removes a specific constraint, which should not be used to verify the
-	 * password safety, anymore.
+	 * password strength, anymore.
 	 * 
 	 * @param constraint
 	 *            The constraint, which should be removed, as an instance of the
@@ -426,7 +427,7 @@ public class PasswordEditText extends EditText {
 	public final void removeConstraint(final Constraint<CharSequence> constraint) {
 		ensureNotNull(constraint, "The constraint may not be null");
 		constraints.remove(constraint);
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 	/**
@@ -470,13 +471,13 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Returns a collection, which contains the helper texts, which are shown,
-	 * depending on the password safety. Helper texts at higher indices are
-	 * supposed to indicate a higher password safety.
+	 * depending on the password strength. Helper texts at higher indices are
+	 * supposed to indicate a higher password strength.
 	 * 
 	 * @return A collection, which contains the helper texts, which are shown,
-	 *         depending on the password safety, as an instance of the type
+	 *         depending on the password strength, as an instance of the type
 	 *         {@link Collection} or an empty collection, if no helper texts are
-	 *         shown depending on the password safety
+	 *         shown depending on the password strength
 	 */
 	public final Collection<CharSequence> getHelperTexts() {
 		return helperTexts;
@@ -484,8 +485,8 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Adds a new helper text, which should be shown, depending on the password
-	 * safety. Helper texts, which have been added later than others, are
-	 * supposed to indicate a higher password safety.
+	 * strength. Helper texts, which have been added later than others, are
+	 * supposed to indicate a higher password strength.
 	 * 
 	 * @param helperText
 	 *            The helper text, which should be added, as an instance of the
@@ -496,13 +497,13 @@ public class PasswordEditText extends EditText {
 		ensureNotNull(helperText, "The helper text may not be null");
 		ensureNotEmpty(helperText, "The helper text may not be empty");
 		helperTexts.add(helperText);
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 	/**
 	 * Adds a new helper text, which should be shown, depending on the password
-	 * safety. Helper texts, which have been added later than others, are
-	 * supposed to indicate a higher password safety.
+	 * strength. Helper texts, which have been added later than others, are
+	 * supposed to indicate a higher password strength.
 	 * 
 	 * @param resourceId
 	 *            The resource ID of the helper text, which should be added, as
@@ -583,7 +584,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Removes a specific helper text, which should not be shown, depending on
-	 * the password safety, anymore.
+	 * the password strength, anymore.
 	 * 
 	 * @param helperText
 	 *            The helper text, which should be removed, as an instance of
@@ -594,12 +595,12 @@ public class PasswordEditText extends EditText {
 		ensureNotNull(helperText, "The helper text may not be null");
 		ensureNotEmpty(helperText, "The helper text may not be empty");
 		helperTexts.remove(helperText);
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 	/**
 	 * Removes a specific helper text, which should not be shown, depending on
-	 * the password safety, anymore.
+	 * the password strength, anymore.
 	 * 
 	 * @param resourceId
 	 *            The resource ID of the helper text, which should be removed,
@@ -677,7 +678,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Removes all helper texts, which are shown, depending on the password
-	 * safety.
+	 * strength.
 	 */
 	public final void removeAllHelperTexts() {
 		helperTexts.clear();
@@ -685,10 +686,10 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Returns a collection, which contains all text colors, which are used to
-	 * highlight the helper text, which indicates the password safety.
+	 * highlight the helper text, which indicates the password strength.
 	 * 
 	 * @return A collection, which contains all text colors, which are used to
-	 *         highlight the helper text, which indicates the password safety,
+	 *         highlight the helper text, which indicates the password strength,
 	 *         as an instance of the type {@link Collection} or an empty
 	 *         collection, if no text colors are used to highlight the helper
 	 *         text
@@ -699,19 +700,19 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Adds a new helper text color, which should be used to highlight the
-	 * helper text, which indicates the password safety.
+	 * helper text, which indicates the password strength.
 	 * 
 	 * @param color
 	 *            The color, which should be added, as an {@link Integer} value
 	 */
 	public final void addHelperTextColor(final int color) {
 		helperTextColors.add(color);
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 	/**
 	 * Adds a new helper text color, which should be used to highlight the
-	 * helper text, which indicates the password safety.
+	 * helper text, which indicates the password strength.
 	 * 
 	 * @param resourceId
 	 *            The resource ID of the color, which should be added, as an
@@ -792,7 +793,8 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Removes a specific helper text color, which should not be used to
-	 * highlight the helper text, which indicates the password safety, anymore.
+	 * highlight the helper text, which indicates the password strength,
+	 * anymore.
 	 * 
 	 * @param color
 	 *            The color, which should be removed, as an {@link Integer}
@@ -800,12 +802,13 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void removeHelperTextColor(final int color) {
 		helperTextColors.remove(color);
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 	/**
 	 * Removes a specific helper text color, which should not be used to
-	 * highlight the helper text, which indicates the password safety, anymore.
+	 * highlight the helper text, which indicates the password strength,
+	 * anymore.
 	 * 
 	 * @param resourceId
 	 *            The resource ID of the color, which should be removed, as an
@@ -886,7 +889,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Removes all text colors, which are used to highlight the helper text,
-	 * which indicates the password safety.
+	 * which indicates the password strength.
 	 */
 	public final void removeAllHelperTextColors() {
 		helperTextColors.clear();
@@ -894,10 +897,10 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Returns the prefix of the helper texts, which are shown depending on the
-	 * password safety.
+	 * password strength.
 	 * 
 	 * @return The prefix of the helper texts, which are shown depending on the
-	 *         password safety, as a {@link String}
+	 *         password strength, as a {@link String}
 	 */
 	public final String getPasswordVerificationPrefix() {
 		return passwordVerificationPrefix;
@@ -905,7 +908,7 @@ public class PasswordEditText extends EditText {
 
 	/**
 	 * Sets the prefix of the helper texts, which are shown depending on the
-	 * password safety.
+	 * password strength.
 	 * 
 	 * @param format
 	 *            The prefix, which should be set, as a {@link String} or null,
@@ -913,12 +916,12 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void setPasswordVerificationPrefix(final String format) {
 		this.passwordVerificationPrefix = format;
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 	/**
 	 * Sets the format of the helper texts, which are shown depending on the
-	 * password safety.
+	 * password strength.
 	 * 
 	 * @param resourceId
 	 *            The resourceID of the format, which should be set, as an
@@ -932,7 +935,7 @@ public class PasswordEditText extends EditText {
 	@Override
 	public final void setEnabled(final boolean enabled) {
 		super.setEnabled(enabled);
-		verifyPasswordSafety();
+		verifyPasswordStrength();
 	}
 
 }

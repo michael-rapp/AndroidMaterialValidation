@@ -562,6 +562,8 @@ public class EditText extends
 
 	@Override
 	protected final void onValidate(final boolean valid) {
+		adaptMaxNumberOfCharactersMessage();
+
 		if (valid) {
 			setLineColor(getAccentColor());
 			getView().setActivated(false);
@@ -569,8 +571,6 @@ public class EditText extends
 			setLineColor(getErrorColor());
 			getView().setActivated(true);
 		}
-
-		adaptMaxNumberOfCharactersMessage();
 	}
 
 	@Override
@@ -703,6 +703,9 @@ public class EditText extends
 		if (error == null) {
 			setLineColor(getAccentColor());
 			getView().setActivated(false);
+		} else {
+			setLineColor(getErrorColor());
+			getView().setActivated(true);
 		}
 	}
 

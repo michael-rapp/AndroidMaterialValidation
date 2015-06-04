@@ -109,6 +109,11 @@ public interface Validateable<Type> {
 	void removeAllValidators(Validator<Type>... validators);
 
 	/**
+	 * Removes all validators.
+	 */
+	void removeAllValidators();
+
+	/**
 	 * Validates the current value of the view.
 	 * 
 	 * @return True, if the current value is valid, false otherwise

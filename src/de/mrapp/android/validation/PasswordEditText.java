@@ -248,7 +248,8 @@ public class PasswordEditText extends EditText {
 	private CharSequence getHelperText(final float score) {
 		if (!helperTexts.isEmpty()) {
 			float interval = 1.0f / helperTexts.size();
-			int index = (int) Math.floor(score / interval);
+			int index = (int) Math.floor(score / interval) - 1;
+			index = Math.max(index, 0);
 			index = Math.min(index, helperTexts.size() - 1);
 			return helperTexts.get(index);
 		}
@@ -268,8 +269,9 @@ public class PasswordEditText extends EditText {
 	 */
 	private int getHelperTextColor(final float score) {
 		if (!helperTextColors.isEmpty()) {
-			float interval = 1.0f / helperTextColors.size();
+			float interval = 1.0f / helperTextColors.size() - 1;
 			int index = (int) Math.floor(score / interval);
+			index = Math.max(index, 0);
 			index = Math.min(index, helperTextColors.size() - 1);
 			return helperTextColors.get(index);
 		}
@@ -380,8 +382,11 @@ public class PasswordEditText extends EditText {
 	 */
 	public final void addConstraint(final Constraint<CharSequence> constraint) {
 		ensureNotNull(constraint, "The constraint may not be null");
-		constraints.add(constraint);
-		verifyPasswordStrength();
+
+		if (!constraints.contains(constraint)) {
+			constraints.add(constraint);
+			verifyPasswordStrength();
+		}
 	}
 
 	/**
@@ -496,8 +501,11 @@ public class PasswordEditText extends EditText {
 	public final void addHelperText(final CharSequence helperText) {
 		ensureNotNull(helperText, "The helper text may not be null");
 		ensureNotEmpty(helperText, "The helper text may not be empty");
-		helperTexts.add(helperText);
-		verifyPasswordStrength();
+
+		if (!helperTexts.contains(helperText)) {
+			helperTexts.add(helperText);
+			verifyPasswordStrength();
+		}
 	}
 
 	/**
@@ -706,8 +714,10 @@ public class PasswordEditText extends EditText {
 	 *            The color, which should be added, as an {@link Integer} value
 	 */
 	public final void addHelperTextColor(final int color) {
-		helperTextColors.add(color);
-		verifyPasswordStrength();
+		if (!helperTextColors.contains(color)) {
+			helperTextColors.add(color);
+			verifyPasswordStrength();
+		}
 	}
 
 	/**
@@ -801,8 +811,12 @@ public class PasswordEditText extends EditText {
 	 *            value
 	 */
 	public final void removeHelperTextColor(final int color) {
-		helperTextColors.remove(color);
-		verifyPasswordStrength();
+		int index = helperTextColors.indexOf(color);
+
+		if (index != -1) {
+			helperTextColors.remove(index);
+			verifyPasswordStrength();
+		}
 	}
 
 	/**
@@ -910,12 +924,12 @@ public class PasswordEditText extends EditText {
 	 * Sets the prefix of the helper texts, which are shown depending on the
 	 * password strength.
 	 * 
-	 * @param format
+	 * @param prefix
 	 *            The prefix, which should be set, as a {@link String} or null,
 	 *            if no prefix should be set
 	 */
-	public final void setPasswordVerificationPrefix(final String format) {
-		this.passwordVerificationPrefix = format;
+	public final void setPasswordVerificationPrefix(final String prefix) {
+		this.passwordVerificationPrefix = prefix;
 		verifyPasswordStrength();
 	}
 

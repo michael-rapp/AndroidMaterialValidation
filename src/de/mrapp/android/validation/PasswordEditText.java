@@ -357,6 +357,19 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Returns a collection, which contains the constraints, which are used to
+	 * verify the password safety.
+	 * 
+	 * @return A collection, which contains the constraints, which are used to
+	 *         verify the password safety, as an instance of the type
+	 *         {@link Collection} or an empty collection, if no constraints are
+	 *         used to verify the password safety
+	 */
+	public final Collection<Constraint<CharSequence>> getConstraints() {
+		return constraints;
+	}
+
+	/**
 	 * Adds a new constraint, which should be used to verify the password
 	 * safety.
 	 * 
@@ -446,6 +459,27 @@ public class PasswordEditText extends EditText {
 			final Constraint<CharSequence>... constraints) {
 		ensureNotNull(constraints, "The array may not be null");
 		removeAllConstraints(Arrays.asList(constraints));
+	}
+
+	/**
+	 * Removes all constraints.
+	 */
+	public final void removeAllConstraints() {
+		constraints.clear();
+	}
+
+	/**
+	 * Returns a collection, which contains the helper texts, which are shown,
+	 * depending on the password safety. Helper texts at higher indices are
+	 * supposed to indicate a higher password safety.
+	 * 
+	 * @return A collection, which contains the helper texts, which are shown,
+	 *         depending on the password safety, as an instance of the type
+	 *         {@link Collection} or an empty collection, if no helper texts are
+	 *         shown depending on the password safety
+	 */
+	public final Collection<CharSequence> getHelperTexts() {
+		return helperTexts;
 	}
 
 	/**
@@ -642,6 +676,28 @@ public class PasswordEditText extends EditText {
 	}
 
 	/**
+	 * Removes all helper texts, which are shown, depending on the password
+	 * safety.
+	 */
+	public final void removeAllHelperTexts() {
+		helperTexts.clear();
+	}
+
+	/**
+	 * Returns a collection, which contains all text colors, which are used to
+	 * highlight the helper text, which indicates the password safety.
+	 * 
+	 * @return A collection, which contains all text colors, which are used to
+	 *         highlight the helper text, which indicates the password safety,
+	 *         as an instance of the type {@link Collection} or an empty
+	 *         collection, if no text colors are used to highlight the helper
+	 *         text
+	 */
+	public final Collection<Integer> getHelperTextColors() {
+		return helperTextColors;
+	}
+
+	/**
 	 * Adds a new helper text color, which should be used to highlight the
 	 * helper text, which indicates the password safety.
 	 * 
@@ -826,6 +882,14 @@ public class PasswordEditText extends EditText {
 		for (int resourceId : resourceIds) {
 			removeHelperTextColorId(resourceId);
 		}
+	}
+
+	/**
+	 * Removes all text colors, which are used to highlight the helper text,
+	 * which indicates the password safety.
+	 */
+	public final void removeAllHelperTextColors() {
+		helperTextColors.clear();
 	}
 
 	/**

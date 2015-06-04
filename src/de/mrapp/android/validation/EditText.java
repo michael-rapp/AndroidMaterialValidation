@@ -542,6 +542,18 @@ public class EditText extends
 		}
 	}
 
+	/**
+	 * Adapts the appearance of the view, depending on whether it is currently
+	 * valid, or not.
+	 * 
+	 * @param valid
+	 *            True, if the view is currently valid, false otherwise
+	 */
+	private void adaptAppearance(final boolean valid) {
+		setLineColor(valid ? getAccentColor() : getErrorColor());
+		getView().setActivated(!valid);
+	}
+
 	@Override
 	protected final Collection<Validator<CharSequence>> onGetRightErrorMessage() {
 		CharSequence errorMessage = getMaxNumberOfCharactersMessage();
@@ -563,14 +575,7 @@ public class EditText extends
 	@Override
 	protected final void onValidate(final boolean valid) {
 		adaptMaxNumberOfCharactersMessage();
-
-		if (valid) {
-			setLineColor(getAccentColor());
-			getView().setActivated(false);
-		} else {
-			setLineColor(getErrorColor());
-			getView().setActivated(true);
-		}
+		adaptAppearance(valid);
 	}
 
 	@Override
@@ -699,14 +704,7 @@ public class EditText extends
 	@Override
 	public final void setError(final CharSequence error, final Drawable icon) {
 		super.setError(error, icon);
-
-		if (error == null) {
-			setLineColor(getAccentColor());
-			getView().setActivated(false);
-		} else {
-			setLineColor(getErrorColor());
-			getView().setActivated(true);
-		}
+		adaptAppearance(error == null);
 	}
 
 	// ------------- Methods of the class android.widget.EditText -------------

@@ -149,6 +149,11 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	private static final boolean DEFAULT_VALIDATE_ON_FOCUS_LOST = true;
 
 	/**
+	 * The parent view of the view, whose value should be able to be validated.
+	 */
+	private ViewGroup parentView;
+
+	/**
 	 * The view, whose value should be able to be validated.
 	 */
 	private ViewType view;
@@ -318,7 +323,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 * Inflates the view, whose value should be able to be validated.
 	 */
 	private void inflateView() {
-		ViewGroup parentView = createParentView();
+		parentView = createParentView();
 		view = createView();
 		view.setOnFocusChangeListener(createFocusChangeListener());
 		view.setBackgroundResource(R.drawable.validateable_view_background);
@@ -468,6 +473,56 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 */
 	private void setLineColor(final int color) {
 		view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+	}
+
+	/**
+	 * Adapts the enable state of all children of a specific view group.
+	 * 
+	 * @param viewGroup
+	 *            The view group, whose children's enabled states should be
+	 *            adapted, as an instance of the class {@link ViewGroup}. The
+	 *            view group may not be null
+	 * @param enabled
+	 *            True, if the children should be enabled, false otherwise
+	 */
+	private void setEnabledOnViewGroup(final ViewGroup viewGroup,
+			final boolean enabled) {
+		viewGroup.setEnabled(enabled);
+
+		for (int i = 0; i < viewGroup.getChildCount(); i++) {
+			View child = viewGroup.getChildAt(i);
+
+			if (child instanceof ViewGroup) {
+				setEnabledOnViewGroup((ViewGroup) child, enabled);
+			} else {
+				child.setEnabled(enabled);
+			}
+		}
+	}
+
+	/**
+	 * Adapts the activated state of all children of a specific view group.
+	 * 
+	 * @param viewGroup
+	 *            The view group, whose children's activated states should be
+	 *            adapted, as an instance of the class {@link ViewGroup}. The
+	 *            view group may not be null
+	 * @param activated
+	 *            True, if the children should be activated, false otherwise
+	 */
+	private void setActivatedOnViewGroup(final ViewGroup viewGroup,
+			final boolean activated) {
+		viewGroup.setActivated(activated);
+
+		for (int i = 0; i < viewGroup.getChildCount(); i++) {
+			View child = viewGroup.getChildAt(i);
+
+			if (child instanceof ViewGroup) {
+				setActivatedOnViewGroup((ViewGroup) child, activated);
+			} else {
+				child.setActivated(activated);
+			}
+		}
 	}
 
 	/**
@@ -910,7 +965,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 */
 	public void setError(final CharSequence error, final Drawable icon) {
 		setLeftMessage(error, icon);
-		getView().setActivated(error != null);
+		setActivated(error != null);
 	}
 
 	@Override
@@ -921,7 +976,21 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 			setError(null);
 		}
 
-		getView().setEnabled(enabled);
+		view.setEnabled(enabled);
+
+		if (parentView != null) {
+			setEnabledOnViewGroup(parentView, enabled);
+		}
+	}
+
+	@Override
+	public final void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		view.setActivated(activated);
+
+		if (parentView != null) {
+			setActivatedOnViewGroup(parentView, activated);
+		}
 	}
 
 	@Override
@@ -936,12 +1005,12 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		if (leftValidator == null && rightValidator == null) {
 			notifyOnValidationSuccess();
 			onValidate(true);
-			getView().setActivated(false);
+			setActivated(false);
 			return true;
 		}
 
 		onValidate(false);
-		getView().setActivated(true);
+		setActivated(true);
 		return false;
 	}
 

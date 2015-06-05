@@ -18,14 +18,12 @@ License along with this program.  If not, see
 <http://www.gnu.org/licenses/>. 
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false">
-        <nine-patch android:src="@drawable/spinner_arrow"
-            android:alpha="?android:attr/disabledAlpha" />
+
+    <item android:state_enabled="false"><nine-patch android:alpha="?android:attr/disabledAlpha" android:src="@drawable/spinner_arrow" android:tint="?attr/colorControlNormal" />
     </item>
-    <item android:state_pressed="false" android:state_focused="false">
-        <nine-patch android:src="@drawable/spinner_arrow" />
+    <item android:state_focused="false" android:state_pressed="false"><nine-patch android:src="@drawable/spinner_arrow" android:tint="?attr/colorControlNormal" />
     </item>
-    <item>
-        <nine-patch android:src="@drawable/spinner_arrow" />
+    <item><nine-patch android:src="@drawable/spinner_arrow" android:tint="?attr/colorControlActivated" />
     </item>
+
 </selector>

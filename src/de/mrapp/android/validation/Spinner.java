@@ -18,6 +18,7 @@
 package de.mrapp.android.validation;
 
 import de.mrapp.android.validation.adapter.ProxySpinnerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -28,6 +29,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,6 +37,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 
 /**
@@ -301,9 +305,26 @@ public class Spinner extends
 		return new android.widget.Spinner(getContext());
 	}
 
+	@SuppressLint("RtlHardcoded")
 	@Override
 	protected final ViewGroup createParentView() {
-		return null;
+		FrameLayout frameLayout = new FrameLayout(getContext());
+		ImageView arrowImageView = new ImageView(getContext());
+		arrowImageView.setImageResource(R.drawable.spinner_arrow_background);
+		android.widget.FrameLayout.LayoutParams layoutParams = new android.widget.FrameLayout.LayoutParams(
+				android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+				android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+				Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+		layoutParams.leftMargin = getResources().getDimensionPixelSize(
+				R.dimen.validateable_view_inset_left);
+		layoutParams.topMargin = getResources().getDimensionPixelSize(
+				R.dimen.validateable_view_inset_top);
+		layoutParams.rightMargin = getResources().getDimensionPixelSize(
+				R.dimen.validateable_view_inset_right);
+		layoutParams.bottomMargin = getResources().getDimensionPixelSize(
+				R.dimen.validateable_view_inset_bottom);
+		frameLayout.addView(arrowImageView, layoutParams);
+		return frameLayout;
 	}
 
 	@Override

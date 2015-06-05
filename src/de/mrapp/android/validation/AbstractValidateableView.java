@@ -318,11 +318,20 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 * Inflates the view, whose value should be able to be validated.
 	 */
 	private void inflateView() {
+		ViewGroup parentView = createParentView();
 		view = createView();
 		view.setOnFocusChangeListener(createFocusChangeListener());
 		view.setBackgroundResource(R.drawable.validateable_view_background);
-		addView(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		setLineColor(getAccentColor());
+
+		if (parentView != null) {
+			parentView.addView(view, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+			addView(parentView, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+		} else {
+			addView(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		}
 	}
 
 	/**
@@ -458,8 +467,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 *            The color, which should be set, as an {@link Integer} value
 	 */
 	private void setLineColor(final int color) {
-		getView().getBackground().setColorFilter(color,
-				PorterDuff.Mode.SRC_ATOP);
+		view.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 	}
 
 	/**

@@ -35,11 +35,6 @@ License along with this program.  If not, see
             android:state_pressed="false">
             <nine-patch android:src="@drawable/validateable_view_default" />
         </item>
-        <item
-            android:state_focused="false"
-            android:state_pressed="false">
-            <nine-patch android:src="@drawable/validateable_view_activated" />
-        </item>
         <item>
             <nine-patch android:src="@drawable/validateable_view_activated" />
         </item>

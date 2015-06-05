@@ -1006,11 +1006,13 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 			notifyOnValidationSuccess();
 			onValidate(true);
 			setActivated(false);
+			setLineColor(getAccentColor());
 			return true;
 		}
 
 		onValidate(false);
 		setActivated(true);
+		setLineColor(getErrorColor());
 		return false;
 	}
 

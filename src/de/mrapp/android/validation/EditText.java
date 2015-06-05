@@ -54,6 +54,7 @@ import android.text.method.TransformationMethod;
 import android.text.style.URLSpan;
 import android.util.AttributeSet;
 import android.view.ActionMode;
+import android.view.ViewGroup;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.widget.Scroller;
@@ -584,6 +585,11 @@ public class EditText extends
 				getContext());
 		editText.setBackgroundResource(R.drawable.validateable_view_background);
 		return editText;
+	}
+	
+	@Override
+	protected final ViewGroup createParentView() {
+		return null;
 	}
 
 	@Override

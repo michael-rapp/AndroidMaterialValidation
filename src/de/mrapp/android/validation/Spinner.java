@@ -31,6 +31,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -353,6 +354,11 @@ public class Spinner extends
 				background, arrow });
 		spinner.setBackgroundDrawable(layerDrawable);
 		return spinner;
+	}
+
+	@Override
+	protected final ViewGroup createParentView() {
+		return null;
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -588,6 +589,16 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 *         type ViewType
 	 */
 	protected abstract ViewType createView();
+
+	/**
+	 * The method, which is invoked in order to create the parent view of the
+	 * view, whose value should be able to be validated.
+	 * 
+	 * @return The parent view, which has been created, as an instance of the
+	 *         class {@link ViewGroup} or null, if no parent view should be
+	 *         created
+	 */
+	protected abstract ViewGroup createParentView();
 
 	/**
 	 * The method, which is invoked in order to retrieve the current value of

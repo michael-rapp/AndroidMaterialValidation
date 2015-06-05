@@ -18,10 +18,10 @@ License along with this program.  If not, see
 <http://www.gnu.org/licenses/>. 
 -->
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetBottom="@dimen/edit_text_inset_bottom"
-    android:insetLeft="@dimen/edit_text_inset_left"
-    android:insetRight="@dimen/edit_text_inset_right"
-    android:insetTop="@dimen/edit_text_inset_top" >
+    android:insetBottom="@dimen/validateable_view_inset_bottom"
+    android:insetLeft="@dimen/validateable_view_inset_left"
+    android:insetRight="@dimen/validateable_view_inset_right"
+    android:insetTop="@dimen/validateable_view_inset_top" >
 
     <selector>
         <item android:state_enabled="false">

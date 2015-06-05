@@ -27,6 +27,7 @@ import java.util.Set;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -319,7 +320,9 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	private void inflateView() {
 		view = createView();
 		view.setOnFocusChangeListener(createFocusChangeListener());
+		view.setBackgroundResource(R.drawable.validateable_view_background);
 		addView(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		setLineColor(getAccentColor());
 	}
 
 	/**
@@ -442,10 +445,21 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 * @return The color of the theme attribute
 	 *         <code>android.R.attr.colorAccent</code>
 	 */
-	protected final int getAccentColor() {
+	private int getAccentColor() {
 		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
 				new int[] { R.attr.colorAccent });
 		return typedArray.getColor(0, 0);
+	}
+
+	/**
+	 * Sets the color of the view's line.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	private void setLineColor(final int color) {
+		getView().getBackground().setColorFilter(color,
+				PorterDuff.Mode.SRC_ATOP);
 	}
 
 	/**
@@ -888,6 +902,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 	 */
 	public void setError(final CharSequence error, final Drawable icon) {
 		setLeftMessage(error, icon);
+		getView().setActivated(error != null);
 	}
 
 	@Override
@@ -913,10 +928,12 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 		if (leftValidator == null && rightValidator == null) {
 			notifyOnValidationSuccess();
 			onValidate(true);
+			getView().setActivated(false);
 			return true;
 		}
 
 		onValidate(false);
+		getView().setActivated(true);
 		return false;
 	}
 

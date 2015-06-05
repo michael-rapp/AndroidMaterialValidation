@@ -22,9 +22,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -163,7 +161,6 @@ public class Spinner extends
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setLineColor(getAccentColor());
 		getView().setOnItemSelectedListener(createItemSelectedListener());
 	}
 
@@ -267,31 +264,6 @@ public class Spinner extends
 	}
 
 	/**
-	 * Returns the color of the theme attribute
-	 * <code>android.R.attr.colorControlNormal</code>.
-	 * 
-	 * @return The color of the theme attribute
-	 *         <code>android.R.attr.colorControlNormal</code>
-	 */
-	private int getControlColor() {
-		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
-				new int[] { R.attr.colorControlNormal });
-		return typedArray.getColor(0, 0);
-	}
-
-	/**
-	 * Sets the color of the view's line.
-	 * 
-	 * @param color
-	 *            The color, which should be set, as an {@link Integer} value
-	 */
-	private void setLineColor(final int color) {
-		LayerDrawable layerDrawable = (LayerDrawable) getView().getBackground();
-		Drawable background = layerDrawable.getDrawable(0);
-		background.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-	}
-
-	/**
 	 * Creates and returns a listener, which allows to validate the value of the
 	 * view, when the selected item has been changed.
 	 * 
@@ -324,36 +296,9 @@ public class Spinner extends
 		};
 	}
 
-	/**
-	 * Adapts the appearance of the view, depending on whether it is currently
-	 * valid, or not.
-	 * 
-	 * @param valid
-	 *            True, if the view is currently valid, false otherwise
-	 */
-	private void adaptAppearance(final boolean valid) {
-		setLineColor(valid ? getAccentColor() : getErrorColor());
-		getView().setActivated(!valid);
-	}
-
-	@Override
-	protected final void onValidate(final boolean valid) {
-		adaptAppearance(valid);
-	}
-
-	@SuppressWarnings("deprecation")
 	@Override
 	protected final android.widget.Spinner createView() {
-		android.widget.Spinner spinner = new android.widget.Spinner(
-				getContext());
-		Drawable background = getResources().getDrawable(
-				R.drawable.validateable_view_background);
-		Drawable arrow = getResources().getDrawable(R.drawable.spinner_arrow);
-		arrow.setColorFilter(getControlColor(), PorterDuff.Mode.SRC_ATOP);
-		LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] {
-				background, arrow });
-		spinner.setBackgroundDrawable(layerDrawable);
-		return spinner;
+		return new android.widget.Spinner(getContext());
 	}
 
 	@Override
@@ -532,12 +477,6 @@ public class Spinner extends
 			ProxySpinnerAdapter proxyAdapter = (ProxySpinnerAdapter) getAdapter();
 			setAdapter(proxyAdapter.getAdapter());
 		}
-	}
-
-	@Override
-	public final void setError(final CharSequence error, final Drawable icon) {
-		super.setError(error, icon);
-		adaptAppearance(error == null);
 	}
 
 	// ------------- Methods of the class android.widget.Spinner -------------

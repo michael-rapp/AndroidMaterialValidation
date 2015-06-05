@@ -31,7 +31,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -208,7 +207,6 @@ public class EditText extends
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setLineColor(getAccentColor());
 		getView().addTextChangedListener(createTextChangeListener());
 	}
 
@@ -466,17 +464,6 @@ public class EditText extends
 	}
 
 	/**
-	 * Sets the color of the view's line.
-	 * 
-	 * @param color
-	 *            The color, which should be set, as an {@link Integer} value
-	 */
-	private void setLineColor(final int color) {
-		getView().getBackground().setColorFilter(color,
-				PorterDuff.Mode.SRC_ATOP);
-	}
-
-	/**
 	 * Creates and returns a listener, which allows to validate the value of the
 	 * view, when its text has been changed.
 	 * 
@@ -543,18 +530,6 @@ public class EditText extends
 		}
 	}
 
-	/**
-	 * Adapts the appearance of the view, depending on whether it is currently
-	 * valid, or not.
-	 * 
-	 * @param valid
-	 *            True, if the view is currently valid, false otherwise
-	 */
-	private void adaptAppearance(final boolean valid) {
-		setLineColor(valid ? getAccentColor() : getErrorColor());
-		getView().setActivated(!valid);
-	}
-
 	@Override
 	protected final Collection<Validator<CharSequence>> onGetRightErrorMessage() {
 		CharSequence errorMessage = getMaxNumberOfCharactersMessage();
@@ -576,17 +551,13 @@ public class EditText extends
 	@Override
 	protected final void onValidate(final boolean valid) {
 		adaptMaxNumberOfCharactersMessage();
-		adaptAppearance(valid);
 	}
 
 	@Override
 	protected final android.widget.EditText createView() {
-		android.widget.EditText editText = new android.widget.EditText(
-				getContext());
-		editText.setBackgroundResource(R.drawable.validateable_view_background);
-		return editText;
+		return new android.widget.EditText(getContext());
 	}
-	
+
 	@Override
 	protected final ViewGroup createParentView() {
 		return null;
@@ -705,12 +676,6 @@ public class EditText extends
 
 		this.maxNumberOfCharacters = maxNumberOfCharacters;
 		adaptMaxNumberOfCharactersMessage();
-	}
-
-	@Override
-	public final void setError(final CharSequence error, final Drawable icon) {
-		super.setError(error, icon);
-		adaptAppearance(error == null);
 	}
 
 	// ------------- Methods of the class android.widget.EditText -------------

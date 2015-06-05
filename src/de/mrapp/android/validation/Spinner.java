@@ -346,7 +346,7 @@ public class Spinner extends
 		android.widget.Spinner spinner = new android.widget.Spinner(
 				getContext());
 		Drawable background = getResources().getDrawable(
-				R.drawable.edit_text_background);
+				R.drawable.validateable_view_background);
 		Drawable arrow = getResources().getDrawable(R.drawable.spinner_arrow);
 		arrow.setColorFilter(getControlColor(), PorterDuff.Mode.SRC_ATOP);
 		LayerDrawable layerDrawable = new LayerDrawable(new Drawable[] {

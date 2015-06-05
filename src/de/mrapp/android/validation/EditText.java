@@ -582,7 +582,7 @@ public class EditText extends
 	protected final android.widget.EditText createView() {
 		android.widget.EditText editText = new android.widget.EditText(
 				getContext());
-		editText.setBackgroundResource(R.drawable.edit_text_background);
+		editText.setBackgroundResource(R.drawable.validateable_view_background);
 		return editText;
 	}
 

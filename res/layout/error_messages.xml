@@ -34,13 +34,14 @@ License along with this program.  If not, see
         android:layout_marginTop="@dimen/error_message_inset_top"
         android:layout_weight="1"
         android:ellipsize="end"
+        android:gravity="start|center_vertical"
         android:maxLines="2"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/right_error_message"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/error_message_inset_bottom"
         android:layout_marginEnd="@dimen/error_message_inset_right"
@@ -49,6 +50,7 @@ License along with this program.  If not, see
         android:layout_marginStart="@dimen/error_message_inset_left"
         android:layout_marginTop="@dimen/error_message_inset_top"
         android:ellipsize="end"
+        android:gravity="end|center_vertical"
         android:maxLines="2"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:visibility="gone" />

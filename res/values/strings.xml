@@ -21,5 +21,6 @@ License along with this program. If not, see
 
     <string name="edit_text_size_violation_error_message" formatted="false">%d / %d</string>
     <string name="password_verification_prefix">Safety</string>
+    <string name="default_error_message">Validation failed</string>
 
 </resources>

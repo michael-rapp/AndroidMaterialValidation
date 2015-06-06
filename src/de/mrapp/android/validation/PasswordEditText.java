@@ -99,9 +99,10 @@ public class PasswordEditText extends EditText {
 		helperTextColors = new ArrayList<>();
 		regularHelperText = getHelperText();
 		regularHelperTextColor = getHelperTextColor();
-		setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-		getView().addTextChangedListener(createTextChangeListener());
 		obtainStyledAttributes(attributeSet);
+		setInputType(InputType.TYPE_CLASS_TEXT
+				| InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		getView().addTextChangedListener(createTextChangeListener());
 	}
 
 	/**

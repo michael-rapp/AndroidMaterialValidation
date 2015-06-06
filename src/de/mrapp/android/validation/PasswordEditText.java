@@ -269,8 +269,8 @@ public class PasswordEditText extends EditText {
 	 */
 	private int getHelperTextColor(final float score) {
 		if (!helperTextColors.isEmpty()) {
-			float interval = 1.0f / helperTextColors.size() - 1;
-			int index = (int) Math.floor(score / interval);
+			float interval = 1.0f / helperTextColors.size();
+			int index = (int) Math.floor(score / interval) - 1;
 			index = Math.max(index, 0);
 			index = Math.min(index, helperTextColors.size() - 1);
 			return helperTextColors.get(index);

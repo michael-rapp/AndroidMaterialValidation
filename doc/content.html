@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <title>AndroidMaterialValidation &#150; Documentation: Content</title>
+        <link rel=stylesheet type=text/css href=style.css />
+        <link rel="icon" type="image/png" href="images/favicon.png" />
+    </head>
+    
+    <body>
+        <div class="content">
+            <div class="header">
+                <h1>AndroidMaterialValidation &#150; Documentation</h1>
+                <h2>Documentation of the Android-library "AndroidMaterialValidation".</h2>
+            </div>
+
+            <div class="navigation">
+                <div class="navigation-item"><a href="index.html">GENERAL</a></div>
+                <div class="navigation-item-selected"><a href="content.html">CONTENT</a></div>
+                <div class="navigation-item"><a href="examples.html">EXAMPLES</a></div>
+            </div>
+
+            <div class="text">
+                <h3>Content</h3>
+        
+                <h4>Table of contents</h4>
+
+                <ol class="table-of-contents">
+                    <li><a href="content.html#implementation-details">Implementation details</a></li>
+                    <li><a href="content.html#changing-the-appearance">Changing the appearance of a view</a></li>
+		    <li><a href="content.html#edit-text">EditText</a></li>
+	            <li><a href="content.html#password-edit-text">PasswordEditText</a></li>
+		    <li><a href="content.html#spinner">Spinner</a></li>
+		    <li><a href="content.html#predefined-validators">Pre-defined Validators</a></li>
+		    <li><a href="content.html#predefined-constraints">Pre-defined Constraints</a></li>
+                </ol>
+
+                <h4><a name="implementation-details">1 Implementation details</a></h4>
+
+                <p>The purpose of this library is to provide views, which can be validated according to the Material Design guidelines, like shown <a href="http://www.google.com/design/spec/patterns/errors.html#errors-user-input-errors" target="_blank" class="code">here</a>. The views, which are provided by the library are not extended from the corresponding views of the Android SDK, but are implemented as view groups, which contain the corresponding views as well as additional views, which are used to visualize validation errors. As the views are not extended from the API classes, which implement the corresponding views of the Android SDK, such instances can not be substituted. Instead the library's views provide the same methods as the original API classes and delegate them to the encapsulated view.</p>
+
+		<p>In order to be able to validate the values of the library's views, so called <i>validators</i> are used. Such validators must implement the interface <a href="javadoc/de/mrapp/android/validation/Validator.html" target="_blank" class="code">Validator</a>, which defines a <tt>validate</tt>-method as well as getter methods, which allow to retrieve the message and icon, which should be shown when the validation fails. The library already provides multiple validators. When it is still necessary to implement a custom validator, the implementation should be extended from the class <a href="javadoc/de/mrapp/android/validation/validators/AbstractValidator.html" target="_blank" class="code">AbstractValidator</a>, as this class already provides an implementation of a validator's basic functionality.</p>
+
+		<p>All views, which are provided by the library, are extended from the class <a href="javadoc/de/mrapp/android/validation/AbstractValidateableView.html" target="_blank" class="code">AbstractValidateableView</a>, which provides the functionality, all of these views have in common, and therefore implements the interface <a href="javadoc/de/mrapp/android/validation/Validateable.html" target="_blank" class="code">Validateable</a>. This interface defines the following methods, which can be used to add validators to a view:</p>
+
+		<p><center><tt>addValidator(Validator):void</tt></center></p>
+		<p><center><tt>addAllValidators(Collection&lt;Validator&gt;):void</tt></center></p>
+		<p><center><tt>addAllValidators(Validator[]):void</tt></center></p>
+
+		<p>Additionally, the following methods, which can be used to remove a previously added validator from the view afterwards, are provided:</p>
+
+		<p><center><tt>removeValidator(Validator):void</tt></center></p>
+		<p><center><tt>removeAllValidators(Collection&lt;Validator&gt;):void</tt></center></p>
+		<p><center><tt>removeAllValidators(Validator[]):void</tt></center></p>
+		<p><center><tt>removeAllValidators():void</tt></center></p>
+
+		<p>A view's value can validated manually by calling the method <tt>validate():boolean</tt>. By default the validation is also automatically performed, when the view loses its focus or if its value has been changed. This behavior can be adjusted by using the following getter and setter methods:</p>
+
+		<table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                    </tr>
+                    <tr>
+                        <td><tt>isValidatedOnValueChange():boolean</br>validateOnValueChange(boolean):void</tt></td>
+                        <td>Returns or sets, whether the view should be automatically validated, when its value has been changed.</td>
+                        <td><center><tt>true</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>isValidatedOnFocusLost():boolean</br>validateOnFocusLost(boolean):void</tt></td>
+                        <td>Returns or sets, whether the view should be automatically validated, when it has lost the focus.</td>
+                        <td><center><tt>true</tt></center></td>
+                    </tr>
+		</table>
+
+		<p>Furthermore, the interface <a href="javadoc/de/mrapp/android/validation/Validateable.html" target="_blank" class="code">Validateable</a> provides the possibility to add listeners, which therefore must implement the interface <a href="javadoc/de/mrapp/android/validation/ValidationListener.html" target="_blank" class="code">ValidationListener</a>. This interface defines two methods, which will be called when a validation has succeeded, respectively has failed: On the one hand, the method <tt>onValidationSuccess(Validateable):void</tt>, which contains the validated view as its parameter, is called when a validation attempt has succeeded. On the other hand, the second method <tt>onValidationFailure(Validateable, Validator):void</tt> is called when a validation has failed. This listener method contains the validated view, as well as the validator, which has failed, as parameters.</p>
+
+		<h4><a name="changing-the-appearance">2 Changing the appearance of a view</a></h4>
+
+		<p>All views, which are provided by the library, contain a line at the bottom edge like suggested by the Material Design guidelines. The theme attribute <tt>colorAccent</tt> is used to determine the default color of this line. When validating a view has failed, the line is drawn in red instead. This color can be changed by using the <tt>color</tt>-attribute <tt>errorColor</tt> when defining the view in a XML resource file or by calling the setter method <tt>setErrorColor(int):void</tt> of the class <a href="javadoc/de/mrapp/android/validation/AbstractValidateableView.html" target="_blank" class="code">AbstractValidateableView</a>. The currently applied color can be retrieved by using the getter method <tt>getErrorColor():int</tt>.</p>
+
+		<p>All views allow to set a so called <i>hint</i>, which is a text that is shown as the value of the view, when no value has been set. In addition so called <i>helper texts</i> provide a second possibility to show information about the view to the user. Helper texts are texts, which are shown at the bottom of a view when no validation errors are currently shown. The purpose of these texts is to provide additional information about how the validation of the view works, for example what kind of characters are allowed. An example of a view with such a helper text is shown in the image below. The helper text of a view can be set by using the XML attribute <tt>helperText</tt> or by calling the method <tt>setHelperText(CharSequence):void</tt>. The current helper text, which is <tt>null</tt> by default, is returned by the method <tt>getHelperText():CharSequence</tt>.</p>
+
+		<p><center><a href="images/helpertext.png" target="_blank".><img src="images/helpertext.png" width="360" alt="HelperText"></center></a></p>
+
+		<p>The text color of a view's helper text can also be changed, by using the XML attribute <tt>helperTextColor</tt> or by programmatically calling the method <tt>setHelperTextColor(int):void</tt> of the class <a href="javadoc/de/mrapp/android/validation/AbstractValidateableView.html" target="_blank" class="code">AbstractValidateableView</a>. The current text color can be retrieved by calling the method <tt>getHelperTextColor():int</tt> instead.</p>
+
+                <h4><a name="edit-text">3 EditText</a></h4>
+
+                <p>The class <a href="javadoc/de/mrapp/android/validation/EditText.html" target="_blank" class="code">EditText</a> provides an implementation of a view, which allows to enter a text. Therefore the view encapsulates an instance of the Android SDK's built-in view <a href="http://developer.android.com/reference/android/widget/EditText.html" target="_blank" class="code">android.widget.EditText</a>. The libary's <a href="javadoc/de/mrapp/android/validation/EditText.html" target="_blank" class="code">EditText</a> implementation provides most of the methods, which are provided by the corresponding API class. The appearance of the view, when a validation error is shown, can be seen in the image below.</p>
+
+                <p><center><a href="images/edittext.png" target="_blank".><img src="images/edittext.png" width="360" alt="EditText"></center></a></p>
+
+		<p>In addition to the functionality, which is provided by the Android SDK's built-in <a href="http://developer.android.com/reference/android/widget/EditText.html" target="_blank" class="code">EditText</a> view, it is also possible to set the number of characters, the view is allowed to contain at maximum. This causes the current number of characters, as well as the maximum number of characters, to be shown at the bottom right edge of the view, like shown below. Also validating the view will fail, when the maximum number of characters is exceeded. In order to set the maximum number of characters, the <tt>integer</tt>-attribute <tt>maxNumberOfCharacters</tt> can be used, when defining the view in a XML resource. Alternatively, the setter method <tt>setMaxNumberOfCharacters(int):void</tt> can be used. The getter method <tt>getMaxNumberOfCharacters():int</tt> allows to retrieve the maximum number of characters.</p>
+
+                <p><center><a href="images/edittext_max_chars_1.png" target="_blank".><img src="images/edittext_max_chars_1.png" width="360" alt="EditText with maximum number of characters"></center></a></p>
+
+                <p><center><a href="images/edittext_max_chars_2.png" target="_blank".><img src="images/edittext_max_chars_2.png" width="360" alt="EditText with maximum number of characters"></center></a></p>
+
+                <h4><a name="password-edit-text">4 PasswordEditText</a></h4>
+
+		<p>The purpose of the view, which is provided by the class <a href="javadoc/de/mrapp/android/validation/PasswordEditText.html" target="_blank" class="code">PasswordEditText</a> is to enter passwords. This class is extended from the class <a href="javadoc/de/mrapp/android/validation/EditText.html" target="_blank" class="code">EditText</a>, which has been discussed in the previous section. The changes of the child class in comparison to its parent class are not only restricted to the changed input type, which causes the entered characters to be replaced by dots, as the functionality to verify and visualize the password strength has also been added. The appearance of such a view can be seen in the example below:</p>
+
+                <p><center><a href="images/password_edittext.png" target="_blank".><img src="images/password_edittext.png" width="360" alt="PasswordEditText"></center></a></p>
+
+		<p>In order to verify the password strength, multiple constraints can be added to an instance of the class <a href="javadoc/de/mrapp/android/validation/PasswordEditText.html" target="_blank" class="code">PasswordEditText</a>. Such constraints are meant to be implementations of the interface <a href="javadoc/de/mrapp/android/validation/Constraint.html" target="_blank" class="code">Constraint</a> and therefore must implement the method <tt>isSatisfied(Type):boolean</tt>, which allows to determine, whether a specific value satisfies the constraint. When multiple constraints are added to a view, the fraction of satisfied constraints is calculated each time, the value of the <a href="javadoc/de/mrapp/android/validation/PasswordEditText.html" target="_blank" class="code">PasswordEditText</a> changes. The more constraints are satisfied, the stronger the entered password. The following methods can be used to add or remove constraints to or from an instance of the class <a href="javadoc/de/mrapp/android/validation/PasswordEditText.html" target="_blank" class="code">PasswordEditText</a>:</p>
+
+		<p><center><tt>addConstraint(Constraint):void</tt></center></p>
+		<p><center><tt>addAllConstraints(Collection&lt;Constraint&gt;):void</tt></center></p>
+		<p><center><tt>addAllConstraints(Constraint[]):void</tt></center></p>
+		<p><center><tt>removeConstraint(Constraint):void</tt></center></p>
+		<p><center><tt>removeAllConstraints(Collection&lt;Constraint&gt;):void</tt></center></p>
+		<p><center><tt>removeAllConstraints(Constraint[]):void</tt></center></p>
+		<p><center><tt>removeAllConstraints():void</tt></center></p>
+
+		<p>In order to visualize the password strength, multiple helper texts can be added to the view. The order, which is used to add the helper text is relevant for the password strengths the individual texts represent. Helper texts, which have been added later, are considered to represent a higher password strength, than texts, which have been added earlier. Additionally, the color of the helper texts can be changed according to the password strength. The visualization of the password strength is updated whenever the view's text changes, by calculating the fraction of satisfied constraints and choosing the helper text and its color accordingly. The following methods can be used to add helper texts to a view or to remove them afterwards. The texts can not only be specified by passing instances of the class <a href="http://developer.android.com/reference/java/lang/CharSequence.html" target="_blank" class="code">CharSequence</a>, but also by passing the resource ID of a string resource.</p>
+
+		<p><center><tt>addHelperText(CharSequence):void</tt></center></p>
+		<p><center><tt>addHelperTextId(int):void</tt></center></p>
+		<p><center><tt>addAllHelperTexts(Collection&lt;CharSequence&gt;):void</tt></center></p>
+		<p><center><tt>addAllHelperTextIds(Collection&lt;Integer&gt;):void</tt></center></p>
+		<p><center><tt>addAllHelperTexts(CharSequence[]):void</tt></center></p>
+		<p><center><tt>addAllHelperTextIds(int[]):void</tt></center></p>
+		<p><center><tt>removeHelperText(CharSequence):void</tt></center></p>
+		<p><center><tt>removeHelperTextId(int):void</tt></center></p>
+		<p><center><tt>removeAllHelperTexts(Collection&lt;CharSequence&gt;):void</tt></center></p>
+		<p><center><tt>removeAllHelperTextIds(Collection&lt;Integer&gt;):void</tt></center></p>
+		<p><center><tt>removeAllHelperTexts(CharSequence[]):void</tt></center></p>
+		<p><center><tt>removeAllHelperTextIds(int[]):void</tt></center></p>		
+		<p><center><tt>removeAllHelperTexts():void</tt></center></p>
+
+		<p>Adding the colors of the helper texts to an instance of the class <a href="javadoc/de/mrapp/android/validation/PasswordEditText.html" target="_blank" class="code">PasswordEditText</a> is possible by using the methods listed below. Methods, which allow to remove the colors afterwards, are also provided. The colors can either be specified by using integer representations like provided by the Android SDK class <a href="http://developer.android.com/reference/java/lang/Color.html" target="_blank" class="code">Color</a>, or by passing the resource id of a color resource.</p>
+
+		<p><center><tt>addHelperTextColor(int):void</tt></center></p>
+		<p><center><tt>addHelperTextcolorId(int):void</tt></center></p>
+		<p><center><tt>addAllHelperTextColors(Collection&lt;Integer&gt;):void</tt></center></p>
+		<p><center><tt>addAllHelperTextColorIds(Collection&lt;Integer&gt;):void</tt></center></p>
+		<p><center><tt>addAllHelperTextColors(int[]):void</tt></center></p>
+		<p><center><tt>addAllHelperTextColorIds(int[]):void</tt></center></p>
+		<p><center><tt>removeHelperTextColor(int):void</tt></center></p>
+		<p><center><tt>removeHelperTextColorId(int):void</tt></center></p>
+		<p><center><tt>removeAllHelperTextColors(Collection&lt;Integer&gt;):void</tt></center></p>
+		<p><center><tt>removeAllHelperTextColorIds(Collection&lt;Integer&gt;):void</tt></center></p>
+		<p><center><tt>removeAllHelperTextColors(int[]):void</tt></center></p>
+		<p><center><tt>removeAllHelperTextColorIds(int[]):void</tt></center></p>		
+		<p><center><tt>removeAllHelperTextColors():void</tt></center></p>
+
+		<p>It is recommended to add an equal number of helper texts and helper text colors to the view. Also the number of helper texts should be greater by one than the number of constraints in order to achieve a precise visualization of the actual password strength. Nevertheless, the verification of the password strength will also work, if a deviant number is added. The library provides a few pre-defined constraints, which will discuseed in the last section of this documentation.</p>
+
+		<h4><a name="spinner">5 Spinner</a></h4>
+
+		<p>The purpose of the class <a href="javadoc/de/mrapp/android/validation/Spinner.html" target="_blank" class="code">Spinner</a> is to provide a validateable variant of the Android SDK's built-in view <a href="http://developer.android.com/reference/android/widget/Spinner.html" target="_blank" class="code">android.widget.Spinner</a>. The libary's <a href="javadoc/de/mrapp/android/validation/Spinner.html" target="_blank" class="code">Spinner</a> implementation provides most of the methods, which are provided by the corresponding API class. The appearance of such a spinner, when showing a validation error, is shown below:</p>
+
+                <p><center><a href="images/spinner.png" target="_blank".><img src="images/spinner.png" width="360" alt="Spinner"></center></a></p>
+
+		<p>In contrast to the Android SDK's built-in <a href="http://developer.android.com/reference/android/widget/Spinner.html" target="_blank" class="code">Spinner</a> the first item of the spinner, which is provided by this library, is not selected by default. Instead the view's hint, which can be set by using the <tt>setHint</tt>-method, is shown when no item is selected.</p>
+
+		<p>The classes <a href="javadoc/de/mrapp/android/validation/EditText.html" target="_blank" class="code">EditText</a> and <a href="javadoc/de/mrapp/android/validation/PasswordEditText.html" target="_blank" class="code">PasswordEditText</a>, which have been discussed in the previous sections of this documentation, allow to enter texts, which are represented by instances of the type <a href="http://developer.android.com/reference/java/lang/CharSequence.html" target="_blank" class="code">CharSequence</a> and therefore the <a href="javadoc/de/mrapp/android/validation/Validator.html" target="_blank" class="code">Validator</a> instances, which should be added to such views, must be parametrized with the generic type <a href="http://developer.android.com/reference/java/lang/CharSequence.html" target="_blank" class="code">CharSequence</a>. Anyways, the adapter, which contains the items of a <a href="javadoc/de/mrapp/android/validation/Spinner.html" target="_blank" class="code">Spinner</a> view, can contain any type of data and therefore the validators, which should be added to a spinner, must be parametrized with the generic type <tt>java.lang.Object</tt>.</p>
+
+		<h4><a name="predefined-validators">6 Pre-defined Validators</a></h4>
+
+		<p>The library provides a large number of pre-defined implementations of the interface <a href="javadoc/de/mrapp/android/validation/Validator.html" target="_blank" class="code">Validator</a>. These classes can be used to validate the values of the library's views. It is recommended to use the utility class <a href="javadoc/de/mrapp/android/validation/Validators.html" target="_blank" class="code">Validators</a> to create instances of these validators. This utility class offers three factory methods for each type of validator. One allows to pass the validator's error message as an instance of the class <a href="http://developer.android.com/reference/java/lang/CharSequence.html" target="_blank" class="code">CharSequence</a>, another one allows to specify the message by passing a resource ID and the third one doesn't even require to pass an error message, because a default message is used.</p>
+
+		<p>The following table provides an overview of all factory methods of the class <a href="javadoc/de/mrapp/android/validation/Validators.html" target="_blank" class="code">Validators</a>, which can be used to create instances of the pre-defined validators, the library contains. It describes the semantics of each validator, as well as the views it is compatible with.</p>
+
+		<table>
+                    <tr>
+                        <th>Factory methods</th>
+                        <th>Explaination</th>
+                        <th>Compatible views</th>
+                    </tr>
+                    <tr>
+                        <td><tt>negate(CharSequence,Validator):Validator</br>negate(Context,int,Validator):Validator</br>negate(Context,Validator):Validator</tt></td>
+                        <td>Allows to negate the result of an other validator.</td>
+                        <td><center><tt>EditText, PasswordEditText, Spinner</tt></center></td>
+                    </tr>
+                    <tr>
+                        <td><tt>conjunctive(CharSequence,Validator[]):Validator</br>conjunctive(Context,int,Validator[]):Validator</br>conjunctive(Context,Validator[]):Validator</tt></td>
+                        <td>Allows to combine multiple validators in a conjunctive manner. The validation does only succeed, when all validators succeed.</td>
+                        <td><center><tt>EditText, PasswordEditText, Spinner</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>disjunctive(CharSequence,Validator[]):Validator</br>disjunctive(Context,int,Validator[]):Validator</br>disjunctive(Context,Validator[]):Validator</tt></td>
+                        <td>Allows to combine multiple validators in a disjunctive manner. The validation does succeed, when at least one validator succeeds.</td>
+                        <td><center><tt>EditText, PasswordEditText, Spinner</tt></center></td>
+                    </tr>
+	            <tr>
+                        <td><tt>notNull(CharSequence):Validator</br>notNull(Context,int):Validator</br>notNull(Context):Validator</tt></td>
+                        <td>Ensures, that a view's value is not null.</td>
+                        <td><center><tt>Spinner</tt></center></td>
+                    </tr>
+	            <tr>
+                        <td><tt>regex(CharSequence,Pattern):Validator</br>regex(Context,int,Pattern):Validator</br>regex(Context,Pattern):Validator</tt></td>
+                        <td>Ensures, that a text matches a specific regular expression.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+	            <tr>
+                        <td><tt>notEmpty(CharSequence):Validator</br>notEmpty(Context,int):Validator</br>notEmpty(Context):Validator</tt></td>
+                        <td>Ensures, that a text is not empty.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+	            <tr>
+                        <td><tt>minLength(CharSequence,int):Validator</br>minLength(Context,int,int):Validator</br>minLength(Context,int):Validator</tt></td>
+                        <td>Ensures, that a text contains at least a specific number of characters.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>maxLength(CharSequence,int):Validator</br>maxLength(Context,int,int):Validator</br>maxLength(Context,int):Validator</tt></td>
+                        <td>Ensures, that a text does not exceed a specific length.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>noWhitespace(CharSequence):Validator</br>noWhitespace(Context,int):Validator</br>noWhitespace(Context):Validator</tt></td>
+                        <td>Ensures, that a text does not contain any whitespace. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+	            <tr>
+                        <td><tt>number(CharSequence):Validator</br>number(Context,int):Validator</br>number(Context):Validator</tt></td>
+                        <td>Ensures, that a text does only contain numbers. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>letter(CharSequence,Case,boolean,char[]):Validator</br>letter(Context,int,Case,boolean,char[]):Validator</br>letter(Context,Case,boolean,char[]):Validator</tt></td>
+                        <td>Ensures, that a text does only contain letters. Letters are considered to be all alphabetical characters from A to B. It is possible to specify, whether only uppercase or lowercase letters should be accepted, or if they should be threatened case-insensitive. Additionally, it is possible to specify whether spaces should be allowed and to add special characters, which should also be accepted. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>letterOrNumber(CharSequence,Case,boolean,char[]):Validator</br>letterOrNumber(Context,int,Case,boolean,char[]):Validator</br>letterOrNumber(Context,Case,boolean,char[]):Validator</tt></td>
+                        <td>Ensures, that a text does only contain letters or numbers. Letters are considered to be all alphabetical characters from A to B. It is possible to specify, whether only uppercase or lowercase letters should be accepted, or if they should be threatened case-insensitive. Additionally, it is possible to specify whether spaces should be allowed and to add special characters, which should also be accepted. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>beginsWithUppercaseLetter(CharSequence):Validator</br>beginsWithUppercaseLetter(Context,int):Validator</br>beginsWithUppercaseLetter(Context):Validator</tt></td>
+                        <td>Ensures, that a text begins with an uppercase letter. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>equal(CharSequence,EditText):Validator</br>equal(Context,int,EditText):Validator</br>equal(Context,EditText):Validator</tt></td>
+                        <td>Ensures, that a text is equal to the text, which is contained by an EditText widget.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>iPv4Address(CharSequence):Validator</br>iPv4Address(Context,int):Validator</br>iPv4Address(Context):Validator</tt></td>
+                        <td>Ensures, that a text represents a valid IPv4 address. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>iPv6Address(CharSequence):Validator</br>iPv6Address(Context,int):Validator</br>iPv6Address(Context):Validator</tt></td>
+                        <td>Ensures, that a text represents a valid IPv6 address. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>domainName(CharSequence):Validator</br>domainName(Context,int):Validator</br>domainName(Context):Validator</tt></td>
+                        <td>Ensures, that a text represents a valid domain name. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>emailAddress(CharSequence):Validator</br>emailAddress(Context,int):Validator</br>emailAddress(Context):Validator</tt></td>
+                        <td>Ensures, that a text represents a valid e-mail address. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>iri(CharSequence):Validator</br>iri(Context,int):Validator</br>iri(Context):Validator</tt></td>
+                        <td>Ensures, that a text represents a valid IRIs. IRIs are internationalized URLs according to RFC 3987, which are for example used as internet addresses. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		    <tr>
+                        <td><tt>phoneNumber(CharSequence):Validator</br>phoneNumber(Context,int):Validator</br>phoneNumber(Context):Validator</tt></td>
+                        <td>Ensures, that a text represents a valid phone numbers. Phone numbers, which are only consisting of numbers are allowed as well as international phone numbers, e.g. +49 1624812382. Empty texts are also accepted.</td>
+                        <td><center><tt>EditText, PasswordEditText</tt></center></td>
+                    </tr>
+		</table>
+
+		<h4><a name="predefined-constraints">7 Pre-defined Constraints</a></h4>
+
+		<p>The library does not only provide pre-defined validators, but also pre-defined constraints, which can be used to verify the password strength of a <a href="javadoc/de/mrapp/android/validation/PasswordEditText.html" target="_blank" class="code">PasswordEditText</a> view. It is recommended to use the factory methods, which are provided by the utility class <a href="javadoc/de/mrapp/android/validation/Constraints.html" target="_blank" class="code">Constraints</a> to create instances of such constraints. The following table contains all factory methods, which are available, as well as a brief description of the constraint's semantics.</p>
+
+		<table>
+                    <tr>
+                        <th>Factory method</th>
+                        <th>Explaination</th>
+                    </tr>
+                    <tr>
+                        <td><tt>negate(Constraint):Constraint</tt></td>
+                        <td>Allows to negate the result of an other constraint.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>conjunctive(Constraint[]):Constraint</tt></td>
+                        <td>Allows to combine multiple constraints in a conjunctive manner. The constraint is satisfied, when all constraints are satisfied.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>disjunctive(Constraint[]):Constraint</tt></td>
+                        <td>Allows to combine multiple constraints in a disjunctive manner. The constraint is satisfied, when at least one constraint is satisfied.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>regex(Pattern):Constraint</tt></td>
+                        <td>This constraint is satisfied, when the password matches a specific regular expression.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>minLength(int):Constraint</tt></td>
+                        <td>This constraint is satisfied, when the password has at least a minimum length.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>containsNumber():Constraint</tt></td>
+                        <td>This constraint is satisfied, when the password contains at least one number.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>containsLetter():Constraint</tt></td>
+                        <td>This constraint is satisfied, when the password contains at least one letter.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>containsSymbol():Constraint</tt></td>
+                        <td>This constraint is satisfied, when the password contains at least one symbol. Symbols are considered to be all characters except lower and uppercase letters from A to Z and numbers.</td>
+                    </tr>
+		</table>
+
+                <h4>External references:</h4>
+
+                <div class="reference"><a name="reference1" class="reference">[1]</a><a href="http://www.google.com/design/spec/patterns/errors.html#errors-user-input-errors" target="_blank">http://www.google.com/design/spec/patterns/errors.html#errors-user-input-errors</a> &#150; Material Design guidelines "Errors"</div>
+
+		<div class="reference"><a name="reference2" class="reference">[2]</a><a href="http://developer.android.com/reference/android/widget/EditText.html" target="_blank">http://developer.android.com/reference/android/widget/EditText.html</a> &#150; Class "EditText"</div>
+
+		<div class="reference"><a name="reference3" class="reference">[3]</a><a href="http://developer.android.com/reference/java/lang/CharSequence.html" target="_blank">http://developer.android.com/reference/java/lang/CharSequence.html</a> &#150; Class "CharSequence"</div>
+
+		<div class="reference"><a name="reference4" class="reference">[4]</a><a href="http://developer.android.com/reference/java/lang/Color.html" target="_blank">http://developer.android.com/reference/java/lang/Color.html</a> &#150; Class "Color"</div>
+
+		<div class="reference"><a name="reference5" class="reference">[5]</a><a href="http://developer.android.com/reference/android/widget/Spinner.html" target="_blank">http://developer.android.com/reference/android/widget/Spinner.html</a> &#150; Class "Spinner"</div>
+            </div>
+
+            <div class="copyright">
+                &#169; Copyright 2015, Michael Rapp. All rights reserved.
+            </div>
+        </div>
+    </body>
+</html>

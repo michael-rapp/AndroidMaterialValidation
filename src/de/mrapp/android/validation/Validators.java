@@ -1251,7 +1251,7 @@ public final class Validators {
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
 	 * ensure, that they represent valid IRIs. IRIs are internationalized URLs
-	 * according to RFC 3987, which are for example used as internet addresses..
+	 * according to RFC 3987, which are for example used as internet addresses.
 	 * Empty texts are also accepted.
 	 * 
 	 * @param errorMessage
@@ -1268,7 +1268,7 @@ public final class Validators {
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
 	 * ensure, that they represent valid IRIs. IRIs are internationalized URLs
-	 * according to RFC 3987, which are for example used as internet addresses..
+	 * according to RFC 3987, which are for example used as internet addresses.
 	 * Empty texts are also accepted.
 	 * 
 	 * @param context
@@ -1291,7 +1291,7 @@ public final class Validators {
 	/**
 	 * Creates and returns a validator, which allows to validate texts to
 	 * ensure, that they represent valid IRIs. IRIs are internationalized URLs
-	 * according to RFC 3987, which are for example used as internet addresses..
+	 * according to RFC 3987, which are for example used as internet addresses.
 	 * Empty texts are also accepted.
 	 * 
 	 * @param context

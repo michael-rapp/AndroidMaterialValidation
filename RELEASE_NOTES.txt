@@ -3,7 +3,7 @@ AndroidMaterialValidation - RELEASE NOTES
 
 
 Version: 		1.0.0 
-Release date:	06.06.2015
+Release date:	06.07.2015
 --------------------------
 
 The first stable release, which initially provides the following features:

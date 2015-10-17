@@ -18,8 +18,8 @@ import android.support.annotation.NonNull;
 
 import de.mrapp.android.validation.Constraint;
 
-import static de.mrapp.android.validation.util.Condition.ensureAtLeast;
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A validator, which allows to combine multiple constraints in a disjunctive manner. If at least

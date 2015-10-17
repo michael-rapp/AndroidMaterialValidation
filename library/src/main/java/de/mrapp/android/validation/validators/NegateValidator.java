@@ -20,7 +20,7 @@ import android.support.annotation.StringRes;
 
 import de.mrapp.android.validation.Validator;
 
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A validator, which allows to negate the result of an other validator.

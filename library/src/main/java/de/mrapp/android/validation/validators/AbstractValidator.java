@@ -23,8 +23,8 @@ import android.support.annotation.StringRes;
 
 import de.mrapp.android.validation.Validator;
 
-import static de.mrapp.android.validation.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureNotEmpty;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * An abstract base class for all validators, which should be able to validate values of a specific

@@ -69,7 +69,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Locale;
 
-import static de.mrapp.android.validation.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureAtLeast;
 
 /**
  * A view, which allows to enter text. The text may be validated according to the pattern, which is

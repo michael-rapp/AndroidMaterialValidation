@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 import de.mrapp.android.validation.validators.AbstractValidator;
 
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A validator, which allows to validate texts to ensure, that they only contain letters or numbers.

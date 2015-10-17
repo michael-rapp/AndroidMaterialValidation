@@ -22,7 +22,7 @@ import android.text.TextUtils;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.validators.AbstractValidator;
 
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A validator, which allows to validate texts to ensure, that they are equal to the text, which is

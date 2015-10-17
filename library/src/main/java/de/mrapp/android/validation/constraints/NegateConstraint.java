@@ -18,7 +18,7 @@ import android.support.annotation.NonNull;
 
 import de.mrapp.android.validation.Constraint;
 
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A constraint, which allows to negate the result of an other constraint.

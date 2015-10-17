@@ -16,7 +16,7 @@ package de.mrapp.android.validation.constraints.text;
 
 import de.mrapp.android.validation.Constraint;
 
-import static de.mrapp.android.validation.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureAtLeast;
 
 /**
  * A constraint, which allows to verify texts in order to check, if they have at least a specific

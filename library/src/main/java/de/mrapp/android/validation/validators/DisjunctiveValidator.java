@@ -20,8 +20,8 @@ import android.support.annotation.StringRes;
 
 import de.mrapp.android.validation.Validator;
 
-import static de.mrapp.android.validation.util.Condition.ensureAtLeast;
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A validator, which allows to combine multiple validators in a disjunctive manner. If at least one

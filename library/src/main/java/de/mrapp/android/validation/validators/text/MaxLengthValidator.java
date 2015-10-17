@@ -20,7 +20,7 @@ import android.support.annotation.StringRes;
 
 import de.mrapp.android.validation.validators.AbstractValidator;
 
-import static de.mrapp.android.validation.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureAtLeast;
 
 /**
  * A validator, which allows to validate texts to ensure, that they are not longer than a specific

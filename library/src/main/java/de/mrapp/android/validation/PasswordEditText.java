@@ -35,8 +35,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static de.mrapp.android.validation.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureNotEmpty;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A view, which allows to enter a password. The text may be validated according to the pattern,

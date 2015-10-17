@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 import de.mrapp.android.validation.Constraint;
 
-import static de.mrapp.android.validation.util.Condition.ensureNotNull;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A constraint, which allows to verify a text in order to check, if it matches a certain regular

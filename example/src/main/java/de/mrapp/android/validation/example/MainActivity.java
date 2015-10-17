@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
      * Initializes the activity's toolbar.
      */
     private void initializeToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(de.mrapp.android.validation.R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -102,114 +102,100 @@ public class MainActivity extends AppCompatActivity {
      * Initializes the edit text, which allows to enter an username.
      */
     private void initializeUsernameEditText() {
-        usernameEditText =
-                (EditText) findViewById(de.mrapp.android.validation.R.id.username_edit_text);
-        usernameEditText.addValidator(Validators.notEmpty(this,
-                de.mrapp.android.validation.R.string.not_empty_validator_error_message));
-        usernameEditText.addValidator(Validators.maxLength(this,
-                de.mrapp.android.validation.R.string.max_length_validator_error_messsage,
-                MAX_CHARACTERS));
-        usernameEditText.addValidator(Validators.letterOrNumber(this,
-                de.mrapp.android.validation.R.string.letter_or_number_validator_error_message,
-                Case.CASE_INSENSITIVE, false, new char[]{'-', '_'}));
+        usernameEditText = (EditText) findViewById(R.id.username_edit_text);
+        usernameEditText.addValidator(
+                Validators.notEmpty(this, R.string.not_empty_validator_error_message));
+        usernameEditText.addValidator(Validators
+                .maxLength(this, R.string.max_length_validator_error_messsage, MAX_CHARACTERS));
+        usernameEditText.addValidator(Validators
+                .letterOrNumber(this, R.string.letter_or_number_validator_error_message,
+                        Case.CASE_INSENSITIVE, false, new char[]{'-', '_'}));
     }
 
     /**
      * Initializes the edit text, which allows to enter a password.
      */
     private void initializePasswordEditText() {
-        passwordEditText = (PasswordEditText) findViewById(
-                de.mrapp.android.validation.R.id.password_edit_text);
-        passwordEditText.addValidator(Validators.minLength(this,
-                de.mrapp.android.validation.R.string.password_min_length_validator_error_message,
-                MIN_PASSWORD_LENGTH));
-        passwordEditText.addValidator(Validators.maxLength(this,
-                de.mrapp.android.validation.R.string.max_length_validator_error_messsage,
-                MAX_CHARACTERS));
-        passwordEditText.addValidator(Validators.noWhitespace(this,
-                de.mrapp.android.validation.R.string.no_whitespace_validator_error_message));
+        passwordEditText = (PasswordEditText) findViewById(R.id.password_edit_text);
+        passwordEditText.addValidator(Validators
+                .minLength(this, R.string.password_min_length_validator_error_message,
+                        MIN_PASSWORD_LENGTH));
+        passwordEditText.addValidator(Validators
+                .maxLength(this, R.string.max_length_validator_error_messsage, MAX_CHARACTERS));
+        passwordEditText.addValidator(
+                Validators.noWhitespace(this, R.string.no_whitespace_validator_error_message));
         passwordEditText.addAllConstraints(Constraints.minLength(SUGGESTED_PASSWORD_LENGTH),
                 Constraints.containsLetter(), Constraints.containsNumber(),
                 Constraints.containsSymbol());
-        passwordEditText.addAllHelperTextIds(
-                de.mrapp.android.validation.R.string.password_edit_text_helper_text0,
-                de.mrapp.android.validation.R.string.password_edit_text_helper_text1,
-                de.mrapp.android.validation.R.string.password_edit_text_helper_text2,
-                de.mrapp.android.validation.R.string.password_edit_text_helper_text3,
-                de.mrapp.android.validation.R.string.password_edit_text_helper_text4);
-        passwordEditText.addAllHelperTextColorIds(
-                de.mrapp.android.validation.R.color.password_edit_text_helper_text_color0,
-                de.mrapp.android.validation.R.color.password_edit_text_helper_text_color1,
-                de.mrapp.android.validation.R.color.password_edit_text_helper_text_color2,
-                de.mrapp.android.validation.R.color.password_edit_text_helper_text_color3,
-                de.mrapp.android.validation.R.color.password_edit_text_helper_text_color4);
+        passwordEditText.addAllHelperTextIds(R.string.password_edit_text_helper_text0,
+                R.string.password_edit_text_helper_text1, R.string.password_edit_text_helper_text2,
+                R.string.password_edit_text_helper_text3, R.string.password_edit_text_helper_text4);
+        passwordEditText.addAllHelperTextColorIds(R.color.password_edit_text_helper_text_color0,
+                R.color.password_edit_text_helper_text_color1,
+                R.color.password_edit_text_helper_text_color2,
+                R.color.password_edit_text_helper_text_color3,
+                R.color.password_edit_text_helper_text_color4);
     }
 
     /**
      * Initializes the edit text, which allows to enter a password repetition.
      */
     private void initializePasswordRepetitionEditText() {
-        passwordRepetitionEditText = (EditText) findViewById(
-                de.mrapp.android.validation.R.id.password_repetition_edit_text);
-        passwordRepetitionEditText.addValidator(Validators
-                .equal(this, de.mrapp.android.validation.R.string.equal_validator_error_message,
-                        passwordEditText));
+        passwordRepetitionEditText = (EditText) findViewById(R.id.password_repetition_edit_text);
+        passwordRepetitionEditText.addValidator(
+                Validators.equal(this, R.string.equal_validator_error_message, passwordEditText));
     }
 
     /**
      * Initializes the spinner, which allows to choose a gender.
      */
     private void initializeGenderSpinner() {
-        genderSpinner = (Spinner) findViewById(de.mrapp.android.validation.R.id.gender_spinner);
-        genderSpinner.addValidator(Validators.notNull(this,
-                de.mrapp.android.validation.R.string.not_null_validator_error_message));
+        genderSpinner = (Spinner) findViewById(R.id.gender_spinner);
+        genderSpinner
+                .addValidator(Validators.notNull(this, R.string.not_null_validator_error_message));
     }
 
     /**
      * Initializes the edit text, which allows to enter a first name.
      */
     private void initializeFirstNameEditText() {
-        firstNameEditText =
-                (EditText) findViewById(de.mrapp.android.validation.R.id.first_name_edit_text);
-        firstNameEditText.addValidator(Validators.minLength(this,
-                de.mrapp.android.validation.R.string.min_length_validator_error_message,
-                MIN_NAME_LENGTH));
-        firstNameEditText.addValidator(Validators.beginsWithUppercaseLetter(this,
-                de.mrapp.android.validation.R.string.begins_with_uppercase_letter_validator_error_message));
+        firstNameEditText = (EditText) findViewById(R.id.first_name_edit_text);
         firstNameEditText.addValidator(Validators
-                .letter(this, de.mrapp.android.validation.R.string.letter_validator_error_message,
-                        Case.CASE_INSENSITIVE, false, new char[]{'-'}));
+                .minLength(this, R.string.min_length_validator_error_message, MIN_NAME_LENGTH));
+        firstNameEditText.addValidator(Validators.beginsWithUppercaseLetter(this,
+                R.string.begins_with_uppercase_letter_validator_error_message));
+        firstNameEditText.addValidator(Validators
+                .letter(this, R.string.letter_validator_error_message, Case.CASE_INSENSITIVE, false,
+                        new char[]{'-'}));
     }
 
     /**
      * Initializes the edit text, which allows to enter a last name.
      */
     private void initializeLastNameEditText() {
-        lastNameEditText =
-                (EditText) findViewById(de.mrapp.android.validation.R.id.last_name_edit_text);
-        lastNameEditText.addValidator(Validators.minLength(this,
-                de.mrapp.android.validation.R.string.min_length_validator_error_message,
-                MIN_NAME_LENGTH));
-        lastNameEditText.addValidator(Validators.beginsWithUppercaseLetter(this,
-                de.mrapp.android.validation.R.string.begins_with_uppercase_letter_validator_error_message));
+        lastNameEditText = (EditText) findViewById(R.id.last_name_edit_text);
         lastNameEditText.addValidator(Validators
-                .letter(this, de.mrapp.android.validation.R.string.letter_validator_error_message,
-                        Case.CASE_INSENSITIVE, false, new char[]{'-'}));
+                .minLength(this, R.string.min_length_validator_error_message, MIN_NAME_LENGTH));
+        lastNameEditText.addValidator(Validators.beginsWithUppercaseLetter(this,
+                R.string.begins_with_uppercase_letter_validator_error_message));
+        lastNameEditText.addValidator(Validators
+                .letter(this, R.string.letter_validator_error_message, Case.CASE_INSENSITIVE, false,
+                        new char[]{'-'}));
     }
 
     /**
      * Initializes the edit text, which allows to enter additional information.
      */
     private void initializeAdditionalInformationEditText() {
-        additionalInformationEditText = (EditText) findViewById(
-                de.mrapp.android.validation.R.id.additional_information_edit_text);
+        additionalInformationEditText =
+                (EditText) findViewById(R.id.additional_information_edit_text);
     }
 
     /**
      * Initializes the button, which allows to validate the values of all views.
      */
     private void initializeValidateButton() {
-        Button button = (Button) findViewById(de.mrapp.android.validation.R.id.validate_button);
+        Button button = (Button) findViewById(R.id.validate_button);
         button.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -229,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(de.mrapp.android.validation.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         initializeToolbar();
         initializeUsernameEditText();
         initializePasswordEditText();

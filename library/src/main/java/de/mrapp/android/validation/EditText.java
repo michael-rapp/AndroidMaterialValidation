@@ -655,8 +655,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Gets the autolink mask of the text. See {@link android.text.util.Linkify#ALL Linkify.ALL} and
      * peers for possible values.
-     *
-     * @attr ref android.R.styleable#TextView_autoLink
      */
     public final int getAutoLinkMask() {
         return getView().getAutoLinkMask();
@@ -665,8 +663,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the autolink mask of the text. See {@link android.text.util.Linkify#ALL Linkify.ALL} and
      * peers for possible values.
-     *
-     * @attr ref android.R.styleable#TextView_autoLink
      */
     public final void setAutoLinkMask(final int mask) {
         getView().setAutoLinkMask(mask);
@@ -674,7 +670,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * @return whether or not the cursor is visible (assuming this TextView is editable)
-     * @attr ref android.R.styleable#TextView_cursorVisible
      * @see #setCursorVisible(boolean)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -686,7 +681,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Set whether the cursor is visible. The default is true. Note that this property only makes
      * sense for editable TextView.
      *
-     * @attr ref android.R.styleable#TextView_cursorVisible
      * @see #isCursorVisible()
      */
     public final void setCursorVisible(final boolean visible) {
@@ -695,8 +689,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Returns the padding between the compound drawables and the text.
-     *
-     * @attr ref android.R.styleable#TextView_drawablePadding
      */
     public final int getCompoundDrawablePadding() {
         return getView().getCompoundDrawablePadding();
@@ -704,8 +696,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Sets the size of the padding between the compound drawables and the text.
-     *
-     * @attr ref android.R.styleable#TextView_drawablePadding
      */
     public final void setCompoundDrawablePadding(final int pad) {
         getView().setCompoundDrawablePadding(pad);
@@ -824,11 +814,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * text. Use {@code null} if you do not want a Drawable there. The Drawables must already have
      * had {@link Drawable#setBounds} called. <p> Calling this method will overwrite any Drawables
      * previously set using {@link #setCompoundDrawablesRelative} or related methods.
-     *
-     * @attr ref android.R.styleable#TextView_drawableLeft
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableRight
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     public final void setCompoundDrawables(final Drawable left, final Drawable top,
                                            final Drawable right, final Drawable bottom) {
@@ -849,10 +834,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *         Resource identifier of the right Drawable.
      * @param bottom
      *         Resource identifier of the bottom Drawable.
-     * @attr ref android.R.styleable#TextView_drawableLeft
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableRight
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     public final void setCompoundDrawablesWithIntrinsicBounds(final int left, final int top,
                                                               final int right, final int bottom) {
@@ -864,11 +845,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * text. Use {@code null} if you do not want a Drawable there. The Drawables' bounds will be set
      * to their intrinsic bounds. <p> Calling this method will overwrite any Drawables previously
      * set using {@link #setCompoundDrawablesRelative} or related methods.
-     *
-     * @attr ref android.R.styleable#TextView_drawableLeft
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableRight
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     public final void setCompoundDrawablesWithIntrinsicBounds(final Drawable left,
                                                               final Drawable top,
@@ -882,11 +858,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * text. Use {@code null} if you do not want a Drawable there. The Drawables must already have
      * had {@link Drawable#setBounds} called. <p> Calling this method will overwrite any Drawables
      * previously set using {@link #setCompoundDrawables} or related methods.
-     *
-     * @attr ref android.R.styleable#TextView_drawableStart
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableEnd
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     public final void setCompoundDrawablesRelative(final Drawable start, final Drawable top,
                                                    final Drawable end, final Drawable bottom) {
@@ -907,10 +878,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *         Resource identifier of the end Drawable.
      * @param bottom
      *         Resource identifier of the bottom Drawable.
-     * @attr ref android.R.styleable#TextView_drawableStart
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableEnd
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public final void setCompoundDrawablesRelativeWithIntrinsicBounds(final int start,
@@ -924,11 +891,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * text. Use {@code null} if you do not want a Drawable there. The Drawables' bounds will be set
      * to their intrinsic bounds. <p> Calling this method will overwrite any Drawables previously
      * set using {@link #setCompoundDrawables} or related methods.
-     *
-     * @attr ref android.R.styleable#TextView_drawableStart
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableEnd
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public final void setCompoundDrawablesRelativeWithIntrinsicBounds(final Drawable start,
@@ -940,11 +902,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Returns drawables for the left, top, right, and bottom borders.
-     *
-     * @attr ref android.R.styleable#TextView_drawableLeft
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableRight
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     public final Drawable[] getCompoundDrawables() {
         return getView().getCompoundDrawables();
@@ -952,11 +909,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Returns drawables for the start, top, end, and bottom borders.
-     *
-     * @attr ref android.R.styleable#TextView_drawableStart
-     * @attr ref android.R.styleable#TextView_drawableTop
-     * @attr ref android.R.styleable#TextView_drawableEnd
-     * @attr ref android.R.styleable#TextView_drawableBottom
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public final Drawable[] getCompoundDrawablesRelative() {
@@ -970,7 +922,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *
      * @param elegant
      *         set the paint's elegant metrics flag.
-     * @attr ref android.R.styleable#TextView_elegantTextHeight
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public final void setElegantTextHeight(final boolean elegant) {
@@ -994,8 +945,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * If {@link #setMaxLines} has been used to set two or more lines, only {@link
      * android.text.TextUtils.TruncateAt#END} and {@link android.text.TextUtils.TruncateAt#MARQUEE}
      * are supported (other ellipsizing types will not do anything).
-     *
-     * @attr ref android.R.styleable#TextView_ellipsize
      */
     public final void setEllipsize(final TextUtils.TruncateAt where) {
         getView().setEllipsize(where);
@@ -1004,7 +953,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Makes the TextView exactly this many ems wide
      *
-     * @attr ref android.R.styleable#TextView_ems
      * @see #setMaxEms(int)
      * @see #setMinEms(int)
      * @see #getMinEms()
@@ -1030,7 +978,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *
      * @param fontFeatureSettings
      *         font feature settings represented as CSS compatible string
-     * @attr ref android.R.styleable#TextView_fontFeatureSettings
      * @see #getFontFeatureSettings()
      * @see Paint#getFontFeatureSettings
      */
@@ -1059,7 +1006,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * @param freezesText
      *         Controls whether a frozen icicle should include the entire text data: true to include
      *         it, false to not.
-     * @attr ref android.R.styleable#TextView_freezesText
      */
     public final void setFreezesText(final boolean freezesText) {
         getView().setFreezesText(freezesText);
@@ -1067,8 +1013,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Returns the hint that is displayed when the text of the TextView is empty.
-     *
-     * @attr ref android.R.styleable#TextView_hint
      */
     public final CharSequence getHint() {
         return getView().getHint();
@@ -1078,8 +1022,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets the text to be displayed when the text of the TextView is empty. Null means to use the
      * normal empty text. The hint does not currently participate in determining the size of the
      * view.
-     *
-     * @attr ref android.R.styleable#TextView_hint
      */
     public final void setHint(final CharSequence hint) {
         getView().setHint(hint);
@@ -1087,8 +1029,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Sets the text to be displayed when the text of the TextView is empty, from a resource.
-     *
-     * @attr ref android.R.styleable#TextView_hint
      */
     public final void setHint(final int resid) {
         getView().setHint(resid);
@@ -1098,7 +1038,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Change the editor type integer associated with the text view, which will be reported to an
      * IME with {@link EditorInfo#imeOptions} when it has focus.
      *
-     * @attr ref android.R.styleable#TextView_imeOptions
      * @see #getImeOptions
      * @see android.view.inputmethod.EditorInfo
      */
@@ -1120,8 +1059,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Change the custom IME action associated with the text view, which will be reported to an IME
      * with {@link EditorInfo#actionLabel} and {@link EditorInfo#actionId} when it has focus.
      *
-     * @attr ref android.R.styleable#TextView_imeActionLabel
-     * @attr ref android.R.styleable#TextView_imeActionId
      * @see #getImeActionLabel
      * @see #getImeActionId
      * @see android.view.inputmethod.EditorInfo
@@ -1154,7 +1091,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Set whether the TextView includes extra top and bottom padding to make room for accents that
      * go above the normal ascent and descent. The default is true.
      *
-     * @attr ref android.R.styleable#TextView_includeFontPadding
      * @see #getIncludeFontPadding()
      */
     public final void setIncludeFontPadding(final boolean includepad) {
@@ -1165,7 +1101,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Gets whether the TextView includes extra top and bottom padding to make room for accents that
      * go above the normal ascent and descent.
      *
-     * @attr ref android.R.styleable#TextView_includeFontPadding
      * @see #setIncludeFontPadding(boolean)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1193,7 +1128,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * modified if you change the {@link EditorInfo#TYPE_TEXT_FLAG_MULTI_LINE} flag of the input
      * type.
      *
-     * @attr ref android.R.styleable#TextView_inputType
      * @see #getInputType()
      * @see #setRawInputType(int)
      * @see android.text.InputType
@@ -1216,7 +1150,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets text letter-spacing. The value is in 'EM' units. Typical values for slight expansion
      * will be around 0.05. Negative values tighten text.
      *
-     * @attr ref android.R.styleable#TextView_letterSpacing
      * @see #getLetterSpacing()
      * @see Paint#getLetterSpacing
      */
@@ -1230,8 +1163,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *
      * Note that setting this value overrides any other (minimum / maximum) number of lines or
      * height setting. A single line TextView will set this value to 1.
-     *
-     * @attr ref android.R.styleable#TextView_lines
      */
     public final void setLines(final int lines) {
         getView().setLines(lines);
@@ -1240,9 +1171,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets line spacing for this TextView. Each line will have its height multiplied by
      * <code>mult</code> and have <code>add</code> added to it.
-     *
-     * @attr ref android.R.styleable#TextView_lineSpacingExtra
-     * @attr ref android.R.styleable#TextView_lineSpacingMultiplier
      */
     public final void setLineSpacing(final float add, final float mult) {
         getView().setLineSpacing(add, mult);
@@ -1252,7 +1180,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Gets the line spacing multiplier
      *
      * @return the value by which each line's height is multiplied to get its actual height.
-     * @attr ref android.R.styleable#TextView_lineSpacingMultiplier
      * @see #setLineSpacing(float, float)
      * @see #getLineSpacingExtra()
      */
@@ -1265,7 +1192,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Gets the line spacing extra space
      *
      * @return the extra space that is added to the height of each lines of this TextView.
-     * @attr ref android.R.styleable#TextView_lineSpacingExtra
      * @see #setLineSpacing(float, float)
      * @see #getLineSpacingMultiplier()
      */
@@ -1278,8 +1204,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets whether the movement method will automatically be set to {@link LinkMovementMethod} if
      * {@link #setAutoLinkMask} has been set to nonzero and links are detected in {@link #setText}.
      * The default is true.
-     *
-     * @attr ref android.R.styleable#TextView_linksClickable
      */
     public final void setLinksClickable(final boolean whether) {
         getView().setLinksClickable(whether);
@@ -1289,8 +1213,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Returns whether the movement method will automatically be set to {@link LinkMovementMethod}
      * if {@link #setAutoLinkMask} has been set to nonzero and links are detected in {@link
      * #setText}. The default is true.
-     *
-     * @attr ref android.R.styleable#TextView_linksClickable
      */
     public final boolean getLinksClickable() {
         return getView().getLinksClickable();
@@ -1300,7 +1222,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets how many times to repeat the marquee animation. Only applied if the TextView has marquee
      * enabled. Set to -1 to repeat indefinitely.
      *
-     * @attr ref android.R.styleable#TextView_marqueeRepeatLimit
      * @see #getMarqueeRepeatLimit()
      */
     public final void setMarqueeRepeatLimit(final int marqueeLimit) {
@@ -1313,7 +1234,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *
      * @return the number of times the marquee animation is repeated. -1 if the animation repeats
      * indefinitely
-     * @attr ref android.R.styleable#TextView_marqueeRepeatLimit
      * @see #setMarqueeRepeatLimit(int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1323,8 +1243,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Makes the TextView at most this many ems wide
-     *
-     * @attr ref android.R.styleable#TextView_maxEms
      */
     public final void setMaxEms(final int maxems) {
         getView().setMaxEms(maxems);
@@ -1333,7 +1251,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * @return the maximum width of the TextView, expressed in ems or -1 if the maximum width was
      * set in pixels instead (using setMaxWidth(int) or setWidth(int)).
-     * @attr ref android.R.styleable#TextView_maxEms
      * @see #setMaxEms(int)
      * @see #setEms(int)
      */
@@ -1345,8 +1262,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the list of input filters that will be used if the buffer is Editable. Has no effect
      * otherwise.
-     *
-     * @attr ref android.R.styleable#TextView_maxLength
      */
     public final void setFilters(final InputFilter[] filters) {
         getView().setFilters(filters);
@@ -1354,8 +1269,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Returns the current list of input filters.
-     *
-     * @attr ref android.R.styleable#TextView_maxLength
      */
     public final InputFilter[] getFilters() {
         return getView().getFilters();
@@ -1365,8 +1278,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Makes the TextView at most this many lines tall.
      *
      * Setting this value overrides any other (maximum) height setting.
-     *
-     * @attr ref android.R.styleable#TextView_maxLines
      */
     public final void setMaxLines(final int maxlines) {
         getView().setMaxLines(maxlines);
@@ -1375,7 +1286,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * @return the maximum number of lines displayed in this TextView, or -1 if the maximum height
      * was set in pixels instead using setMaxHeight(int) or setHeight(int).
-     * @attr ref android.R.styleable#TextView_maxLines
      * @see #setMaxLines(int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1385,8 +1295,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Makes the TextView at least this many ems wide
-     *
-     * @attr ref android.R.styleable#TextView_minEms
      */
     public final void setMinEms(final int minems) {
         getView().setMinEms(minems);
@@ -1395,7 +1303,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * @return the minimum width of the TextView, expressed in ems or -1 if the minimum width was
      * set in pixels instead (using setMinWidth(int) or setWidth(int)).
-     * @attr ref android.R.styleable#TextView_minEms
      * @see #setMinEms(int)
      * @see #setEms(int)
      */
@@ -1410,7 +1317,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Setting this value overrides any other (minimum) height setting. A single line TextView will
      * set this value to 1.
      *
-     * @attr ref android.R.styleable#TextView_minLines
      * @see #getMinLines()
      */
     public final void setMinLines(final int minlines) {
@@ -1420,7 +1326,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * @return the minimum number of lines displayed in this TextView, or -1 if the minimum height
      * was set in pixels instead using setMinHeight(int) or setHeight(int).
-     * @attr ref android.R.styleable#TextView_minLines
      * @see #setMinLines(int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1433,7 +1338,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * EditorInfo.privateImeOptions} field that will be filled in when creating an input
      * connection.
      *
-     * @attr ref android.R.styleable#TextView_privateImeOptions
      * @see #getPrivateImeOptions()
      * @see EditorInfo#privateImeOptions
      */
@@ -1453,8 +1357,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Set the TextView so that when it takes focus, all the text is selected.
-     *
-     * @attr ref android.R.styleable#TextView_selectAllOnFocus
      */
     public final void setSelectAllOnFocus(final boolean selectAllOnFocus) {
         getView().setSelectAllOnFocus(selectAllOnFocus);
@@ -1466,10 +1368,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * view that are responsible for real time shadows, {@link View#getElevation() elevation} and
      * {@link View#getTranslationZ() translationZ}.
      *
-     * @attr ref android.R.styleable#TextView_shadowColor
-     * @attr ref android.R.styleable#TextView_shadowDx
-     * @attr ref android.R.styleable#TextView_shadowDy
-     * @attr ref android.R.styleable#TextView_shadowRadius
      * @see Paint#setShadowLayer(float, float, float, int)
      */
     public final void setShadowLayer(final float radius, final float dx, final float dy,
@@ -1481,7 +1379,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Gets the radius of the shadow layer.
      *
      * @return the radius of the shadow layer. If 0, the shadow layer is not visible
-     * @attr ref android.R.styleable#TextView_shadowRadius
      * @see #setShadowLayer(float, float, float, int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1491,7 +1388,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * @return the horizontal offset of the shadow layer
-     * @attr ref android.R.styleable#TextView_shadowDx
      * @see #setShadowLayer(float, float, float, int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1501,7 +1397,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * @return the vertical offset of the shadow layer
-     * @attr ref android.R.styleable#TextView_shadowDy
      * @see #setShadowLayer(float, float, float, int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1511,7 +1406,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * @return the color of the shadow layer
-     * @attr ref android.R.styleable#TextView_shadowColor
      * @see #setShadowLayer(float, float, float, int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1522,8 +1416,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the properties of this field (lines, horizontally scrolling, transformation method) to
      * be for a single-line input.
-     *
-     * @attr ref android.R.styleable#TextView_singleLine
      */
     public final void setSingleLine() {
         getView().setSingleLine();
@@ -1536,8 +1428,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *
      * Note that the default conditions are not necessarily those that were in effect prior this
      * method, and you may want to reset these properties to your custom values.
-     *
-     * @attr ref android.R.styleable#TextView_singleLine
      */
     public final void setSingleLine(final boolean singleLine) {
         getView().setSingleLine(singleLine);
@@ -1547,11 +1437,8 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets the string value of the TextView. TextView <em>does not</em> accept HTML-like
      * formatting, which you can do with text strings in XML resource files. To style your strings,
      * attach android.text.style.* objects to a {@link android.text.SpannableString
-     * SpannableString}, or see the <a href="{@docRoot} guide/topics/resources/available-resources.html#stringresources">
-     * Available Resource Types</a> documentation for an example of setting formatted text in the
+     * SpannableString}, or see the documentation for an example of setting formatted text in the
      * XML resource file.
-     *
-     * @attr ref android.R.styleable#TextView_text
      */
     public final void setText(final CharSequence text) {
         getView().setText(text);
@@ -1572,9 +1459,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the text that this TextView is to display (see {@link #setText(CharSequence)}) and also
      * sets whether it is stored in a styleable/spannable buffer and whether it is editable.
-     *
-     * @attr ref android.R.styleable#TextView_text
-     * @attr ref android.R.styleable#TextView_bufferType
      */
     public final void setText(final CharSequence text, final BufferType type) {
         getView().setText(text, type);
@@ -1616,7 +1500,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * This call replaces the current transformation method. Disabling this will not necessarily
      * restore the previous behavior from before this was enabled.
      *
-     * @attr ref android.R.styleable#TextView_textAllCaps
      * @see #setTransformationMethod(TransformationMethod)
      */
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -1635,7 +1518,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the text color for all the states (normal, selected, focused) to be this color.
      *
-     * @attr ref android.R.styleable#TextView_textColor
      * @see #setTextColor(ColorStateList)
      * @see #getTextColors()
      */
@@ -1646,7 +1528,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the text color.
      *
-     * @attr ref android.R.styleable#TextView_textColor
      * @see #setTextColor(int)
      * @see #getTextColors()
      * @see #setHintTextColor(ColorStateList)
@@ -1659,7 +1540,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Gets the text colors for the different states (normal, selected, focused) of the TextView.
      *
-     * @attr ref android.R.styleable#TextView_textColor
      * @see #setTextColor(ColorStateList)
      * @see #setTextColor(int)
      */
@@ -1678,8 +1558,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Sets the color used to display the selection highlight.
-     *
-     * @attr ref android.R.styleable#TextView_textColorHighlight
      */
     public final void setHighlightColor(final int color) {
         getView().setHighlightColor(color);
@@ -1687,7 +1565,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * @return the color used to display the selection highlight
-     * @attr ref android.R.styleable#TextView_textColorHighlight
      * @see #setHighlightColor(int)
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1717,7 +1594,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets the color of the hint text for all the states (disabled, focussed, selected...) of this
      * TextView.
      *
-     * @attr ref android.R.styleable#TextView_textColorHint
      * @see #setHintTextColor(ColorStateList)
      * @see #getHintTextColors()
      * @see #setTextColor(int)
@@ -1729,7 +1605,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the color of the hint text.
      *
-     * @attr ref android.R.styleable#TextView_textColorHint
      * @see #getHintTextColors()
      * @see #setHintTextColor(int)
      * @see #setTextColor(ColorStateList)
@@ -1741,7 +1616,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * @return the color of the hint text, for the different states of this TextView.
-     * @attr ref android.R.styleable#TextView_textColorHint
      * @see #setHintTextColor(ColorStateList)
      * @see #setHintTextColor(int)
      * @see #setTextColor(ColorStateList)
@@ -1763,7 +1637,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the color of links in the text.
      *
-     * @attr ref android.R.styleable#TextView_textColorLink
      * @see #setLinkTextColor(ColorStateList)
      * @see #getLinkTextColors()
      */
@@ -1774,7 +1647,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets the color of links in the text.
      *
-     * @attr ref android.R.styleable#TextView_textColorLink
      * @see #setLinkTextColor(int)
      * @see #getLinkTextColors()
      * @see #setTextColor(ColorStateList)
@@ -1787,7 +1659,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * @return the list of colors used to paint the links in the text, for the different states of
      * this TextView
-     * @attr ref android.R.styleable#TextView_textColorLink
      * @see #setLinkTextColor(ColorStateList)
      * @see #setLinkTextColor(int)
      */
@@ -1825,7 +1696,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * independently of the value of this flag. <p>
      *
      * @return True if the text displayed in this TextView can be selected by the user.
-     * @attr ref android.R.styleable#TextView_textIsSelectable
      */
     public final boolean isTextSelectable() {
         return getView().isTextSelectable();
@@ -1841,8 +1711,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Sets the extent by which text should be stretched horizontally.
-     *
-     * @attr ref android.R.styleable#TextView_textScaleX
      */
     public final void setTextScaleX(final float size) {
         getView().setTextScaleX(size);
@@ -1854,7 +1722,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *
      * @param size
      *         The scaled pixel size.
-     * @attr ref android.R.styleable#TextView_textSize
      */
     public final void setTextSize(final float size) {
         getView().setTextSize(size);
@@ -1868,7 +1735,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *         The desired dimension unit.
      * @param size
      *         The desired size in the given units.
-     * @attr ref android.R.styleable#TextView_textSize
      */
     public final void setTextSize(final int unit, final float size) {
         getView().setTextSize(size);
@@ -1885,9 +1751,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets the typeface and style in which the text should be displayed, and turns on the fake bold
      * and italic bits in the Paint if the Typeface that you provided does not have all the bits in
      * the style that you specified.
-     *
-     * @attr ref android.R.styleable#TextView_typeface
-     * @attr ref android.R.styleable#TextView_textStyle
      */
     public final void setTypeface(final Typeface tf, final int style) {
         getView().setTypeface(tf, style);
@@ -1898,9 +1761,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * families actually have bold and italic variants, so you may need to use {@link
      * #setTypeface(Typeface, int)} to get the appearance that you actually want.
      *
-     * @attr ref android.R.styleable#TextView_fontFamily
-     * @attr ref android.R.styleable#TextView_typeface
-     * @attr ref android.R.styleable#TextView_textStyle
      * @see #getTypeface()
      */
     public final void setTypeface(final Typeface tf) {
@@ -1909,9 +1769,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * @return the current typeface and style in which the text is being displayed.
-     * @attr ref android.R.styleable#TextView_fontFamily
-     * @attr ref android.R.styleable#TextView_typeface
-     * @attr ref android.R.styleable#TextView_textStyle
      * @see #setTypeface(Typeface)
      */
     public final Typeface getTypeface() {
@@ -1955,12 +1812,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * @return the current key listener for this TextView. This will frequently be null for
      * non-EditText TextViews.
-     * @attr ref android.R.styleable#TextView_numeric
-     * @attr ref android.R.styleable#TextView_digits
-     * @attr ref android.R.styleable#TextView_phoneNumber
-     * @attr ref android.R.styleable#TextView_inputMethod
-     * @attr ref android.R.styleable#TextView_capitalize
-     * @attr ref android.R.styleable#TextView_autoText
      */
     public final KeyListener getKeyListener() {
         return getView().getKeyListener();
@@ -1975,13 +1826,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * with a key listener or movement method not to be focusable, or if you want a TextView without
      * a key listener or movement method to be focusable, you must call {@link #setFocusable} again
      * after calling this to get the focusability back the way you want it.
-     *
-     * @attr ref android.R.styleable#TextView_numeric
-     * @attr ref android.R.styleable#TextView_digits
-     * @attr ref android.R.styleable#TextView_phoneNumber
-     * @attr ref android.R.styleable#TextView_inputMethod
-     * @attr ref android.R.styleable#TextView_capitalize
-     * @attr ref android.R.styleable#TextView_autoText
      */
     public final void setKeyListener(final KeyListener input) {
         getView().setKeyListener(input);
@@ -2010,8 +1854,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * @return the current transformation method for this TextView. This will frequently be null
      * except for single-line and password fields.
-     * @attr ref android.R.styleable#TextView_password
-     * @attr ref android.R.styleable#TextView_singleLine
      */
     public final TransformationMethod getTransformationMethod() {
         return getView().getTransformationMethod();
@@ -2019,9 +1861,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Sets the transformation that is applied to the text that this TextView is displaying.
-     *
-     * @attr ref android.R.styleable#TextView_password
-     * @attr ref android.R.styleable#TextView_singleLine
      */
     public final void setTransformationMethod(final TransformationMethod method) {
         getView().setTransformationMethod(method);
@@ -2073,7 +1912,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets the horizontal alignment of the text and the vertical gravity that will be used when
      * there is extra space in the TextView beyond what is required for the text itself.
      *
-     * @attr ref android.R.styleable#TextView_gravity
      * @see android.view.Gravity
      */
     public final void setTextGravity(final int gravity) {
@@ -2083,7 +1921,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Returns the horizontal and vertical alignment of this TextView.
      *
-     * @attr ref android.R.styleable#TextView_gravity
      * @see android.view.Gravity
      */
     public final int getTextGravity() {
@@ -2111,8 +1948,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * Sets whether the text should be allowed to be wider than the View is. If false, it will be
      * wrapped to the width of the View.
-     *
-     * @attr ref android.R.styleable#TextView_scrollHorizontally
      */
     public final void setHorizontallyScrolling(final boolean whether) {
         getView().setHorizontallyScrolling(whether);
@@ -2152,7 +1987,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Directly change the content type integer of the text view, without modifying any other
      * state.
      *
-     * @attr ref android.R.styleable#TextView_inputType
      * @see #setInputType(int)
      * @see android.text.InputType
      */
@@ -2177,7 +2011,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * given integer is the resource ID of an XML resource holding an android.R.styleable#InputExtras
      * &lt;input-extras&gt; XML tree.
      *
-     * @attr ref android.R.styleable#TextView_editorExtras
      * @see #getInputExtras(boolean)
      * @see EditorInfo#extras
      */
@@ -2193,7 +2026,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * @param create
      *         If true, the extras will be created if they don't already exist. Otherwise, null will
      *         be returned if none have been created.
-     * @attr ref android.R.styleable#TextView_editorExtras
      * @see #setInputExtras(int)
      * @see EditorInfo#extras
      */
@@ -2423,8 +2255,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *
      * Note: The content of the return value should not be modified. If you want a modifiable one,
      * you should make your own copy first.
-     *
-     * @attr ref android.R.styleable#TextView_text
      */
     public final Editable getText() {
         return getView().getText();

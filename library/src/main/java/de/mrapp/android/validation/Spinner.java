@@ -478,7 +478,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      *
      * @param background
      *         Background drawable
-     * @attr ref android.R.styleable#Spinner_popupBackground
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final void setPopupBackgroundDrawable(final Drawable background) {
@@ -491,7 +490,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      *
      * @param resId
      *         Resource ID of a background drawable
-     * @attr ref android.R.styleable#Spinner_popupBackground
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final void setPopupBackgroundResource(final int resId) {
@@ -503,7 +501,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      * MODE_DROPDOWN; other modes will return null.
      *
      * @return background Background drawable
-     * @attr ref android.R.styleable#Spinner_popupBackground
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final Drawable getPopupBackground() {
@@ -516,7 +513,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      *
      * @param pixels
      *         Vertical offset in pixels
-     * @attr ref android.R.styleable#ListPopupWindow_dropDownVerticalOffset
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final void setDropDownVerticalOffset(final int pixels) {
@@ -528,7 +524,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      * valid in MODE_DROPDOWN; other modes will return 0.
      *
      * @return Vertical offset in pixels
-     * @attr ref android.R.styleable#ListPopupWindow_dropDownVerticalOffset
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final int getDropDownVerticalOffset() {
@@ -541,7 +536,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      *
      * @param pixels
      *         Horizontal offset in pixels
-     * @attr ref android.R.styleable#ListPopupWindow_dropDownHorizontalOffset
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final void setDropDownHorizontalOffset(final int pixels) {
@@ -553,7 +547,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      * Only valid in MODE_DROPDOWN; other modes will return 0.
      *
      * @return Horizontal offset in pixels
-     * @attr ref android.R.styleable#ListPopupWindow_dropDownHorizontalOffset
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final int getDropDownHorizontalOffset() {
@@ -570,7 +563,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      *
      * @param pixels
      *         Width in pixels, WRAP_CONTENT, or MATCH_PARENT
-     * @attr ref android.R.styleable#Spinner_dropDownWidth
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final void setDropDownWidth(final int pixels) {
@@ -584,7 +576,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      * to wrap to the measured size of contained dropdown list items.
      *
      * @return Width in pixels, WRAP_CONTENT, or MATCH_PARENT
-     * @attr ref android.R.styleable#Spinner_dropDownWidth
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public final int getDropDownWidth() {
@@ -597,7 +588,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
      *
      * @param gravity
      *         See {@link android.view.Gravity}
-     * @attr ref android.R.styleable#Spinner_gravity
      */
     public final void setTextGravity(final int gravity) {
         getView().setGravity(gravity);

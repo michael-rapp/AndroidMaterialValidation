@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidMaterialValidation Copyright 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+Lesser General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with this program. If
+not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <string name="app_name">AndroidMaterialValidation Example</string>
+    <string name="account">Account</string>
+    <string name="username_hint">Username</string>
+    <string name="username_helper_text">[a&#8211;z, A&#8211;Z, 0&#8211;9, -, _]</string>
+    <string name="password_hint">Password</string>
+    <string name="password_repetition_hint">Password repetition</string>
+    <string name="personal_data">Personal data</string>
+    <string name="gender_hint">Gender</string>
+    <string name="first_name_hint">First name</string>
+    <string name="last_name_hint">Last name</string>
+    <string name="additional_information_hint">Additional information</string>
+    <string name="not_empty_validator_error_message">May not be empty</string>
+    <string name="max_length_validator_error_messsage">Must contain at maximum 32 characters</string>
+    <string name="password_min_length_validator_error_message">Must contain at least 4 characters</string>
+    <string name="min_length_validator_error_message">Must contain at least 2 characters</string>
+    <string name="letter_or_number_validator_error_message">[a&#8211;z, A&#8211;Z, 0&#8211;9, -, _]</string>
+    <string name="no_whitespace_validator_error_message">May not contain spaces</string>
+    <string name="equal_validator_error_message">Passwords are not equal</string>
+    <string name="not_null_validator_error_message">An item must be selected</string>
+    <string name="begins_with_uppercase_letter_validator_error_message">Must begin with an uppercase letter</string>
+    <string name="letter_validator_error_message">Must only contain letters</string>
+    <string name="password_edit_text_helper_text0">Bad</string>
+    <string name="password_edit_text_helper_text1">Low</string>
+    <string name="password_edit_text_helper_text2">Sufficient</string>
+    <string name="password_edit_text_helper_text3">Good</string>
+    <string name="password_edit_text_helper_text4">High</string>
+    <string name="validate_button_text">Validate</string>
+    <string name="password_edit_text_prefix">Safety</string>
+
+</resources>

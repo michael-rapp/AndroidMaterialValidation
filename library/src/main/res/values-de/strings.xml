@@ -16,6 +16,7 @@ not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
+    <string name="edit_text_size_violation_error_message" formatted="false">%d / %d</string>
     <string name="password_verification_prefix">Sicherheit</string>
     <string name="default_error_message">Validierung fehlgeschlagen</string>
 

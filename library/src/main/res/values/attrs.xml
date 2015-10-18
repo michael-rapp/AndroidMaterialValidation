@@ -80,13 +80,13 @@ not, see <http://www.gnu.org/licenses/>.
         <attr name="passwordVerificationPrefix" format="string"/>
     </declare-styleable>
     <declare-styleable name="Spinner">
+        <attr name="dropDownWidth" format="dimension"/>
+        <attr name="popupBackground" format="reference"/>
+        <attr name="prompt" format="string"/>
         <attr name="android:hint"/>
         <attr name="android:textColorHint"/>
         <attr name="android:dropDownHorizontalOffset"/>
         <attr name="android:dropDownVerticalOffset"/>
-        <attr name="android:dropDownWidth"/>
-        <attr name="android:popupBackground"/>
-        <attr name="android:prompt"/>
         <attr name="android:entries"/>
     </declare-styleable>
 

@@ -21,7 +21,7 @@ The latest release of this library can be downloaded as a zip archive from the d
 
 Alternatively, the library can be added to your Android app as a Gradle dependency by adding the following to the respective module's `build.gradle` file:
 
-```
+```groovy
 dependencies {
     compile 'com.github.michael-rapp:android-material-validation:2.0.1'
 }
@@ -37,7 +37,7 @@ The following examples provide a quick overview on how to use the views, which a
 
 The XML code below shows how to declare an `EditText` widget within a XML layout resource. The example contains all of the view's custom attributes.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" 
@@ -62,7 +62,7 @@ The XML code below shows how to declare an `EditText` widget within a XML layout
 
 The Java code below shows how to add validators to an `EditText` widget. The validators have to be added programmatically, regardless of whether the view has been created via XML or programmatically. Therefore, if the view has been created via a XML resource, like shown above, it has to be referenced first using an activity's or parent view's `findViewById`-method.
 
-```
+```java
 EditText editText = (EditText) findViewById(R.id.edit_text); 
 editText.addValidator(Validators.notEmpty(this, R.string.not_empty_error_message); 
 editText.addValidator(Validators.number(this, R.string.number_error_message);
@@ -72,7 +72,7 @@ editText.addValidator(Validators.number(this, R.string.number_error_message);
 
 The following XML code shows how a `PasswordEditText` can be declared within a XML layout resource. The example contains all of the view's custom attributes.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" 
@@ -97,7 +97,7 @@ The following XML code shows how a `PasswordEditText` can be declared within a X
 
 The Java code below shows how to add validators and constraints to a `PasswordEditText` widget. The validators and constraints have to be added programmatically, regardless of whether the view has been created via XML or programmatically. Therefore, if the view has been created via a XML resource, like shown above, it has to be referenced first using an activity's or parent view's `findViewById`-method.
 
-```
+```xml
 PasswordEditText passwordEditText = (PasswordEditText) findViewById(R.id.password_edit_text); 
 passwordEditText.addValidator(Validators.minLength(this, R.string.min_length_error_message, 4); 
 passwordEditText.addValidator(Validators.noWhitespace(this, R.string.no_whitespace_error_message); 

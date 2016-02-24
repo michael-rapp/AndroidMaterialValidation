@@ -99,7 +99,7 @@ The following XML code shows how a `PasswordEditText` can be declared within a X
 
 The Java code below shows how to add validators and constraints to a `PasswordEditText` widget. The validators and constraints have to be added programmatically, regardless of whether the view has been created via XML or programmatically. Therefore, if the view has been created via a XML resource, like shown above, it has to be referenced first using an activity's or parent view's `findViewById`-method.
 
-```xml
+```java
 PasswordEditText passwordEditText = (PasswordEditText) findViewById(R.id.password_edit_text); 
 passwordEditText.addValidator(Validators.minLength(this, R.string.min_length_error_message, 4); 
 passwordEditText.addValidator(Validators.noWhitespace(this, R.string.no_whitespace_error_message); 
@@ -109,7 +109,6 @@ passwordEditText.addAllHelperTexts("Bad", "Low", "Sufficient", "Good", "High");
 passwordEditText.addAllHelperTextColorIds(R.color.black, R.color.red, R.color.orange, 
     R.color.light_green, R.color.dark_green);
 ```
-
 
 ## Contact information
 

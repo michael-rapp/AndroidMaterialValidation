@@ -16,7 +16,6 @@ package de.mrapp.android.validation.example;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -89,14 +88,6 @@ public class MainActivity extends AppCompatActivity {
      * The edit text, which allows to enter additional information.
      */
     private EditText additionalInformationEditText;
-
-    /**
-     * Initializes the activity's toolbar.
-     */
-    private void initializeToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
 
     /**
      * Initializes the edit text, which allows to enter an username.
@@ -216,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
     protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initializeToolbar();
         initializeUsernameEditText();
         initializePasswordEditText();
         initializePasswordRepetitionEditText();

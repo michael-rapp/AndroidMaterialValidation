@@ -14,121 +14,106 @@ General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License along with this program. If
 not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:custom="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/ToolbarPopupTheme"
-        app:theme="@style/ToolbarTheme"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/header_spacing"
-                android:text="@string/account"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
 
-            <de.mrapp.android.validation.EditText
-                android:id="@+id/username_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:hint="@string/username_hint"
-                android:maxLines="1"
-                android:singleLine="true"
-                custom:helperText="@string/username_helper_text"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/header_spacing"
+            android:text="@string/account"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-            <de.mrapp.android.validation.PasswordEditText
-                android:id="@+id/password_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:hint="@string/password_hint"
-                android:maxLines="1"
-                android:singleLine="true"
-                custom:passwordVerificationPrefix="@string/password_edit_text_prefix"/>
+        <de.mrapp.android.validation.EditText
+            android:id="@+id/username_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:hint="@string/username_hint"
+            android:maxLines="1"
+            android:singleLine="true"
+            custom:helperText="@string/username_helper_text"/>
 
-            <de.mrapp.android.validation.EditText
-                android:id="@+id/password_repetition_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:hint="@string/password_repetition_hint"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"/>
+        <de.mrapp.android.validation.PasswordEditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:hint="@string/password_hint"
+            android:maxLines="1"
+            android:singleLine="true"
+            custom:passwordVerificationPrefix="@string/password_edit_text_prefix"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/header_spacing"
-                android:text="@string/personal_data"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+        <de.mrapp.android.validation.EditText
+            android:id="@+id/password_repetition_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:hint="@string/password_repetition_hint"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
-            <de.mrapp.android.validation.Spinner
-                android:id="@+id/gender_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:entries="@array/gender_entries"
-                android:hint="@string/gender_hint"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/header_spacing"
+            android:text="@string/personal_data"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-            <de.mrapp.android.validation.EditText
-                android:id="@+id/first_name_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:hint="@string/first_name_hint"
-                android:maxLines="1"
-                android:singleLine="true"/>
+        <de.mrapp.android.validation.Spinner
+            android:id="@+id/gender_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:entries="@array/gender_entries"
+            android:hint="@string/gender_hint"/>
 
-            <de.mrapp.android.validation.EditText
-                android:id="@+id/last_name_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:hint="@string/last_name_hint"
-                android:maxLines="1"
-                android:singleLine="true"/>
+        <de.mrapp.android.validation.EditText
+            android:id="@+id/first_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:hint="@string/first_name_hint"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
-            <de.mrapp.android.validation.EditText
-                android:id="@+id/additional_information_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:hint="@string/additional_information_hint"
-                android:maxLines="4"
-                custom:maxNumberOfCharacters="120"/>
+        <de.mrapp.android.validation.EditText
+            android:id="@+id/last_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:hint="@string/last_name_hint"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
-            <Button
-                android:id="@+id/validate_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/form_spacing"
-                android:text="@string/validate_button_text"/>
-        </LinearLayout>
-    </ScrollView>
+        <de.mrapp.android.validation.EditText
+            android:id="@+id/additional_information_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:hint="@string/additional_information_hint"
+            android:maxLines="4"
+            custom:maxNumberOfCharacters="120"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/validate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/form_spacing"
+            android:text="@string/validate_button_text"/>
+    </LinearLayout>
+</ScrollView>

@@ -19,6 +19,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 
 import de.mrapp.android.validation.Validator;
 
@@ -124,10 +125,9 @@ public abstract class AbstractValidator<Type> implements Validator<Type> {
      *         set, as an {@link Integer} value. The resource ID must correspond to a valid drawable
      *         resource
      */
-    @SuppressWarnings("deprecation")
     public final void setIcon(@NonNull final Context context, @DrawableRes final int resourceId) {
         ensureNotNull(context, "The context may not be null");
-        this.icon = context.getResources().getDrawable(resourceId);
+        this.icon = ContextCompat.getDrawable(context, resourceId);
     }
 
     @Override

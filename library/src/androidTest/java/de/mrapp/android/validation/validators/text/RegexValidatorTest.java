@@ -51,7 +51,7 @@ public class RegexValidatorTest extends AndroidTestCase {
             new RegexValidator("foo", null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -76,7 +76,7 @@ public class RegexValidatorTest extends AndroidTestCase {
             new RegexValidator(getContext(), android.R.string.cancel, null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -99,7 +99,7 @@ public class RegexValidatorTest extends AndroidTestCase {
             regexValidator.setRegex(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

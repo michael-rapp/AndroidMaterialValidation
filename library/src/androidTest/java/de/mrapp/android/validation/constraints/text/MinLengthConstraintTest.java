@@ -41,7 +41,7 @@ public class MinLengthConstraintTest extends TestCase {
             new MinLengthConstraint(0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -65,7 +65,7 @@ public class MinLengthConstraintTest extends TestCase {
             minLengthConstraint.setMinLength(0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 

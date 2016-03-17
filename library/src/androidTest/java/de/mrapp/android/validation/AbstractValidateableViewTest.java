@@ -17,6 +17,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.test.AndroidTestCase;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -297,10 +298,9 @@ public class AbstractValidateableViewTest extends AndroidTestCase {
      * Tests the functionality of the method, which allows to set the error and expects a char
      * sequence and a drawable as parameters.
      */
-    @SuppressWarnings("deprecation")
     public final void testSetErrorWithCharSequenceAndDrawableParameter() {
         CharSequence error = "error";
-        Drawable icon = getContext().getResources().getDrawable(android.R.drawable.ic_dialog_alert);
+        Drawable icon = ContextCompat.getDrawable(getContext(), android.R.drawable.ic_dialog_alert);
         AbstractValidateableViewImplementation abstractValidateableView =
                 new AbstractValidateableViewImplementation(getContext());
         abstractValidateableView.setError(error, icon);

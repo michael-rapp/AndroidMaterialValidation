@@ -72,7 +72,7 @@ public class NegateConstraintTest extends TestCase {
             new NegateConstraint<>(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -94,7 +94,7 @@ public class NegateConstraintTest extends TestCase {
             NegateConstraint.create(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -120,7 +120,7 @@ public class NegateConstraintTest extends TestCase {
             negateConstraint.setConstraint(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

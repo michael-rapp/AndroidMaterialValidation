@@ -47,7 +47,7 @@ public class RegexConstraintTest extends TestCase {
             new RegexConstraint(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -70,7 +70,7 @@ public class RegexConstraintTest extends TestCase {
             regexConstraint.setRegex(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

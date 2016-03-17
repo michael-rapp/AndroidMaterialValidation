@@ -52,8 +52,6 @@ public class ConjunctiveConstraintTest extends TestCase {
 
     }
 
-    ;
-
     /**
      * Tests, if all properties are correctly initialized by the constructor.
      */
@@ -78,7 +76,7 @@ public class ConjunctiveConstraintTest extends TestCase {
             new ConjunctiveConstraint<>(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -92,7 +90,7 @@ public class ConjunctiveConstraintTest extends TestCase {
             new ConjunctiveConstraint<>(new Constraint[0]);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -120,7 +118,7 @@ public class ConjunctiveConstraintTest extends TestCase {
             ConjunctiveConstraint.create(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -134,7 +132,7 @@ public class ConjunctiveConstraintTest extends TestCase {
             ConjunctiveConstraint.create(new Constraint[0]);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -172,7 +170,7 @@ public class ConjunctiveConstraintTest extends TestCase {
             conjunctiveConstraint.setConstraints(constraints2);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -192,7 +190,7 @@ public class ConjunctiveConstraintTest extends TestCase {
             conjunctiveConstraint.setConstraints(constraints2);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 

@@ -45,7 +45,7 @@ public class MaxLengthValidatorTest extends AndroidTestCase {
             new MaxLengthValidator("foo", 0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -71,7 +71,7 @@ public class MaxLengthValidatorTest extends AndroidTestCase {
             new MaxLengthValidator(getContext(), android.R.string.cancel, 0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -95,7 +95,7 @@ public class MaxLengthValidatorTest extends AndroidTestCase {
             maxLengthValidator.setMaxLength(0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 

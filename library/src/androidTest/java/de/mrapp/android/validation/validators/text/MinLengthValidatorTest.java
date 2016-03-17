@@ -45,7 +45,7 @@ public class MinLengthValidatorTest extends AndroidTestCase {
             new MinLengthValidator("foo", 0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -71,7 +71,7 @@ public class MinLengthValidatorTest extends AndroidTestCase {
             new MinLengthValidator(getContext(), android.R.string.cancel, 0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -95,7 +95,7 @@ public class MinLengthValidatorTest extends AndroidTestCase {
             minLengthValidator.setMinLength(0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 

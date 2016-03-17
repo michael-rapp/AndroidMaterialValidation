@@ -15,6 +15,7 @@ package de.mrapp.android.validation.validators;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.test.AndroidTestCase;
 
 import junit.framework.Assert;
@@ -65,8 +66,6 @@ public class AbstractValidatorTest extends AndroidTestCase {
 
     }
 
-    ;
-
     /**
      * Tests, if all properties are correctly initialized by the constructor, which expects a char
      * sequence as a parameter.
@@ -88,7 +87,7 @@ public class AbstractValidatorTest extends AndroidTestCase {
             new AbstractValidatorImplementation(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -101,7 +100,7 @@ public class AbstractValidatorTest extends AndroidTestCase {
             new AbstractValidatorImplementation("");
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -126,7 +125,7 @@ public class AbstractValidatorTest extends AndroidTestCase {
             new AbstractValidatorImplementation(null, android.R.string.cancel);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -154,7 +153,7 @@ public class AbstractValidatorTest extends AndroidTestCase {
             abstractValidator.setErrorMessage(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -170,7 +169,7 @@ public class AbstractValidatorTest extends AndroidTestCase {
             abstractValidator.setErrorMessage("");
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -198,7 +197,7 @@ public class AbstractValidatorTest extends AndroidTestCase {
             abstractValidator.setErrorMessage(null, android.R.string.cancel);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -206,9 +205,8 @@ public class AbstractValidatorTest extends AndroidTestCase {
      * Tests the functionality of the method, which allows to set the validator's icon by passing a
      * drawable as a parameter.
      */
-    @SuppressWarnings("deprecation")
     public final void testSetIconWithDrawableParameter() {
-        Drawable icon = getContext().getResources().getDrawable(android.R.drawable.ic_dialog_info);
+        Drawable icon = ContextCompat.getDrawable(getContext(), android.R.drawable.ic_dialog_info);
         AbstractValidatorImplementation abstractValidator =
                 new AbstractValidatorImplementation("foo");
         abstractValidator.setIcon(icon);
@@ -238,7 +236,7 @@ public class AbstractValidatorTest extends AndroidTestCase {
             abstractValidator.setIcon(null, android.R.drawable.ic_dialog_info);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

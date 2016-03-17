@@ -74,7 +74,7 @@ public class ProxySpinnerAdapterTest extends AndroidTestCase {
                     null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -88,7 +88,7 @@ public class ProxySpinnerAdapterTest extends AndroidTestCase {
                     null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

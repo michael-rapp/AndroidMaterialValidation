@@ -49,7 +49,7 @@ public class LetterOrNumberValidatorTest extends AndroidTestCase {
             new LetterOrNumberValidator("foo", null, true);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -62,7 +62,7 @@ public class LetterOrNumberValidatorTest extends AndroidTestCase {
             new LetterOrNumberValidator("foo", Case.CASE_INSENSITIVE, true, null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -93,7 +93,7 @@ public class LetterOrNumberValidatorTest extends AndroidTestCase {
             new LetterOrNumberValidator(getContext(), android.R.string.cancel, null, true);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -107,7 +107,7 @@ public class LetterOrNumberValidatorTest extends AndroidTestCase {
                     Case.CASE_INSENSITIVE, true, null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -133,7 +133,7 @@ public class LetterOrNumberValidatorTest extends AndroidTestCase {
             characterOrNumberValidator.setCaseSensitivity(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -171,7 +171,7 @@ public class LetterOrNumberValidatorTest extends AndroidTestCase {
             characterOrNumberValidator.setAllowedCharacters(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

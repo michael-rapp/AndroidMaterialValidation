@@ -13,12 +13,10 @@
  */
 package de.mrapp.android.validation.validators;
 
-import android.content.Context;
 import android.test.AndroidTestCase;
 
 import junit.framework.Assert;
 
-import de.mrapp.android.validation.R;
 import de.mrapp.android.validation.Validator;
 
 /**
@@ -54,33 +52,12 @@ public class NegateValidatorTest extends AndroidTestCase {
             this.result = result;
         }
 
-        /**
-         * Creates a new validator, which should be able to validate values.
-         *
-         * @param context
-         *         The context, which should be used to retrieve the error message, as an instance
-         *         of the class {@link Context}. The context may not be null
-         * @param resourceId
-         *         The resource ID of the string resource, which contains the error message, which
-         *         should be set, as an {@link Integer} value. The resource ID must correspond to a
-         *         valid string resource
-         * @param result
-         *         The result, which should be returned by the validator
-         */
-        public AbstractValidatorImplementation(final Context context, final int resourceId,
-                                               final boolean result) {
-            super(context, resourceId);
-            this.result = result;
-        }
-
         @Override
         public boolean validate(final Object value) {
             return result;
         }
 
     }
-
-    ;
 
     /**
      * Tests, if all properties are correctly initialized by the constructor, which expects a char
@@ -104,7 +81,7 @@ public class NegateValidatorTest extends AndroidTestCase {
             new NegateValidator<>("foo", validator);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -131,7 +108,7 @@ public class NegateValidatorTest extends AndroidTestCase {
             new NegateValidator<>(getContext(), android.R.string.cancel, validator);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -157,7 +134,7 @@ public class NegateValidatorTest extends AndroidTestCase {
             NegateValidator.create("foo", validator);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -184,7 +161,7 @@ public class NegateValidatorTest extends AndroidTestCase {
             NegateValidator.create(getContext(), android.R.string.cancel, validator);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -210,7 +187,7 @@ public class NegateValidatorTest extends AndroidTestCase {
             negateValidator.setValidator(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

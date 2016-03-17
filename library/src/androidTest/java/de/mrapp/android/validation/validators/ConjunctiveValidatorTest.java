@@ -79,8 +79,6 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
 
     }
 
-    ;
-
     /**
      * Tests, if all properties are correctly initialized by the constructor, which expects a char
      * sequence as a parameter.
@@ -109,7 +107,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             new ConjunctiveValidator<>("foo", validators);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -124,7 +122,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             new ConjunctiveValidator<>("foo", validators);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -156,7 +154,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             new ConjunctiveValidator<>(getContext(), android.R.string.cancel, validators);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -164,13 +162,14 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
      * Ensures, that an {@link IllegalArgumentException} is thrown by the constructor, which expects
      * a context and a resource ID as parameters, if the validators are empty.
      */
+    @SuppressWarnings("unchecked")
     public final void testConstructorWithContextAndResourceIdParametersThrowsIllegalArgumentException() {
         try {
-            @SuppressWarnings("unchecked") Validator<Object>[] validators = new Validator[0];
+            Validator<Object>[] validators = new Validator[0];
             new ConjunctiveValidator<>(getContext(), android.R.string.cancel, validators);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -202,7 +201,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             ConjunctiveValidator.create("foo", validators);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -217,7 +216,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             ConjunctiveValidator.create("foo", validators);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -249,7 +248,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             ConjunctiveValidator.create(getContext(), android.R.string.cancel, validators);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -264,7 +263,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             ConjunctiveValidator.create(getContext(), android.R.string.cancel, validators);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -304,7 +303,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             conjunctiveValidator.setValidators(validators2);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -325,7 +324,7 @@ public class ConjunctiveValidatorTest extends AndroidTestCase {
             conjunctiveValidator.setValidators(validators2);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 

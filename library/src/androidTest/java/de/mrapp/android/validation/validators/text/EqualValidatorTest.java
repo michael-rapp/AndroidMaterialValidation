@@ -47,7 +47,7 @@ public class EqualValidatorTest extends AndroidTestCase {
             new EqualValidator("foo", null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -73,7 +73,7 @@ public class EqualValidatorTest extends AndroidTestCase {
             new EqualValidator(getContext(), android.R.string.cancel, null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -97,7 +97,7 @@ public class EqualValidatorTest extends AndroidTestCase {
             equalValidator.setEditText(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

@@ -52,8 +52,6 @@ public class DisjunctiveConstraintTest extends TestCase {
 
     }
 
-    ;
-
     /**
      * Tests, if all properties are correctly initialized by the constructor.
      */
@@ -78,7 +76,7 @@ public class DisjunctiveConstraintTest extends TestCase {
             new DisjunctiveConstraint<>(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -92,7 +90,7 @@ public class DisjunctiveConstraintTest extends TestCase {
             new DisjunctiveConstraint<>(new Constraint[0]);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -120,7 +118,7 @@ public class DisjunctiveConstraintTest extends TestCase {
             DisjunctiveConstraint.create(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -134,7 +132,7 @@ public class DisjunctiveConstraintTest extends TestCase {
             DisjunctiveConstraint.create(new Constraint[0]);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -172,7 +170,7 @@ public class DisjunctiveConstraintTest extends TestCase {
             disjunctiveConstraint.setConstraints(constraints2);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -192,7 +190,7 @@ public class DisjunctiveConstraintTest extends TestCase {
             disjunctiveConstraint.setConstraints(constraints2);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 

@@ -22,6 +22,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
@@ -692,9 +693,8 @@ public class PasswordEditText extends EditText {
      *         The resource ID of the color, which should be added, as an {@link Integer} value. The
      *         resource ID must correspond to a valid color resource
      */
-    @SuppressWarnings("deprecation")
     public final void addHelperTextColorId(@ColorRes final int resourceId) {
-        addHelperTextColor(getResources().getColor(resourceId));
+        addHelperTextColor(ContextCompat.getColor(getContext(), resourceId));
     }
 
     /**
@@ -782,9 +782,8 @@ public class PasswordEditText extends EditText {
      *         The resource ID of the color, which should be removed, as an {@link Integer} value.
      *         The resource ID must correspond to a valid color resource
      */
-    @SuppressWarnings("deprecation")
     public final void removeHelperTextColorId(@ColorRes final int resourceId) {
-        removeHelperTextColor(getResources().getColor(resourceId));
+        removeHelperTextColor(ContextCompat.getColor(getContext(), resourceId));
     }
 
     /**

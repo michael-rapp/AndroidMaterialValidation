@@ -16,6 +16,7 @@ package de.mrapp.android.validation;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.test.AndroidTestCase;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -76,15 +77,18 @@ public class SpinnerTest extends AndroidTestCase {
      * attribute set, a default style and a default style attribute as parameters.
      */
     public final void testConstructorWithContextAttributeSetAndDefaultStyleAndDefaultStyleAttributeParameters() {
-        Context context = getContext();
-        int defaultStyle = 0;
-        int defaultStyleAttribute = 0;
-        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.edit_text);
-        AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
-        Spinner spinner = new Spinner(context, attributeSet, defaultStyle, defaultStyleAttribute);
-        assertEquals(context, spinner.getContext());
-        assertNull(spinner.getHint());
-        assertNotNull(spinner.getHintTextColors());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Context context = getContext();
+            int defaultStyle = 0;
+            int defaultStyleAttribute = 0;
+            XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.edit_text);
+            AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
+            Spinner spinner =
+                    new Spinner(context, attributeSet, defaultStyle, defaultStyleAttribute);
+            assertEquals(context, spinner.getContext());
+            assertNull(spinner.getHint());
+            assertNotNull(spinner.getHintTextColors());
+        }
     }
 
     /**

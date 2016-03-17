@@ -15,6 +15,7 @@ package de.mrapp.android.validation;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.test.AndroidTestCase;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -88,19 +89,22 @@ public class PasswordEditTextTest extends AndroidTestCase {
      * attribute set, a default style and a default style attribute as parameters.
      */
     public final void testConstructorWithContextAttributeSetAndDefaultStyleAndDefaultStyleAttributeParameters() {
-        Context context = getContext();
-        int defaultStyle = 0;
-        int defaultStyleAttribute = 0;
-        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.edit_text);
-        AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
-        PasswordEditText passwordEditText =
-                new PasswordEditText(context, attributeSet, defaultStyle, defaultStyleAttribute);
-        assertEquals(context, passwordEditText.getContext());
-        assertTrue(passwordEditText.getConstraints().isEmpty());
-        assertTrue(passwordEditText.getHelperTexts().isEmpty());
-        assertTrue(passwordEditText.getHelperTextColors().isEmpty());
-        assertEquals(getContext().getText(R.string.password_verification_prefix),
-                passwordEditText.getPasswordVerificationPrefix());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Context context = getContext();
+            int defaultStyle = 0;
+            int defaultStyleAttribute = 0;
+            XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.edit_text);
+            AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
+            PasswordEditText passwordEditText =
+                    new PasswordEditText(context, attributeSet, defaultStyle,
+                            defaultStyleAttribute);
+            assertEquals(context, passwordEditText.getContext());
+            assertTrue(passwordEditText.getConstraints().isEmpty());
+            assertTrue(passwordEditText.getHelperTexts().isEmpty());
+            assertTrue(passwordEditText.getHelperTextColors().isEmpty());
+            assertEquals(getContext().getText(R.string.password_verification_prefix),
+                    passwordEditText.getPasswordVerificationPrefix());
+        }
     }
 
     /**

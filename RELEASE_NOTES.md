@@ -1,5 +1,12 @@
 # AndroidMaterialValidation - RELEASE NOTES
 
+## Version 2.0.2 (Mar. 17th 2016)
+
+A minor release, which introduces the following changes:
+
+- Updated the dependency "AndroidUtil" to version 1.4.5.
+- Fixed some deprecation warnings.
+
 ## Version 2.0.1 (Feb. 24th 2016)
 
 A minor release, which introduces the following changes:

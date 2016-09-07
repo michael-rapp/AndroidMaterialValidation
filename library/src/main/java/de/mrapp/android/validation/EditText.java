@@ -13,7 +13,6 @@
  */
 package de.mrapp.android.validation;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -246,7 +245,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      *         The typed array, the attributes should be obtained from, as an instance of the class
      *         {@link TypedArray}. The typed array may not be null
      */
-    @SuppressLint("NewApi")
     private void obtainEditTextStyledAttributes(@NonNull final TypedArray typedArray) {
         Drawable drawableLeft = null;
         Drawable drawableTop = null;
@@ -254,8 +252,8 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
         Drawable drawableBottom = null;
         CharSequence imeActionLabel = null;
         int imeActionId = getImeActionId();
-        float lineSpacingExtra = getLineSpacingExtra();
-        float lineSpacingMultiplier = getLineSpacingMultiplier();
+        float lineSpacingExtra = -1;
+        float lineSpacingMultiplier = -1;
         int shadowColor = 0;
         float shadowDx = 0;
         float shadowDy = 0;
@@ -314,10 +312,9 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
             } else if (index == R.styleable.EditText_android_lines) {
                 setLines(typedArray.getInt(index, -1));
             } else if (index == R.styleable.EditText_android_lineSpacingExtra) {
-                lineSpacingExtra =
-                        typedArray.getDimensionPixelSize(index, (int) getLineSpacingExtra());
+                lineSpacingExtra = typedArray.getDimensionPixelSize(index, -1);
             } else if (index == R.styleable.EditText_android_lineSpacingMultiplier) {
-                lineSpacingMultiplier = typedArray.getFloat(index, getLineSpacingMultiplier());
+                lineSpacingMultiplier = typedArray.getFloat(index, -1);
             } else if (index == R.styleable.EditText_android_linksClickable) {
                 setLinksClickable(typedArray.getBoolean(index, getLinksClickable()));
             } else if (index == R.styleable.EditText_android_marqueeRepeatLimit) {
@@ -333,7 +330,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
                     setFilters(new InputFilter[0]);
                 }
             } else if (index == R.styleable.EditText_android_maxLines) {
-                setMaxLines(typedArray.getInt(index, getMaxLines()));
+                setMaxLines(typedArray.getInt(index, -1));
             } else if (index == R.styleable.EditText_android_minEms) {
                 setMinEms(typedArray.getInt(index, getMinEms()));
             } else if (index == R.styleable.EditText_android_minLines) {
@@ -373,7 +370,11 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
                     setTextColor(textColor);
                 }
             } else if (index == R.styleable.EditText_android_textColorHighlight) {
-                setHighlightColor(typedArray.getColor(index, getHighlightColor()));
+                int highlightColor = typedArray.getColor(index, -1);
+
+                if (highlightColor != -1) {
+                    setHighlightColor(highlightColor);
+                }
             } else if (index == R.styleable.EditText_android_textColorHint) {
                 setHintTextColor(typedArray.getColorStateList(index));
             } else if (index == R.styleable.EditText_android_textColorLink) {
@@ -396,7 +397,10 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
         setCompoundDrawablesWithIntrinsicBounds(drawableLeft, drawableTop, drawableRight,
                 drawableBottom);
         setImeActionLabel(imeActionLabel, imeActionId);
-        setLineSpacing(lineSpacingExtra, lineSpacingMultiplier);
+
+        if (lineSpacingExtra != -1 && lineSpacingMultiplier != -1) {
+            setLineSpacing(lineSpacingExtra, lineSpacingMultiplier);
+        }
 
         if (shadowColor != 0) {
             setShadowLayer(shadowRadius, shadowDx, shadowDy, shadowColor);

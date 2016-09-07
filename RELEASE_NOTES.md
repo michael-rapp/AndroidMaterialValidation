@@ -1,5 +1,13 @@
 # AndroidMaterialValidation - RELEASE NOTES
 
+## Version 2.0.3 (Sep. 7th 2016)
+
+A bugfix release, which fixes the following issues:
+
+- https://github.com/michael-rapp/AndroidMaterialValidation/issues/1
+- Updated dependency "AndroidUtil" to version 1.11.0.
+- Updated AppCompat support library to version 23.4.0.
+
 ## Version 2.0.2 (Mar. 17th 2016)
 
 A minor release, which introduces the following changes:

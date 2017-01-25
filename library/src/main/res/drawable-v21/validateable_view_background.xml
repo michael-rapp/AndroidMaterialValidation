@@ -22,7 +22,7 @@ License.
     <selector>
         <item android:state_enabled="false">
             <nine-patch
-                android:alpha="0.26"
+                android:alpha="?android:attr/disabledAlpha"
                 android:src="@drawable/validateable_view_default"/>
         </item>
         <item

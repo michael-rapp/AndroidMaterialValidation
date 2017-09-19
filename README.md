@@ -35,7 +35,7 @@ Before version 2.0.0 this project was hosted on [Sourceforge](https://sourceforg
 
 ## Examples
 
-The following examples provide a quick overview on how to use the views, which are provided by the library, in your own Android app. This project also contains the source code of an example app, which implements an use case of the library for demonstration purposes, as well as a more detailed documentation and auto-generated javadoc files.
+The following examples provide a quick overview on how to use the views, which are provided by the library, in your own Android app. This project also contains the source code of an example app, which implements an use case of the library for demonstration purposes, as well as a more detailed documentation in the [Wiki](https://github.com/michael-rapp/AndroidMaterialValidation/wiki) and auto-generated javadoc files.
 
 ### EditText
 

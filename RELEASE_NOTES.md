@@ -1,8 +1,16 @@
 # AndroidMaterialValidation - RELEASE NOTES
 
+## Version 2.0.6 (Sep. 20th 2017)
+
+A minor release, which introduces the following changes:
+
+- Updated `targetSdkVersion` to API level 26 (Android 8.0).
+- Updated dependency "AndroidUtil" to version 1.17.1.
+- Updated AppCompat v7 support library to version 25.3.1.
+
 ## Version 2.0.5 (Jan. 25th 2017)
 
-A minor release, which introduces the following changes.
+A minor release, which introduces the following changes:
 
 - Updated `targetSdkVersion` to API level 25 (Android 7.1).
 - Updated dependency "AndroidUtil" to version 1.12.3.

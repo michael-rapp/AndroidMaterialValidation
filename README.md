@@ -112,6 +112,40 @@ passwordEditText.addAllHelperTextColorIds(R.color.black, R.color.red, R.color.or
     R.color.light_green, R.color.dark_green);
 ```
 
+## Spinner
+
+The following example shows how a `Spinner` can be declared within a XML layout resource. The example contains all of the view's custom attributes.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?> 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:custom="http://schemas.android.com/apk/res-auto" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent" >
+        
+    <de.mrapp.android.validation.Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_entries"
+        android:hint="@string/spinner_hint"
+        android:textColorHint="@color/spinner_text_color_hint"
+        android:dropDownHorizontalOffset="@dimen/spinner_drop_down_horizontal_offset"
+        android:dropDownVerticalOffset="@dimen/spinner_drop_down_vertical_offset"
+        custom:dropDownWidth="@dimen/spinner_drop_down_width"
+        custom:popupBackground="@color/spinner_drop_down_background"
+        custom:prompt="@string/spinner_prompt" />
+        
+</RelativeLayout>
+```
+
+The Java code below shows how to add validators to a `Spinner` widget. The validators and must be added programmatically, regardless of whether the view has been created via XML or programmatically. Therefore, if the view has been created via a XML resource, like shown above, it has to be referenced first using an activity's or parent view's `findViewById`-method.
+
+```java
+Spinner spinner = (Spinner) findViewById(R.id.spinner);
+spinner.addValidator(Validators.notNull(this, R.string.not_null_validator_error_message);
+```
+
 ## Contact information
 
 For personal feedback or questions feel free to contact me via the mail address, which is mentioned on my [Github profile](https://github.com/michael-rapp). If you have found any bugs or want to post a feature request please use the [bugtracker](https://github.com/michael-rapp/AndroidMaterialValidation/issues) to report them.

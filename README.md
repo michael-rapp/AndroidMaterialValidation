@@ -1,6 +1,6 @@
 # AndroidMaterialValidation - README
 
-[![API-Level](https://img.shields.io/badge/API-11%2B-orange.svg)](https://android-arsenal.com/api?level=11) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=X75YSLEJV3DWE)
+[![API-Level](https://img.shields.io/badge/API-14%2B-orange.svg)](https://android-arsenal.com/api?level=14) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=X75YSLEJV3DWE)
 
 "AndroidMaterialValidation" is an Android-library, which provides custom views, which allow to be validated according to Android 5.0's Material Design guidelines even on pre-Lollipop devices. Additionally, various pre-defined validators are contained in the library.
 

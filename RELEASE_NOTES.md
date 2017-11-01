@@ -4,6 +4,7 @@
 
 A minor release, which introduces the following changes:
 
+- Fixed Lint errors, which occur in Lint 3.0.
 - Updated dependency "AndroidUtil" to version 1.18.1.
 - Updated AppCompat v7 support library to version 17.0.0.
 

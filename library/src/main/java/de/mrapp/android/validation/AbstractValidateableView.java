@@ -81,19 +81,19 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
         /**
          * True, if the view displays an error, false otherwise.
          */
-        private boolean validated;
+        boolean validated;
 
         /**
          * True, if the view's value should be automatically validated, when the value has been
          * changed, false otherwise.
          */
-        private boolean validateOnValueChange;
+        boolean validateOnValueChange;
 
         /**
          * True, if the view's value should be automatically validated, when the view has lost its
          * focus, false otherwise.
          */
-        private boolean validateOnFocusLost;
+        boolean validateOnFocusLost;
 
         /**
          * Creates a new data structure, which allows to store the internal state of a {@link

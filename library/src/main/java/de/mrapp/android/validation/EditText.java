@@ -104,12 +104,12 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
         /**
          * The internal state of the edit text.
          */
-        private Parcelable viewState;
+        Parcelable viewState;
 
         /**
          * The maximum number of characters, the edit text is allowed to contain.
          */
-        private int maxNumberOfCharacters;
+        int maxNumberOfCharacters;
 
         /**
          * Creates a new data structure, which allows to store the internal state of an {@link

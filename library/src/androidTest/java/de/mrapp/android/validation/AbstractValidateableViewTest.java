@@ -410,6 +410,7 @@ public class AbstractValidateableViewTest extends AndroidTestCase {
         abstractValidateableView.validateOnFocusLost(false);
         abstractValidateableView.validate();
         SavedState savedState = (SavedState) abstractValidateableView.onSaveInstanceState();
+        assertNotNull(savedState);
         assertFalse(savedState.validateOnValueChange);
         assertFalse(savedState.validateOnFocusLost);
         assertTrue(savedState.validated);

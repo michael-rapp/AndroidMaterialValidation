@@ -136,17 +136,17 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
     /**
      * The hint, which is displayed, when no item is selected.
      */
-    private CharSequence hint;
+    CharSequence hint;
 
     /**
      * The color of the hint, which is displayed, when no item is selected.
      */
-    private ColorStateList hintColor;
+    ColorStateList hintColor;
 
     /**
      * The listener, which should be notified, when an item has been selected.
      */
-    private OnItemSelectedListener itemSelectedListener;
+    OnItemSelectedListener itemSelectedListener;
 
     /**
      * Initializes the view.

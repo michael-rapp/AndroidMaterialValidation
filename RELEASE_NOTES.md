@@ -4,6 +4,7 @@
 
 A bugfix release, which introduces the following changes:
 
+- The arrow of a `Spinner` is now properly tinted on devices with an API level less than 21 (see https://github.com/michael-rapp/AndroidMaterialValidation/issues/2).
 - Updated dependency "AndroidUtil" to version 1.18.2.
 - Updated AppCompat v7 support library to version 17.0.1.
 

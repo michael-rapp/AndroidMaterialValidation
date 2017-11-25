@@ -13,7 +13,6 @@
  */
 package de.mrapp.android.validation;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -78,22 +77,22 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
         /**
          * The internal state of the spinner.
          */
-        public Parcelable viewState;
+        private Parcelable viewState;
 
         /**
          * The hint, which is displayed, when no item is selected.
          */
-        public CharSequence hint;
+        private CharSequence hint;
 
         /**
          * The color of the hint, which is displayed, when no item is selected.
          */
-        public ColorStateList hintColor;
+        private ColorStateList hintColor;
 
         /**
          * The position of the currently selected item.
          */
-        public int selectedItemPosition;
+        private int selectedItemPosition;
 
         /**
          * Creates a new data structure, which allows to store the internal state of a {@link
@@ -120,7 +119,7 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
          *         The state of the superclass of this view, as an instance of the type {@link
          *         Parcelable}. The state may not be null
          */
-        public SavedState(@NonNull final Parcelable superState) {
+        SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -296,7 +295,6 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
         return new android.widget.Spinner(getContext());
     }
 
-    @SuppressLint("RtlHardcoded")
     @Override
     protected final ViewGroup createParentView() {
         FrameLayout frameLayout = new FrameLayout(getContext());
@@ -306,7 +304,7 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
                 new android.widget.FrameLayout.LayoutParams(
                         android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
                         android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                        Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+                        Gravity.END | Gravity.CENTER_VERTICAL);
         layoutParams.leftMargin =
                 getResources().getDimensionPixelSize(R.dimen.validateable_view_inset_left);
         layoutParams.topMargin =
@@ -866,12 +864,17 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
     @Override
     protected final Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-        SavedState savedState = new SavedState(superState);
-        savedState.viewState = getView().onSaveInstanceState();
-        savedState.hint = getHint();
-        savedState.hintColor = getHintTextColors();
-        savedState.selectedItemPosition = getSelectedItemPosition();
-        return savedState;
+
+        if (superState != null) {
+            SavedState savedState = new SavedState(superState);
+            savedState.viewState = getView().onSaveInstanceState();
+            savedState.hint = getHint();
+            savedState.hintColor = getHintTextColors();
+            savedState.selectedItemPosition = getSelectedItemPosition();
+            return savedState;
+        }
+
+        return null;
     }
 
     @Override

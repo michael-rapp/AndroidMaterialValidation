@@ -104,12 +104,12 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
         /**
          * The internal state of the edit text.
          */
-        public Parcelable viewState;
+        private Parcelable viewState;
 
         /**
          * The maximum number of characters, the edit text is allowed to contain.
          */
-        public int maxNumberOfCharacters;
+        private int maxNumberOfCharacters;
 
         /**
          * Creates a new data structure, which allows to store the internal state of an {@link
@@ -135,7 +135,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
          *         The state of the superclass of this view, as an instance of the type {@link
          *         Parcelable}. The state may not be null
          */
-        public SavedState(@NonNull final Parcelable superState) {
+        SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -652,8 +652,6 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     }
 
     // ------------- Methods of the class android.widget.EditText -------------
-
-    // CHECKSTYLE:OFF
 
     /**
      * Gets the autolink mask of the text. See {@link android.text.util.Linkify#ALL Linkify.ALL} and
@@ -2291,15 +2289,18 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
         Selection.extendSelection(getText(), index);
     }
 
-    // CHECKSTYLE:ON
-
     @Override
     protected final Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-        SavedState savedState = new SavedState(superState);
-        savedState.viewState = getView().onSaveInstanceState();
-        savedState.maxNumberOfCharacters = getMaxNumberOfCharacters();
-        return savedState;
+
+        if (superState != null) {
+            SavedState savedState = new SavedState(superState);
+            savedState.viewState = getView().onSaveInstanceState();
+            savedState.maxNumberOfCharacters = getMaxNumberOfCharacters();
+            return savedState;
+        }
+
+        return null;
     }
 
     @Override

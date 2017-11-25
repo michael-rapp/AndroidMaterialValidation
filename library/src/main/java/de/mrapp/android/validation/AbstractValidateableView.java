@@ -81,19 +81,19 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
         /**
          * True, if the view displays an error, false otherwise.
          */
-        public boolean validated;
+        private boolean validated;
 
         /**
          * True, if the view's value should be automatically validated, when the value has been
          * changed, false otherwise.
          */
-        public boolean validateOnValueChange;
+        private boolean validateOnValueChange;
 
         /**
          * True, if the view's value should be automatically validated, when the view has lost its
          * focus, false otherwise.
          */
-        public boolean validateOnFocusLost;
+        private boolean validateOnFocusLost;
 
         /**
          * Creates a new data structure, which allows to store the internal state of a {@link
@@ -119,7 +119,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
          *         The state of the superclass of this view, as an instance of the type {@link
          *         Parcelable}. The state may not be null
          */
-        public SavedState(@NonNull final Parcelable superState) {
+        SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -332,9 +332,9 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
     private void inflateErrorMessageTextViews() {
         View parent = View.inflate(getContext(), R.layout.error_messages, null);
         addView(parent, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        leftMessage = (TextView) parent.findViewById(R.id.left_error_message);
+        leftMessage = parent.findViewById(R.id.left_error_message);
         leftMessage.setTag(false);
-        rightMessage = (TextView) parent.findViewById(R.id.right_error_message);
+        rightMessage = parent.findViewById(R.id.right_error_message);
         rightMessage.setTag(false);
     }
 
@@ -1002,11 +1002,16 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-        SavedState savedState = new SavedState(superState);
-        savedState.validated = getError() != null;
-        savedState.validateOnValueChange = isValidatedOnValueChange();
-        savedState.validateOnFocusLost = isValidatedOnFocusLost();
-        return savedState;
+
+        if (superState != null) {
+            SavedState savedState = new SavedState(superState);
+            savedState.validated = getError() != null;
+            savedState.validateOnValueChange = isValidatedOnValueChange();
+            savedState.validateOnFocusLost = isValidatedOnFocusLost();
+            return savedState;
+        }
+
+        return null;
     }
 
     @Override

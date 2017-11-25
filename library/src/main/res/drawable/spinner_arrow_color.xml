@@ -15,14 +15,8 @@ License.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_enabled="false">
-        <nine-patch android:alpha="?android:attr/disabledAlpha" android:src="@drawable/spinner_arrow" android:tint="?attr/colorControlNormal"/>
-    </item>
-    <item android:state_focused="false" android:state_pressed="false">
-        <nine-patch android:src="@drawable/spinner_arrow" android:tint="?attr/colorControlNormal"/>
-    </item>
-    <item>
-        <nine-patch android:src="@drawable/spinner_arrow" android:tint="?attr/colorControlActivated"/>
-    </item>
+    <item android:alpha="0.26" android:color="?attr/colorControlNormal" android:state_enabled="false"/>
+    <item android:color="?attr/colorControlNormal" android:state_focused="false" android:state_pressed="false"/>
+    <item android:color="?attr/colorControlActivated"/>
 
 </selector>

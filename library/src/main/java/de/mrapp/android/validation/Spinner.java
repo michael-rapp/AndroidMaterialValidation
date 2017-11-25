@@ -27,7 +27,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsSpinner;
@@ -37,7 +37,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 
 import de.mrapp.android.validation.adapter.ProxySpinnerAdapter;
@@ -298,22 +297,8 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
     @Override
     protected final ViewGroup createParentView() {
         FrameLayout frameLayout = new FrameLayout(getContext());
-        ImageView arrowImageView = new ImageView(getContext());
-        arrowImageView.setImageResource(R.drawable.spinner_arrow_background);
-        android.widget.FrameLayout.LayoutParams layoutParams =
-                new android.widget.FrameLayout.LayoutParams(
-                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                        android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
-                        Gravity.END | Gravity.CENTER_VERTICAL);
-        layoutParams.leftMargin =
-                getResources().getDimensionPixelSize(R.dimen.validateable_view_inset_left);
-        layoutParams.topMargin =
-                getResources().getDimensionPixelSize(R.dimen.validateable_view_inset_top);
-        layoutParams.rightMargin =
-                getResources().getDimensionPixelSize(R.dimen.validateable_view_inset_right);
-        layoutParams.bottomMargin =
-                getResources().getDimensionPixelSize(R.dimen.validateable_view_inset_bottom);
-        frameLayout.addView(arrowImageView, layoutParams);
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        layoutInflater.inflate(R.layout.spinner_arrow_image_view, frameLayout, true);
         return frameLayout;
     }
 

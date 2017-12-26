@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:27.0.1'
-    compile 'com.github.michael-rapp:android-util:1.18.2'
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.github.michael-rapp:android-util:1.18.3'
     testCompile 'junit:junit:4.12'
 }
 

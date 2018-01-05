@@ -48,6 +48,7 @@ import de.mrapp.android.validation.adapter.ProxySpinnerAdapter;
  * @author Michael Rapp
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public class Spinner extends AbstractValidateableView<android.widget.Spinner, Object> {
 
     /**
@@ -225,18 +226,26 @@ public class Spinner extends AbstractValidateableView<android.widget.Spinner, Ob
             int index = typedArray.getIndex(i);
 
             if (index == R.styleable.Spinner_android_dropDownHorizontalOffset) {
-                setDropDownHorizontalOffset(
-                        typedArray.getDimensionPixelSize(index, getDropDownHorizontalOffset()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    setDropDownHorizontalOffset(
+                            typedArray.getDimensionPixelSize(index, getDropDownHorizontalOffset()));
+                }
             } else if (index == R.styleable.Spinner_android_dropDownVerticalOffset) {
-                setDropDownVerticalOffset(
-                        typedArray.getDimensionPixelSize(index, getDropDownVerticalOffset()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    setDropDownVerticalOffset(
+                            typedArray.getDimensionPixelSize(index, getDropDownVerticalOffset()));
+                }
             } else if (index == R.styleable.Spinner_dropDownWidth) {
-                setDropDownWidth(typedArray.getLayoutDimension(index, getDropDownWidth()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    setDropDownWidth(typedArray.getLayoutDimension(index, getDropDownWidth()));
+                }
             } else if (index == R.styleable.Spinner_popupBackground) {
-                Drawable popupBackground = typedArray.getDrawable(index);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    Drawable popupBackground = typedArray.getDrawable(index);
 
-                if (popupBackground != null) {
-                    setPopupBackgroundDrawable(popupBackground);
+                    if (popupBackground != null) {
+                        setPopupBackgroundDrawable(popupBackground);
+                    }
                 }
             } else if (index == R.styleable.Spinner_prompt) {
                 String prompt = typedArray.getString(index);

@@ -76,6 +76,7 @@ import static de.mrapp.android.util.Condition.ensureAtLeast;
  * @author Michael Rapp
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public class EditText extends AbstractValidateableView<android.widget.EditText, CharSequence> {
 
     /**
@@ -282,7 +283,9 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
             } else if (index == R.styleable.EditText_android_drawableTop) {
                 drawableTop = typedArray.getDrawable(index);
             } else if (index == R.styleable.EditText_android_elegantTextHeight) {
-                setElegantTextHeight(typedArray.getBoolean(index, false));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    setElegantTextHeight(typedArray.getBoolean(index, false));
+                }
             } else if (index == R.styleable.EditText_android_ellipsize) {
                 int ellipsize = typedArray.getInt(index, -1);
 
@@ -292,7 +295,9 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
             } else if (index == R.styleable.EditText_android_ems) {
                 setEms(typedArray.getInt(index, -1));
             } else if (index == R.styleable.EditText_android_fontFeatureSettings) {
-                setFontFeatureSettings(typedArray.getString(index));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    setFontFeatureSettings(typedArray.getString(index));
+                }
             } else if (index == R.styleable.EditText_android_freezesText) {
                 setFreezesText(typedArray.getBoolean(index, getFreezesText()));
             } else if (index == R.styleable.EditText_android_hint) {
@@ -308,7 +313,9 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
             } else if (index == R.styleable.EditText_android_inputType) {
                 setInputType(typedArray.getInt(index, getInputType()));
             } else if (index == R.styleable.EditText_android_letterSpacing) {
-                setLetterSpacing(typedArray.getFloat(index, getLetterSpacing()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    setLetterSpacing(typedArray.getFloat(index, getLetterSpacing()));
+                }
             } else if (index == R.styleable.EditText_android_lines) {
                 setLines(typedArray.getInt(index, -1));
             } else if (index == R.styleable.EditText_android_lineSpacingExtra) {
@@ -356,7 +363,9 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
             } else if (index == R.styleable.EditText_android_text) {
                 setText(typedArray.getText(index));
             } else if (index == R.styleable.EditText_android_textAllCaps) {
-                setAllCaps(typedArray.getBoolean(index, false));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                    setAllCaps(typedArray.getBoolean(index, false));
+                }
             } else if (index == R.styleable.EditText_android_textAppearance) {
                 int resourceId = typedArray.getResourceId(index, -1);
 
@@ -860,9 +869,10 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * had {@link Drawable#setBounds} called. <p> Calling this method will overwrite any Drawables
      * previously set using {@link #setCompoundDrawables} or related methods.
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public final void setCompoundDrawablesRelative(final Drawable start, final Drawable top,
                                                    final Drawable end, final Drawable bottom) {
-        setCompoundDrawablesRelative(start, top, end, bottom);
+        getView().setCompoundDrawablesRelative(start, top, end, bottom);
     }
 
     /**

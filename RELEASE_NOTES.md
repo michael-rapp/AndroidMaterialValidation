@@ -1,6 +1,6 @@
 # AndroidMaterialValidation - RELEASE NOTES
 
-## Version 2.14 (Jan. 5th 2018)
+## Version 2.1.4 (Jan. 5th 2018)
 
 A bugfix release, which fixes the following issues:
 

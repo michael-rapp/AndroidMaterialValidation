@@ -37,6 +37,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import de.mrapp.android.util.datastructure.ListenerList;
+
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
@@ -202,7 +204,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
      * A set, which contains the listeners, which should be notified, when the view has been
      * validated.
      */
-    private Set<ValidationListener<ValueType>> listeners;
+    private ListenerList<ValidationListener<ValueType>> listeners;
 
     /**
      * Initializes the view.
@@ -213,7 +215,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
      */
     private void initialize(@Nullable final AttributeSet attributeSet) {
         validators = new LinkedHashSet<>();
-        listeners = new LinkedHashSet<>();
+        listeners = new ListenerList<>();
         setOrientation(VERTICAL);
         inflateView();
         inflateErrorMessageTextViews();

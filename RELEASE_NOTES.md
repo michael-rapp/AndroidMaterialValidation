@@ -1,5 +1,12 @@
 # AndroidMaterialValidation - RELEASE NOTES
 
+## Version 2.1.6 (May 2nd 2018)
+
+A minor release, which introduces the following changes:
+
+- Updated dependency "AndroidUtil" to version 1.20.2.
+- Updated AppCompat v7 support library to version 17.1.1
+
 ## Version 2.1.5 (Jan. 26th 2018)
 
 A minor release, which fixes the following issues:

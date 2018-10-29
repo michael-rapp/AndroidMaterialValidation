@@ -13,7 +13,7 @@
  */
 package de.mrapp.android.validation;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.Collection;
 

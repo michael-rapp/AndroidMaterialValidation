@@ -25,8 +25,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -67,7 +65,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Locale;
 
-import static de.mrapp.android.util.Condition.ensureAtLeast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import de.mrapp.util.Condition;
 
 /**
  * A view, which allows to enter text. The text may be validated according to the pattern, which is
@@ -652,7 +652,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      */
     public final void setMaxNumberOfCharacters(final int maxNumberOfCharacters) {
         if (maxNumberOfCharacters != -1) {
-            ensureAtLeast(maxNumberOfCharacters, 1,
+            Condition.INSTANCE.ensureAtLeast(maxNumberOfCharacters, 1,
                     "The maximum number of characters must be at least 1");
         }
 
@@ -952,7 +952,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * broken in the middle. You may also want to {@link #setSingleLine} or {@link
      * #setHorizontallyScrolling} to constrain the text to a single line. Use <code>null</code> to
      * turn off ellipsizing.
-     *
+     * <p>
      * If {@link #setMaxLines} has been used to set two or more lines, only {@link
      * android.text.TextUtils.TruncateAt#END} and {@link android.text.TextUtils.TruncateAt#MARQUEE}
      * are supported (other ellipsizing types will not do anything).
@@ -1134,7 +1134,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * will take care of changing the key listener, by calling {@link #setKeyListener(KeyListener)},
      * to match the given content type. If the given content type is {@link EditorInfo#TYPE_NULL}
      * then a soft keyboard will not be displayed for this text view.
-     *
+     * <p>
      * Note that the maximum number of displayed lines (see {@link #setMaxLines(int)}) will be
      * modified if you change the {@link EditorInfo#TYPE_TEXT_FLAG_MULTI_LINE} flag of the input
      * type.
@@ -1171,7 +1171,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Makes the TextView exactly this many lines tall.
-     *
+     * <p>
      * Note that setting this value overrides any other (minimum / maximum) number of lines or
      * height setting. A single line TextView will set this value to 1.
      */
@@ -1287,7 +1287,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Makes the TextView at most this many lines tall.
-     *
+     * <p>
      * Setting this value overrides any other (maximum) height setting.
      */
     public final void setMaxLines(final int maxlines) {
@@ -1324,7 +1324,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
 
     /**
      * Makes the TextView at least this many lines tall.
-     *
+     * <p>
      * Setting this value overrides any other (minimum) height setting. A single line TextView will
      * set this value to 1.
      *
@@ -1436,7 +1436,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * If true, sets the properties of this field (number of lines, horizontally scrolling,
      * transformation method) to be for a single-line input; if false, restores these to the default
      * conditions.
-     *
+     * <p>
      * Note that the default conditions are not necessarily those that were in effect prior this
      * method, and you may want to reset these properties to your custom values.
      */
@@ -1507,7 +1507,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Sets the properties of this field to transform input to ALL CAPS display. This may use a
      * "small caps" formatting if available. This setting will be ignored if this field is editable
      * or selectable.
-     *
+     * <p>
      * This call replaces the current transformation method. Disabling this will not necessarily
      * restore the previous behavior from before this was enabled.
      *
@@ -2185,17 +2185,17 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Return whether or not suggestions are enabled on this TextView. The suggestions are generated
      * by the IME or by the spell checker as the user types. This is done by adding {@link
      * SuggestionSpan}s to the text.
-     *
+     * <p>
      * When suggestions are enabled (default), this list of suggestions will be displayed when the
      * user asks for them on these parts of the text. This value depends on the inputType of this
      * TextView.
-     *
+     * <p>
      * The class of the input type must be {@link InputType#TYPE_CLASS_TEXT}.
-     *
+     * <p>
      * In addition, the type variation must be one of {@link InputType#TYPE_TEXT_VARIATION_NORMAL},
      * {@link InputType#TYPE_TEXT_VARIATION_EMAIL_SUBJECT}, {@link InputType#TYPE_TEXT_VARIATION_LONG_MESSAGE},
      * {@link InputType#TYPE_TEXT_VARIATION_SHORT_MESSAGE} or {@link InputType#TYPE_TEXT_VARIATION_WEB_EDIT_TEXT}.
-     *
+     * <p>
      * And finally, the {@link InputType#TYPE_TEXT_FLAG_NO_SUGGESTIONS} flag must <i>not</i> be
      * set.
      *
@@ -2209,22 +2209,22 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
     /**
      * If provided, this ActionMode.Callback will be used to create the ActionMode when text
      * selection is initiated in this View.
-     *
+     * <p>
      * The standard implementation populates the menu with a subset of Select All, Cut, Copy and
      * Paste actions, depending on what this View supports.
-     *
+     * <p>
      * A custom implementation can add new entries in the default menu in its
      * android.view.ActionMode.Callback#onPrepareActionMode(ActionMode, Menu) method. The default
      * actions can also be removed from the menu using Menu#removeItem(int) and passing {@link
      * android.R.id#selectAll}, {@link android.R.id#cut}, {@link android.R.id#copy} or {@link
      * android.R.id#paste} ids as parameters.
-     *
+     * <p>
      * Returning false from android.view.ActionMode.Callback#onCreateActionMode(ActionMode, Menu)
      * will prevent the action mode from being started.
-     *
+     * <p>
      * Action click events should be handled by the custom implementation of
      * android.view.ActionMode.Callback#onActionItemClicked(ActionMode, MenuItem) .
-     *
+     * <p>
      * Note that text selection mode is not started when a TextView receives focus and the {@link
      * android.R.attr#selectAllOnFocus} flag has been set. The content is highlighted in that case,
      * to allow for quick replacement.
@@ -2263,7 +2263,7 @@ public class EditText extends AbstractValidateableView<android.widget.EditText, 
      * Return the text the TextView is displaying. If setText() was called with an argument of
      * BufferType.SPANNABLE or BufferType.EDITABLE, you can cast the return value from this method
      * to Spannable or Editable, respectively.
-     *
+     * <p>
      * Note: The content of the return value should not be modified. If you want a modifiable one,
      * you should make your own copy first.
      */

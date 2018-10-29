@@ -14,15 +14,14 @@
 package de.mrapp.android.validation.validators.text;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import de.mrapp.android.validation.validators.AbstractValidator;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to validate texts to ensure, that they only contain letters or numbers.
@@ -145,7 +144,7 @@ public class LetterOrNumberValidator extends AbstractValidator<CharSequence> {
      *         <code>CASE_INSENSITIVE</code>
      */
     public final void setCaseSensitivity(@NonNull final Case caseSensitivty) {
-        ensureNotNull(caseSensitivty, "The case sensitivity may not be null");
+        Condition.INSTANCE.ensureNotNull(caseSensitivty, "The case sensitivity may not be null");
         this.caseSensitivity = caseSensitivty;
     }
 
@@ -186,7 +185,7 @@ public class LetterOrNumberValidator extends AbstractValidator<CharSequence> {
      *         <code>char</code>. The array may not be null
      */
     public final void setAllowedCharacters(@NonNull final char[] allowedCharacters) {
-        ensureNotNull(allowedCharacters, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(allowedCharacters, "The array may not be null");
         this.allowedCharacters = allowedCharacters;
     }
 

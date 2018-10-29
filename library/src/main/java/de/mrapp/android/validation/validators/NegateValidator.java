@@ -14,12 +14,11 @@
 package de.mrapp.android.validation.validators;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import de.mrapp.android.validation.Validator;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to negate the result of an other validator.
@@ -132,7 +131,7 @@ public class NegateValidator<Type> extends AbstractValidator<Type> {
      *         validator may not be null
      */
     public final void setValidator(@NonNull final Validator<Type> validator) {
-        ensureNotNull(validator, "The validator may not be null");
+        Condition.INSTANCE.ensureNotNull(validator, "The validator may not be null");
         this.validator = validator;
     }
 

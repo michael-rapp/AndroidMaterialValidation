@@ -17,12 +17,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
@@ -35,13 +29,18 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static de.mrapp.android.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import de.mrapp.util.Condition;
 
 /**
  * A view, which allows to enter a password. The text may be validated according to the pattern,
  * which is suggested by the Material Design guidelines.
- *
+ * <p>
  * Additionally, the password strength can be automatically verified, according to customizable
  * constraints, while typing and a text, which indicates the password strength can be shown as the
  * edit text's helper text.
@@ -366,7 +365,7 @@ public class PasswordEditText extends EditText {
      *         The constraint may not be null
      */
     public final void addConstraint(@NonNull final Constraint<CharSequence> constraint) {
-        ensureNotNull(constraint, "The constraint may not be null");
+        Condition.INSTANCE.ensureNotNull(constraint, "The constraint may not be null");
 
         if (!constraints.contains(constraint)) {
             constraints.add(constraint);
@@ -384,7 +383,7 @@ public class PasswordEditText extends EditText {
      */
     public final void addAllConstraints(
             @NonNull final Collection<Constraint<CharSequence>> constraints) {
-        ensureNotNull(constraints, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(constraints, "The collection may not be null");
 
         for (Constraint<CharSequence> constraint : constraints) {
             addConstraint(constraint);
@@ -400,7 +399,7 @@ public class PasswordEditText extends EditText {
      */
     @SafeVarargs
     public final void addAllConstraints(@NonNull final Constraint<CharSequence>... constraints) {
-        ensureNotNull(constraints, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(constraints, "The array may not be null");
         addAllConstraints(Arrays.asList(constraints));
     }
 
@@ -413,7 +412,7 @@ public class PasswordEditText extends EditText {
      *         Constraint}. The constraint may not be null
      */
     public final void removeConstraint(@NonNull final Constraint<CharSequence> constraint) {
-        ensureNotNull(constraint, "The constraint may not be null");
+        Condition.INSTANCE.ensureNotNull(constraint, "The constraint may not be null");
         constraints.remove(constraint);
         verifyPasswordStrength();
     }
@@ -428,7 +427,7 @@ public class PasswordEditText extends EditText {
      */
     public final void removeAllConstraints(
             @NonNull final Collection<Constraint<CharSequence>> constraints) {
-        ensureNotNull(constraints, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(constraints, "The collection may not be null");
 
         for (Constraint<CharSequence> constraint : constraints) {
             removeConstraint(constraint);
@@ -444,7 +443,7 @@ public class PasswordEditText extends EditText {
      */
     @SafeVarargs
     public final void removeAllConstraints(@NonNull final Constraint<CharSequence>... constraints) {
-        ensureNotNull(constraints, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(constraints, "The array may not be null");
         removeAllConstraints(Arrays.asList(constraints));
     }
 
@@ -478,8 +477,8 @@ public class PasswordEditText extends EditText {
      *         CharSequence}. The helper text may neither be null, nor empty
      */
     public final void addHelperText(@NonNull final CharSequence helperText) {
-        ensureNotNull(helperText, "The helper text may not be null");
-        ensureNotEmpty(helperText, "The helper text may not be empty");
+        Condition.INSTANCE.ensureNotNull(helperText, "The helper text may not be null");
+        Condition.INSTANCE.ensureNotEmpty(helperText, "The helper text may not be empty");
 
         if (!helperTexts.contains(helperText)) {
             helperTexts.add(helperText);
@@ -510,7 +509,7 @@ public class PasswordEditText extends EditText {
      *         added
      */
     public final void addAllHelperTexts(@NonNull final Collection<CharSequence> helperTexts) {
-        ensureNotNull(helperTexts, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(helperTexts, "The collection may not be null");
 
         for (CharSequence helperText : helperTexts) {
             addHelperText(helperText);
@@ -527,7 +526,7 @@ public class PasswordEditText extends EditText {
      *         helper texts should be added
      */
     public final void addAllHelperTextIds(@NonNull final Collection<Integer> resourceIds) {
-        ensureNotNull(resourceIds, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The collection may not be null");
 
         for (int resourceId : resourceIds) {
             addHelperTextId(resourceId);
@@ -543,7 +542,7 @@ public class PasswordEditText extends EditText {
      *         type {@link CharSequence}, or an empty array, if no helper texts should be added
      */
     public final void addAllHelperTexts(@NonNull final CharSequence... helperTexts) {
-        ensureNotNull(helperTexts, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(helperTexts, "The array may not be null");
         addAllHelperTexts(Arrays.asList(helperTexts));
     }
 
@@ -557,7 +556,7 @@ public class PasswordEditText extends EditText {
      *         should be added
      */
     public final void addAllHelperTextIds(@NonNull final int... resourceIds) {
-        ensureNotNull(resourceIds, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The array may not be null");
 
         for (int resourceId : resourceIds) {
             addHelperTextId(resourceId);
@@ -573,8 +572,8 @@ public class PasswordEditText extends EditText {
      *         CharSequence}. The helper text may neither be null, nor empty
      */
     public final void removeHelperText(@NonNull final CharSequence helperText) {
-        ensureNotNull(helperText, "The helper text may not be null");
-        ensureNotEmpty(helperText, "The helper text may not be empty");
+        Condition.INSTANCE.ensureNotNull(helperText, "The helper text may not be null");
+        Condition.INSTANCE.ensureNotEmpty(helperText, "The helper text may not be empty");
         helperTexts.remove(helperText);
         verifyPasswordStrength();
     }
@@ -600,7 +599,7 @@ public class PasswordEditText extends EditText {
      *         should be removed
      */
     public final void removeAllHelperTexts(@NonNull final Collection<CharSequence> helperTexts) {
-        ensureNotNull(helperTexts, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(helperTexts, "The collection may not be null");
 
         for (CharSequence helperText : helperTexts) {
             removeHelperText(helperText);
@@ -616,7 +615,7 @@ public class PasswordEditText extends EditText {
      *         helper texts should be removed
      */
     public final void removeAllHelperTextIds(@NonNull final Collection<Integer> resourceIds) {
-        ensureNotNull(resourceIds, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The collection may not be null");
 
         for (int resourceId : resourceIds) {
             removeHelperTextId(resourceId);
@@ -632,7 +631,7 @@ public class PasswordEditText extends EditText {
      *         removed
      */
     public final void removeAllHelperTexts(@NonNull final CharSequence... helperTexts) {
-        ensureNotNull(helperTexts, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(helperTexts, "The array may not be null");
         removeAllHelperTexts(Arrays.asList(helperTexts));
     }
 
@@ -645,7 +644,7 @@ public class PasswordEditText extends EditText {
      *         helper texts should be removed
      */
     public final void removeAllHelperTextIds(@NonNull final int... resourceIds) {
-        ensureNotNull(resourceIds, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The array may not be null");
 
         for (int resourceId : resourceIds) {
             removeHelperTextId(resourceId);
@@ -705,7 +704,7 @@ public class PasswordEditText extends EditText {
      *         type {@link Collection} or an empty collection, if no colors should be added
      */
     public final void addAllHelperTextColors(@NonNull final Collection<Integer> colors) {
-        ensureNotNull(colors, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(colors, "The collection may not be null");
 
         for (int color : colors) {
             addHelperTextColor(color);
@@ -721,7 +720,7 @@ public class PasswordEditText extends EditText {
      *         should be added
      */
     public final void addAllHelperTextColorIds(@NonNull final Collection<Integer> resourceIds) {
-        ensureNotNull(resourceIds, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The collection may not be null");
 
         for (int resourceId : resourceIds) {
             addHelperTextColorId(resourceId);
@@ -736,7 +735,7 @@ public class PasswordEditText extends EditText {
      *         Integer} array or an empty array, if no colors should be added
      */
     public final void addAllHelperTextColors(@NonNull final int... colors) {
-        ensureNotNull(colors, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(colors, "The array may not be null");
 
         for (int color : colors) {
             addHelperTextColor(color);
@@ -751,7 +750,7 @@ public class PasswordEditText extends EditText {
      *         added, as an {@link Integer} array or an empty array, if no colors should be added
      */
     public final void addAllHelperTextColorIds(@NonNull final int... resourceIds) {
-        ensureNotNull(resourceIds, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The array may not be null");
 
         for (int resourceId : resourceIds) {
             addHelperTextColorId(resourceId);
@@ -794,7 +793,7 @@ public class PasswordEditText extends EditText {
      *         the type {@link Collection} or an empty collection, if no colors should be removed
      */
     public final void removeAllHelperTextColors(@NonNull final Collection<Integer> colors) {
-        ensureNotNull(colors, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(colors, "The collection may not be null");
 
         for (int color : colors) {
             removeHelperTextColor(color);
@@ -810,7 +809,7 @@ public class PasswordEditText extends EditText {
      *         should be removed
      */
     public final void removeAllHelperTextColorIds(@NonNull final Collection<Integer> resourceIds) {
-        ensureNotNull(resourceIds, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The collection may not be null");
 
         for (int resourceId : resourceIds) {
             removeHelperTextColorId(resourceId);
@@ -825,7 +824,7 @@ public class PasswordEditText extends EditText {
      *         array or an empty array, if no colors should be removed
      */
     public final void removeAllHelperTextColors(@NonNull final int... colors) {
-        ensureNotNull(colors, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(colors, "The array may not be null");
 
         for (int color : colors) {
             removeHelperTextColor(color);
@@ -840,7 +839,7 @@ public class PasswordEditText extends EditText {
      *         an {@link Integer} array or an empty array, if no colors should be removed
      */
     public final void removeAllHelperTextColorIds(@NonNull final int... resourceIds) {
-        ensureNotNull(resourceIds, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(resourceIds, "The array may not be null");
 
         for (int resourceId : resourceIds) {
             removeHelperTextColorId(resourceId);

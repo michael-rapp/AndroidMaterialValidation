@@ -14,12 +14,11 @@
 package de.mrapp.android.validation.example;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import de.mrapp.android.util.ThemeUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import de.mrapp.android.validation.Constraints;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.PasswordEditText;
@@ -207,9 +206,6 @@ public class MainActivity extends AppCompatActivity {
     protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        float alpha = ThemeUtil.getFloat(this, android.R.attr.disabledAlpha);
-
         initializeUsernameEditText();
         initializePasswordEditText();
         initializePasswordRepetitionEditText();

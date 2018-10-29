@@ -14,12 +14,11 @@
 package de.mrapp.android.validation.validators.text;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import de.mrapp.android.validation.validators.AbstractValidator;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to validate texts to ensure, that they are not longer than a specific
@@ -89,7 +88,7 @@ public class MaxLengthValidator extends AbstractValidator<CharSequence> {
      *         length must be at least 1
      */
     public final void setMaxLength(final int maxLength) {
-        ensureAtLeast(maxLength, 1, "The maximum length must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(maxLength, 1, "The maximum length must be at least 1");
         this.maxLength = maxLength;
     }
 

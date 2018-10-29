@@ -16,9 +16,6 @@ package de.mrapp.android.validation.adapter;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.database.DataSetObserver;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +23,10 @@ import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import de.mrapp.util.Condition;
 
 /**
  * A spinner adapter, which acts as a proxy for an other adapter in order to initially show a hint
@@ -105,8 +105,8 @@ public class ProxySpinnerAdapter implements SpinnerAdapter, ListAdapter {
                                @NonNull final SpinnerAdapter adapter,
                                @LayoutRes final int hintViewId, @Nullable final CharSequence hint,
                                @Nullable final ColorStateList hintColor) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(adapter, "The adapter may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(adapter, "The adapter may not be null");
         this.context = context;
         this.adapter = adapter;
         this.hintViewId = hintViewId;

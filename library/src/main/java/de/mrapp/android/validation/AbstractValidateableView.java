@@ -21,11 +21,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +32,13 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import de.mrapp.android.util.datastructure.ListenerList;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import de.mrapp.util.Condition;
+import de.mrapp.util.datastructure.ListenerList;
 
 /**
  * An abstract base class for all views, whose value should be able to be validated according to the
@@ -739,13 +738,13 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 
     @Override
     public final void addValidator(@NonNull final Validator<ValueType> validator) {
-        ensureNotNull(validator, "The validator may not be null");
+        Condition.INSTANCE.ensureNotNull(validator, "The validator may not be null");
         validators.add(validator);
     }
 
     @Override
     public final void addAllValidators(@NonNull final Collection<Validator<ValueType>> validators) {
-        ensureNotNull(validators, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The collection may not be null");
 
         for (Validator<ValueType> validator : validators) {
             addValidator(validator);
@@ -755,20 +754,20 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
     @SafeVarargs
     @Override
     public final void addAllValidators(@NonNull final Validator<ValueType>... validators) {
-        ensureNotNull(validators, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The array may not be null");
         addAllValidators(Arrays.asList(validators));
     }
 
     @Override
     public final void removeValidator(@NonNull final Validator<ValueType> validator) {
-        ensureNotNull(validator, "The validator may not be null");
+        Condition.INSTANCE.ensureNotNull(validator, "The validator may not be null");
         validators.remove(validator);
     }
 
     @Override
     public final void removeAllValidators(
             @NonNull final Collection<Validator<ValueType>> validators) {
-        ensureNotNull(validators, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The collection may not be null");
 
         for (Validator<ValueType> validator : validators) {
             removeValidator(validator);
@@ -778,7 +777,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
     @SafeVarargs
     @Override
     public final void removeAllValidators(@NonNull final Validator<ValueType>... validators) {
-        ensureNotNull(validators, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The array may not be null");
         removeAllValidators(Arrays.asList(validators));
     }
 
@@ -990,14 +989,14 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 
     @Override
     public final void addValidationListener(@NonNull final ValidationListener<ValueType> listener) {
-        ensureNotNull(listener, "The listener may not be null");
+        Condition.INSTANCE.ensureNotNull(listener, "The listener may not be null");
         listeners.add(listener);
     }
 
     @Override
     public final void removeValidationListener(
             @NonNull final ValidationListener<ValueType> listener) {
-        ensureNotNull(listener, "The listener may not be null");
+        Condition.INSTANCE.ensureNotNull(listener, "The listener may not be null");
         listeners.remove(listener);
     }
 
@@ -1018,7 +1017,7 @@ public abstract class AbstractValidateableView<ViewType extends View, ValueType>
 
     @Override
     protected void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
 
             if (savedState.validated) {

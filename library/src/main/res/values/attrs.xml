@@ -86,7 +86,6 @@ License.
         <attr name="android:textColorHint"/>
         <attr name="android:dropDownHorizontalOffset"/>
         <attr name="android:dropDownVerticalOffset"/>
-        <attr name="android:entries"/>
     </declare-styleable>
 
 </resources>

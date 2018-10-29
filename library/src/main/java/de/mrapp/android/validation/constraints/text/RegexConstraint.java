@@ -13,14 +13,12 @@
  */
 package de.mrapp.android.validation.constraints.text;
 
-import android.support.annotation.NonNull;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import de.mrapp.android.validation.Constraint;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A constraint, which allows to verify a text in order to check, if it matches a certain regular
@@ -66,7 +64,7 @@ public class RegexConstraint implements Constraint<CharSequence> {
      *         Pattern}. The regular expression may not be null
      */
     public final void setRegex(@NonNull final Pattern regex) {
-        ensureNotNull(regex, "The regular expression may not be null");
+        Condition.INSTANCE.ensureNotNull(regex, "The regular expression may not be null");
         this.regex = regex;
     }
 

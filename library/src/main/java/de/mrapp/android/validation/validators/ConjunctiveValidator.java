@@ -14,13 +14,11 @@
 package de.mrapp.android.validation.validators;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import de.mrapp.android.validation.Validator;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to combine multiple validators in a conjunctive manner. Only if all
@@ -144,8 +142,8 @@ public class ConjunctiveValidator<Type> extends AbstractValidator<Type> {
      */
     @SafeVarargs
     public final void setValidators(@NonNull final Validator<Type>... validators) {
-        ensureNotNull(validators, "The validators may not be null");
-        ensureAtLeast(validators.length, 1, "The validators may not be empty");
+        Condition.INSTANCE.ensureNotNull(validators, "The validators may not be null");
+        Condition.INSTANCE.ensureAtLeast(validators.length, 1, "The validators may not be empty");
         this.validators = validators;
     }
 

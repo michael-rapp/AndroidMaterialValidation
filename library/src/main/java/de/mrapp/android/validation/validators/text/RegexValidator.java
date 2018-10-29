@@ -14,15 +14,14 @@
 package de.mrapp.android.validation.validators.text;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.mrapp.android.validation.validators.AbstractValidator;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to validate texts to ensure, that they match certain regular
@@ -93,7 +92,7 @@ public class RegexValidator extends AbstractValidator<CharSequence> {
      *         Pattern}. The regular expression may not be null
      */
     public final void setRegex(@NonNull final Pattern regex) {
-        ensureNotNull(regex, "The regular expression may not be null");
+        Condition.INSTANCE.ensureNotNull(regex, "The regular expression may not be null");
         this.regex = regex;
     }
 

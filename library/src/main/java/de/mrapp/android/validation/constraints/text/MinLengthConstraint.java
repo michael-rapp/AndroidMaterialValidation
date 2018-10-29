@@ -14,8 +14,7 @@
 package de.mrapp.android.validation.constraints.text;
 
 import de.mrapp.android.validation.Constraint;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
+import de.mrapp.util.Condition;
 
 /**
  * A constraint, which allows to verify texts in order to check, if they have at least a specific
@@ -60,7 +59,7 @@ public class MinLengthConstraint implements Constraint<CharSequence> {
      *         length must be at least 1
      */
     public final void setMinLength(final int minLength) {
-        ensureAtLeast(minLength, 1, "The minimum length must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(minLength, 1, "The minimum length must be at least 1");
         this.minLength = minLength;
     }
 

@@ -14,14 +14,13 @@
 package de.mrapp.android.validation.validators.text;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.validators.AbstractValidator;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to validate texts to ensure, that they are equal to the text, which is
@@ -92,7 +91,7 @@ public class EqualValidator extends AbstractValidator<CharSequence> {
      *         EditText}. The widget may not be null
      */
     public final void setEditText(@NonNull final EditText editText) {
-        ensureNotNull(editText, "The edit text widget may not be null");
+        Condition.INSTANCE.ensureNotNull(editText, "The edit text widget may not be null");
         this.editText = editText;
     }
 

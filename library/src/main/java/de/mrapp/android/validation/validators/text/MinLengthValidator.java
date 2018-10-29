@@ -14,12 +14,11 @@
 package de.mrapp.android.validation.validators.text;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import de.mrapp.android.validation.validators.AbstractValidator;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to validate texts to ensure, that they have at least a specific
@@ -89,7 +88,7 @@ public class MinLengthValidator extends AbstractValidator<CharSequence> {
      *         length must be at least 1
      */
     public final void setMinLength(final int minLength) {
-        ensureAtLeast(minLength, 1, "The minimum length must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(minLength, 1, "The minimum length must be at least 1");
         this.minLength = minLength;
     }
 

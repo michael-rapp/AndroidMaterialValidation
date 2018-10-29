@@ -15,7 +15,7 @@ package de.mrapp.android.validation.validators;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.test.AndroidTestCase;
 
 import junit.framework.Assert;

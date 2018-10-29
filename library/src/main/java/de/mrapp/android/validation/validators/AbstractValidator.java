@@ -15,16 +15,14 @@ package de.mrapp.android.validation.validators;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import de.mrapp.android.validation.Validator;
-
-import static de.mrapp.android.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An abstract base class for all validators, which should be able to validate values of a specific
@@ -81,8 +79,8 @@ public abstract class AbstractValidator<Type> implements Validator<Type> {
      *         CharSequence}. The error message may not be null
      */
     public final void setErrorMessage(@NonNull final CharSequence errorMessage) {
-        ensureNotNull(errorMessage, "The error message may not be null");
-        ensureNotEmpty(errorMessage, "The error message may not be empty");
+        Condition.INSTANCE.ensureNotNull(errorMessage, "The error message may not be null");
+        Condition.INSTANCE.ensureNotEmpty(errorMessage, "The error message may not be empty");
         this.errorMessage = errorMessage;
     }
 
@@ -99,7 +97,7 @@ public abstract class AbstractValidator<Type> implements Validator<Type> {
      */
     public final void setErrorMessage(@NonNull final Context context,
                                       @StringRes final int resourceId) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         this.errorMessage = context.getText(resourceId);
     }
 
@@ -126,7 +124,7 @@ public abstract class AbstractValidator<Type> implements Validator<Type> {
      *         resource
      */
     public final void setIcon(@NonNull final Context context, @DrawableRes final int resourceId) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         this.icon = ContextCompat.getDrawable(context, resourceId);
     }
 

@@ -13,12 +13,9 @@
  */
 package de.mrapp.android.validation.constraints;
 
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import de.mrapp.android.validation.Constraint;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A validator, which allows to combine multiple constraints in a conjunctive manner. Only if all
@@ -83,8 +80,8 @@ public class ConjunctiveConstraint<Type> implements Constraint<Type> {
      *         Constraint}. The constraints may neither be null, nor empty
      */
     public final void setConstraints(@NonNull final Constraint<Type>[] constraints) {
-        ensureNotNull(constraints, "The constraints may not be null");
-        ensureAtLeast(constraints.length, 1, "The constraints may not be empty");
+        Condition.INSTANCE.ensureNotNull(constraints, "The constraints may not be null");
+        Condition.INSTANCE.ensureAtLeast(constraints.length, 1, "The constraints may not be empty");
         this.constraints = constraints;
     }
 

@@ -13,11 +13,9 @@
  */
 package de.mrapp.android.validation.constraints;
 
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import de.mrapp.android.validation.Constraint;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A constraint, which allows to negate the result of an other constraint.
@@ -79,7 +77,7 @@ public class NegateConstraint<Type> implements Constraint<Type> {
      *         The constraint may not be null
      */
     public final void setConstraint(@NonNull final Constraint<Type> constraint) {
-        ensureNotNull(constraint, "The constraint may not be null");
+        Condition.INSTANCE.ensureNotNull(constraint, "The constraint may not be null");
         this.constraint = constraint;
     }
 
